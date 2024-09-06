@@ -1,13 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', function () {
-    return view('admin.index');
+    return view('welcome');
+});
+
+Route::get('/admin', function () {
+    return view('admin.admin');
+});
+
+Route::post('/logout', function () {
+    Auth::logout(); 
+    return redirect('/Login'); 
+})->name('logout');
+
+Route::get('/Login', function () {
+    return view('session.pages-login');
+});
+
+Route::get('/Register', function () {
+    return view('session.pages-register');
 });
 
 // Charts
@@ -125,14 +140,6 @@ Route::get('/pages-error-404', function () {
 
 Route::get('/pages-faq', function () {
     return view('admin.pages-faq');
-});
-
-Route::get('/pages-login', function () {
-    return view('admin.pages-login');
-});
-
-Route::get('/pages-register', function () {
-    return view('admin.pages-register');
 });
 
 // Tables

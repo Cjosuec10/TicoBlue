@@ -36,7 +36,6 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center">
         <img src="{{ asset('assets/img/logo.png') }}" alt="">
@@ -44,7 +43,7 @@
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
+  
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
@@ -53,8 +52,7 @@
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Image Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header"></li>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">      
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -70,20 +68,15 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ url('pages-faq') }}">
-                <i class="bi bi-question-circle"></i>
-                <span>FAQ</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Cerrar Sesión</span>
               </a>
+            
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
@@ -147,19 +140,6 @@
         </a>
       </li><!-- End Módulo #7 Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Registrarse</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Iniciar Sesión</span>
-        </a>
-      </li><!-- End Login Page Nav -->
     </ul>
     @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
   </aside><!-- End Sidebar-->
