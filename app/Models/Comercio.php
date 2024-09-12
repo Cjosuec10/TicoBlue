@@ -10,6 +10,7 @@ class Comercio extends Model
     use HasFactory;
 
     protected $table = 'comercios';
+    protected $primaryKey = 'idComercio';
 
     protected $fillable = [
         'nombreComercio',
@@ -20,7 +21,7 @@ class Comercio extends Model
         'idUsuario_fk',
     ];
 
-    // Relación con el modelo Usuario
+   
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'idUsuario_fk');

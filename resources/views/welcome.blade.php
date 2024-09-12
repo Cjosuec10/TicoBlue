@@ -43,7 +43,8 @@
     <nav>
         <ul>
             <li><a href="#login">Login y Registro</a></li>
-            <li><a href="#alojamientos">Alojamientos</a></li>
+            <li><a href="{{ route('comercios.index') }}">Comercios</a></li>
+
             <li><a href="#roles">Roles</a></li>
             <li><a href="#usuario">Usuario</a></li>
             <li><a href="#productos">Productos</a></li>

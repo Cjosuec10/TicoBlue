@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ComercioController;
 
-
+Route::resource('comercios', ComercioController::class);
 Route::get('/', function () {
     return view('welcome');
 });
@@ -155,3 +156,5 @@ Route::get('/tables-general', function () {
 Route::get('/users-profile', function () {
     return view('admin.users-profile');
 });
+
+
