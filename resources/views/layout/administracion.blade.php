@@ -92,17 +92,18 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/admin">
           <i class="bi bi-grid"></i>
           <span>Menu</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #1</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="/comercios">
+            <i class="bi bi-gem"></i><span>Módulo de comercios</span>
         </a>
-      </li><!-- End Módulo #1 Nav -->
+    </li><!-- End Módulo #1 Nav -->
+    
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -145,22 +146,11 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-    <div class="pagetitle">
-      <h1>@yield('page-title', 'Administración')</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
-          <li class="breadcrumb-item active">@yield('breadcrumb')</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
     <section class="section dashboard">
       <div class="row">
         @yield('content') <!-- Aquí va el contenido principal de cada vista -->
       </div>
     </section>
-
   </main><!-- End Main -->
 
   <!-- ======= Footer ======= -->
@@ -184,6 +174,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  
 
   @yield('scripts') <!-- Para incluir scripts adicionales en las vistas específicas -->
   

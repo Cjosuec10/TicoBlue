@@ -1,129 +1,104 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Comercios</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Azul claro */
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
+@extends('layout.administracion')
 
-        h1 {
-            color: #007bff; /* Azul */
-            text-align: center;
-        }
+@section('content')
+    <h1 class="card-title">Lista de Comercios</h1>
 
-        a {
-            color: white;
-            background-color: #007bff;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+    <section class="section">
+        <div class="row">
+          <div class="col-lg-12">
+  
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"></h5>
+                <a href="{{ route('comercios.create') }}" class="btn btn-success" title="Crear">
+                    <i class="bi bi-check-circle"></i> Crear 
+                </a> 
+                <div class="table-responsive">               
+                    <table class="table datatable">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo de Negocio</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($comercios as $comercio)
+                            <tr>
+                                <td>{{ $comercio->idComercio }}</td>
+                                <td>{{ $comercio->nombreComercio }}</td>
+                                <td>{{ $comercio->tipoNegocio }}</td>
+                                <td>{{ $comercio->correoComercio }}</td>
+                                <td>{{ $comercio->telefonoComercio }}</td>
+                                <td>{{ $comercio->descripcionComercio }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <!-- Botón Editar -->
+                                        <a href="{{ route('comercios.edit', $comercio->idComercio) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                            <i class="bi bi-exclamation-triangle"></i> Editar
+                                        </a>
+                                
+                                        <!-- Botón Eliminar -->
+                                        <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger w-100" title="Eliminar">
+                                                <i class="bi bi-exclamation-octagon"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>                     
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+    </section> 
+      
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <!-- Script para el SweetAlert en la eliminación -->
+    <script>
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Función para asignar el evento de confirmación a los formularios de eliminación
+            function setDeleteEventListeners() {
+                document.querySelectorAll('.form-eliminar').forEach(form => {
+                    form.addEventListener('submit', function(event) {
+                        event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+    
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: "¡No podrás revertir esto!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, eliminarlo',
+                            cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Si el usuario confirma, se envía el formulario
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            }
 
-        a:hover {
-            background-color: #0056b3;
-        }
+            // Asignar los eventos al cargar la página
+            setDeleteEventListeners();
 
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        table td a {
-            margin-right: 10px;
-        }
-
-        button {
-            color: white;
-            background-color: #dc3545;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Lista de Comercios</h1>
-
-    <a href="{{ route('comercios.create') }}">Crear Comercio</a>
-
-    @if (session('success'))
-        <p class="success-message">{{ session('success') }}</p>
-    @endif
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Tipo de Negocio</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($comercios as $comercio)
-                <tr>
-                    <td>{{ $comercio->idComercio }}</td>
-                    <td>{{ $comercio->nombreComercio }}</td>
-                    <td>{{ $comercio->tipoNegocio }}</td>
-                    <td>{{ $comercio->correoComercio }}</td>
-                    <td>{{ $comercio->telefonoComercio }}</td>
-                    <td>{{ $comercio->descripcionComercio }}</td>
-                    <td>
-                        <a href="{{ route('comercios.show', $comercio->idComercio) }}">Ver</a>
-                        <a href="{{ route('comercios.edit', $comercio->idComercio) }}">Editar</a>
-                        <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-</body>
-</html>
+            // Si estás haciendo algún tipo de actualización dinámica de la tabla, deberías
+            // llamar a setDeleteEventListeners() nuevamente después de actualizar la tabla
+        });
+    </script>
+@endsection

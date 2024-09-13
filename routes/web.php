@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
 
 Route::resource('comercios', ComercioController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
