@@ -6,14 +6,14 @@
     <section class="section">
         <div class="row">
           <div class="col-lg-12">
-  
+
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title"></h5>
                 <a href="{{ route('comercios.create') }}" class="btn btn-success" title="Crear">
-                    <i class="bi bi-check-circle"></i> Crear 
-                </a> 
-                <div class="table-responsive">               
+                    <i class="bi bi-check-circle"></i> Crear
+                </a>
+                <div class="table-responsive">
                     <table class="table datatable">
                         <thead>
                         <tr>
@@ -23,6 +23,7 @@
                             <th>Correo</th>
                             <th>Teléfono</th>
                             <th>Descripción</th>
+                            <th>Imagen</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -36,12 +37,15 @@
                                 <td>{{ $comercio->telefonoComercio }}</td>
                                 <td>{{ $comercio->descripcionComercio }}</td>
                                 <td>
+                                    <img src="{{asset($comercio->imagen)}}" alt="{{$comercio->imagen}}" class="img-fluid" width="120px">
+                                </td>
+                                <td>
                                     <div class="d-flex">
                                         <!-- Botón Editar -->
                                         <a href="{{ route('comercios.edit', $comercio->idComercio) }}" class="btn btn-warning me-1 w-80" title="Editar">
                                             <i class="bi bi-exclamation-triangle"></i> Editar
                                         </a>
-                                
+
                                         <!-- Botón Eliminar -->
                                         <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                             @csrf
@@ -51,7 +55,7 @@
                                             </button>
                                         </form>
                                     </div>
-                                </td>                     
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -60,11 +64,11 @@
               </div>
             </div>
           </div>
-        </div> 
-    </section> 
-      
+        </div>
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
+
     <!-- Script para el SweetAlert en la eliminación -->
     <script>
         // Esperar a que el DOM esté completamente cargado
@@ -74,7 +78,7 @@
                 document.querySelectorAll('.form-eliminar').forEach(form => {
                     form.addEventListener('submit', function(event) {
                         event.preventDefault(); // Evitar que el formulario se envíe de inmediato
-    
+
                         Swal.fire({
                             title: '¿Estás seguro?',
                             text: "¡No podrás revertir esto!",

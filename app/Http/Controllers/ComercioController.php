@@ -10,16 +10,16 @@ class ComercioController extends Controller
     public function index()
     {
         $comercios = Comercio::all(); // Obtener todos los comercios
-      
+
         return view('Comercio.index', compact('comercios'));
     }
-    
-    
+
+
     public function create()
 {
     // Obtener todos los usuarios disponibles
     $usuarios = \App\Models\Usuario::all();
-    
+
     // Pasar los usuarios a la vista
     return view('Comercio.create', compact('usuarios'));
 }
@@ -28,14 +28,36 @@ class ComercioController extends Controller
 public function store(Request $request)
 {
     // Validar los datos de la solicitud
-    $request->validate([
-        'nombreComercio' => 'required|max:100',
-        'tipoNegocio' => 'required|max:100',
-        'correoComercio' => 'required|email|unique:comercios,correoComercio',
-        'telefonoComercio' => 'nullable|max:20',
-        'descripcionComercio' => 'nullable',
-        'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-    ]);
+        $newcomercio = new Comercio();
+
+        if( $request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'img/imagen/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('imagen')->move($destinationPath, $fileName);
+            $newcomercio->imagen = $destinationPath . $fileName;
+
+}
+    // $request->validate([
+        $newcomercio->nombreComercio = $request->nombreComercio;
+        $newcomercio->tipoNegocio = $request->tipoNegocio;
+        $newcomercio->correoComercio = $request->correoComercio;
+        $newcomercio->telefonoComercio = $request->telefonoComercio;
+        $newcomercio->descripcionComercio = $request->descripcionComercio;
+        $newcomercio->idUsuario_fk  = $request->idUsuario_fk;
+        // $newcomercio->imagen = $request->imagen;
+
+        $newcomercio->save();
+
+        return redirect()->back();
+                // 'nombreComercio' => 'required|max:100',
+        // 'tipoNegocio' => 'required|max:100',
+        // 'correoComercio' => 'required|email|unique:comercios,correoComercio',
+        // 'telefonoComercio' => 'nullable|max:20',
+        // 'descripcionComercio' => 'nullable',
+        // 'imagen' => 'nullable',
+        // 'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+    // ]);
 
     // Crear el comercio en la base de datos
     Comercio::create($request->all());
@@ -55,11 +77,11 @@ public function store(Request $request)
     {
         // Obtener todos los usuarios disponibles
         $usuarios = \App\Models\Usuario::all();
-        
+
         // Pasar los usuarios y el comercio a la vista
         return view('Comercio.edit', compact('comercio', 'usuarios'));
     }
-    
+
 
     public function update(Request $request, Comercio $comercio)
     {

@@ -18,10 +18,11 @@ class Comercio extends Model
         'correoComercio',
         'telefonoComercio',
         'descripcionComercio',
+        'imagen',
         'idUsuario_fk',
     ];
 
-   
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'idUsuario_fk');
