@@ -3,16 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
-<<<<<<< HEAD
 use App\Http\Controllers\EventoController;
-
-=======
 use App\Http\Controllers\ProductoController;
->>>>>>> Josue
 
 Route::resource('comercios', ComercioController::class);
 Route::resource('productos', ProductoController::class);
-
 Route::resource('eventos', EventoController::class);
 
 Route::get('/', function () {
@@ -166,5 +161,3 @@ Route::get('/tables-general', function () {
 Route::get('/users-profile', function () {
     return view('admin.users-profile');
 });
-
-
