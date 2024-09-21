@@ -3,12 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
+<<<<<<< HEAD
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ProductoController;
 
 Route::resource('comercios', ComercioController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('eventos', EventoController::class);
+=======
+use App\Http\Controllers\AlojamientoController;
+
+Route::resource('comercios', ComercioController::class);
+Route::resource('alojamiento', AlojamientoController::class);
+>>>>>>> Jeanka
 
 Route::get('/', function () {
     return view('welcome');
