@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
+use App\Http\Controllers\AlojamientoController;
 
 Route::resource('comercios', ComercioController::class);
+Route::resource('alojamiento', AlojamientoController::class);
 
 Route::get('/', function () {
     return view('welcome');
