@@ -10,7 +10,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title"></h5>
-                <a href="{{ route('productos.create') }}" class="btn btn-success" title="Crear">
+                <a href="{{ route('productos.create') }}" class="btn btn-success btn-sm" title="Crear">
                     <i class="bi bi-check-circle"></i> Crear 
                 </a> 
                 <div class="table-responsive">               
@@ -37,8 +37,12 @@
                                 <td>{{ $producto->comercio->nombreComercio }}</td> <!-- Relación con comercio -->
                                 <td>
                                     <div class="d-flex">
+                                         <!-- Botón Ver -->
+                                        <a href="{{ route('productos.show', $producto->idProducto) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
+                                            <i class="bi bi-eye"></i> Ver
+                                        </a>
                                         <!-- Botón Editar -->
-                                        <a href="{{ route('productos.edit', $producto->idProducto) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                        <a href="{{ route('productos.edit', $producto->idProducto) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
                                             <i class="bi bi-exclamation-triangle"></i> Editar
                                         </a>
                                 
@@ -46,7 +50,7 @@
                                         <form action="{{ route('productos.destroy', $producto->idProducto) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger w-100" title="Eliminar">
+                                            <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
                                                 <i class="bi bi-exclamation-octagon"></i> Eliminar
                                             </button>
                                         </form>
