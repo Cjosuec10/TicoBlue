@@ -106,8 +106,8 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #2</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="/productos">
+          <i class="bi bi-gem"></i><span>Módulo de productos</span>
         </a>
       </li><!-- End Módulo #2 Nav -->
 
