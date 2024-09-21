@@ -6,10 +6,10 @@
     <div class="card">
         <div class="card-body">
             <!-- Formulario para editar comercio -->
-            <form id="editarComercioForm" action="{{ route('comercios.update', $comercio->idComercio) }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="editarComercioForm" action="{{ route('comercios.update', $comercio->idComercio) }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
                 @method('PUT')
-                
+
                 <!-- Nombre del Comercio -->
                 <div class="col-md-6">
                     <label for="nombreComercio" class="form-label">Nombre del Comercio</label>
@@ -87,6 +87,35 @@
                     </div>
                 </div>
 
+                <!-- Dirección URL -->
+                <div class="col-md-6">
+                    <label for="direccion_url" class="form-label">Dirección URL</label>
+                    <input type="url" class="form-control" id="direccion_url" name="direccion_url" value="{{ $comercio->direccion_url }}">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una URL válida.
+                    </div>
+                </div>
+
+                <!-- Dirección en Texto -->
+                <div class="col-md-6">
+                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
+                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto" value="{{ $comercio->direccion_texto }}">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una dirección válida.
+                    </div>
+                </div>
+
+                <!-- Imagen del Comercio -->
+                <div class="col-md-6">
+                    <label for="imagen" class="form-label">Imagen (opcional)</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                    @if($comercio->imagen)
+                        <div class="mt-2">
+                            <img src="{{ asset($comercio->imagen) }}" alt="Imagen del comercio" width="150px">
+                        </div>
+                    @endif
+                </div>
+
                 <!-- Selección de Usuario (deshabilitado) -->
                 <div class="col-md-6">
                     <label for="idUsuario_fk" class="form-label">Usuario</label>
@@ -99,12 +128,6 @@
                         @endforeach
                     </select>
                     <input type="hidden" name="idUsuario_fk" value="{{ $comercio->idUsuario_fk }}">
-                    <div class="invalid-feedback">
-                        Por favor, seleccione un usuario.
-                    </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
                 </div>
 
                 <!-- Botón para Actualizar -->
