@@ -3,10 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
+use App\Http\Controllers\EventoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\AlojamientoController;
 
+// Rutas para Comercios, Productos, Eventos y Alojamientos
 Route::resource('comercios', ComercioController::class);
 Route::resource('productos', ProductoController::class);
+Route::resource('eventos', EventoController::class);
+Route::resource('alojamiento', AlojamientoController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,8 +22,8 @@ Route::get('/admin', function () {
 });
 
 Route::post('/logout', function () {
-    Auth::logout(); 
-    return redirect('/Login'); 
+    Auth::logout();
+    return redirect('/Login');
 })->name('logout');
 
 Route::get('/Login', function () {
@@ -159,5 +164,3 @@ Route::get('/tables-general', function () {
 Route::get('/users-profile', function () {
     return view('admin.users-profile');
 });
-
-

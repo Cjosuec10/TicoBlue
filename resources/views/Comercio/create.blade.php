@@ -6,9 +6,9 @@
     <div class="card">
         <div class="card-body">
             <!-- Agregamos el id "crearComercioForm" al formulario -->
-            <form id="crearComercioForm" action="{{ route('comercios.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="crearComercioForm" action="{{ route('comercios.store') }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
-                
+
                 <!-- Nombre del Comercio -->
                 <div class="col-md-6">
                     <h5 class="card-title"></h5>
@@ -87,6 +87,29 @@
                         ¡Correcto!
                     </div>
                 </div>
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagen" >Imagen</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
+
+                <!-- Dirección URL -->
+                <div class="col-md-6">
+                    <label for="direccion_url" class="form-label">Dirección URL</label>
+                    <input type="url" class="form-control" id="direccion_url" name="direccion_url" placeholder="http://ejemplo.com">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una URL válida.
+                    </div>
+                </div>
+
+                <!-- Dirección en Texto -->
+                <div class="col-md-6">
+                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
+                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una dirección.
+                    </div>
+                </div>
 
                 <!-- Selección de Usuario -->
                 <div class="col-md-6">
@@ -109,7 +132,7 @@
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Guardar -->
                     <button class="btn btn-success" type="submit">Guardar</button>
-                    
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver
@@ -130,7 +153,7 @@
                 this.classList.add('was-validated');
             } else {
                 event.preventDefault(); // Evita que el formulario se envíe inmediatamente
-        
+
                 // Muestra la alerta rápida si el formulario es válido
                 Swal.fire({
                     icon: "success",
@@ -138,7 +161,7 @@
                     showConfirmButton: false,
                     timer: 2100
                 });
-        
+
                 // Envía el formulario después de un breve retraso para permitir que se muestre la alerta
                 setTimeout(() => {
                     this.submit();
