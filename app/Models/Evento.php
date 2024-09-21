@@ -10,6 +10,7 @@ class Evento extends Model
     use HasFactory;
 
     protected $table = 'eventos';
+    protected $primaryKey = 'idEvento';
 
     protected $fillable = [
         'nombreEvento',
@@ -18,10 +19,10 @@ class Evento extends Model
         'correoEvento',
         'telefonoEvento',
         'direccionEvento',
+        'imagen',
         'idComercio_fk',
     ];
 
-    // Relación con el modelo Comercio
     public function comercio()
     {
         return $this->belongsTo(Comercio::class, 'idComercio_fk');

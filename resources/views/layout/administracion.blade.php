@@ -43,7 +43,7 @@
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-  
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
@@ -52,7 +52,7 @@
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Image Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">      
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -73,7 +73,7 @@
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Cerrar Sesión</span>
               </a>
-            
+
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
               </form>
@@ -103,7 +103,7 @@
             <i class="bi bi-gem"></i><span>Módulo de comercios</span>
         </a>
     </li><!-- End Módulo #1 Nav -->
-    
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -112,10 +112,10 @@
       </li><!-- End Módulo #2 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #3</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="/eventos">
+            <i class="bi bi-gem"></i><span>Módulo de Eventos</span>
         </a>
-      </li><!-- End Módulo #3 Nav -->
+    </li><!-- End Módulo #3 Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -174,10 +174,10 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
-  
+
 
   @yield('scripts') <!-- Para incluir scripts adicionales en las vistas específicas -->
-  
+
 </body>
 
 </html>
