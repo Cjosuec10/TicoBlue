@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <!-- Formulario para editar producto -->
-            <form id="editarProductoForm" action="{{ route('productos.update', $producto->idProducto) }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="editarProductoForm" action="{{ route('productos.update', $producto->idProducto) }}" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
                 @csrf
                 @method('PUT')
 
@@ -76,6 +76,19 @@
                         ¡Correcto!
                     </div>
                 </div>
+
+                <!-- Imagen del Producto -->
+    
+                 <div class="col-md-6">
+                    <label for="imagenProducto" class="form-label">Imagen (opcional)</label>
+                    <input type="file" class="form-control" id="imagenProducto" name="imagenProducto">
+                    @if($producto->imagenProducto)
+                        <div class="mt-2">
+                            <img src="{{ asset($producto->imagenProducto) }}" alt="Imagen del producto" width="150px">
+                        </div>
+                    @endif
+                </div>
+
 
                 <!-- Botón para Actualizar -->
                 <div class="col-12 d-flex justify-content-center gap-2">

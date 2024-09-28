@@ -34,14 +34,27 @@ class ProductoController extends Controller
             'precioProducto' => 'required|numeric',
             'categoria' => 'required|max:255',
             'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'imagenProducto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación de imagen
         ]);
 
-        // Crear el producto en la base de datos
-        Producto::create($request->all());
+       // Crear un nuevo producto
+       $producto = new Producto($request->except('imagenProducto'));
 
-        // Redirigir a la lista de productos con un mensaje de éxito
-        return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
-    }
+       // Si hay una imagen, procesarla y guardarla
+       if ($request->hasFile('imagenProducto')) {
+        $file = $request->file('imagenProducto');
+        $destinationPath = 'img/imagen/'; // Cambia a la carpeta img/imagen/
+        $fileName = time() . '-' . $file->getClientOriginalName();
+        $file->move($destinationPath, $fileName); // Mover el archivo
+        $producto->imagenProducto = $destinationPath . $fileName;
+       }
+
+       // Guardar el producto en la base de datos
+       $producto->save();
+
+       // Redirigir a la lista de productos con un mensaje de éxito
+       return redirect()->route('productos.index')->with('success', 'Producto creado exitosamente.');
+   }
 
     public function show(Producto $producto)
     {
@@ -67,10 +80,24 @@ class ProductoController extends Controller
             'precioProducto' => 'required|numeric',
             'categoria' => 'required|max:255',
             'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'imagenProducto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+    
         // Actualizar el producto con los datos validados
-        $producto->update($request->all());
+        $producto->fill($request->except('imagenProducto'));
+
+        // Si se subió una nueva imagen, actualizarla
+        if ($request->hasFile('imagenProducto')) {
+            $file = $request->file('imagenProducto');
+        $destinationPath = 'img/imagen/'; // Cambia a la carpeta img/imagen/
+        $fileName = time() . '-' . $file->getClientOriginalName();
+        $file->move($destinationPath, $fileName); // Mover el archivo
+        $producto->imagenProducto = $destinationPath . $fileName; // Guardar la ruta completa
+        }
+
+        // Guardar los cambios en la base de datos
+        $producto->save();
 
         // Redirigir a la lista de productos con un mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Producto actualizado exitosamente.');
