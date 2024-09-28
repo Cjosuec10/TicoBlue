@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <!-- Título de la tarjeta -->
-            <h5 class="card-title mb-3">Información del Producto</h5>
+            <h5 class="card-title mb-3 text-center">Información del Producto</h5>
 
             <!-- Layout en dos columnas: imagen a la izquierda, datos del producto a la derecha -->
             <div class="row">
