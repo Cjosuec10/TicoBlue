@@ -136,8 +136,8 @@
       </li><!-- End Módulo #6 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #7</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="/usuarios">
+          <i class="bi bi-gem"></i><span>Módulo de Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Módulo #7 Nav -->
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Iniciar Sesión</title>
+  <title>Login</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +43,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
+                  <img src="{{ asset('assets/img/logo.png') }}" alt="">
                   <span class="d-none d-lg-block">Tico Blue</span>
                 </a>
               </div><!-- End Logo -->
@@ -53,22 +53,25 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Bienvenido(a)</h5>          
+                    <h5 class="card-title text-center pb-0 fs-4">Iniciar Sesión</h5>
+                    <p class="text-center small">Introduce tu correo electrónico y contraseña para acceder</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-
+                  <!-- Formulario de login -->
+                  <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
+                    @csrf <!-- Token de seguridad obligatorio en Laravel -->
+                    
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Correo Electrónico</label>
                       <div class="input-group has-validation">
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
+                        <input type="email" name="correo" class="form-control" id="yourEmail" required>
                         <div class="invalid-feedback">Por favor, ingresa tu correo electrónico.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="contrasena" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
                     </div>
 
@@ -78,44 +81,49 @@
                         <label class="form-check-label" for="rememberMe">Recuérdame</label>
                       </div>
                     </div>
+
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Iniciar Sesión</button>
                     </div>
+                    
                     <div class="col-12">
-                      <p class="small mb-0">¿No tienes una cuenta? <a href="Register">Crea una cuenta</a></p>
+                      <p class="small mb-0">¿No tienes una cuenta? <a href="{{ route('register.form') }}">Crea una cuenta</a></p>
                     </div>
-                  </form>
+                  </form><!-- End Formulario -->
 
                 </div>
               </div>
-
-              <div class="credits">
-                Diseñado por <a href="/">Tico Blue</a>
-              </div>
-
             </div>
           </div>
         </div>
-
       </section>
 
     </div>
   </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
   <!-- Vendor JS Files -->
-  <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/chart.js/chart.umd.js') }}"></script>
-  <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/quill/quill.js') }}"></script>
   <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-  <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
-
-  <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+
+  <script>
+    // Validación de Bootstrap 5
+    (function () {
+      'use strict'
+
+      var forms = document.querySelectorAll('.needs-validation')
+
+      Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+  </script>
 
 </body>
 
