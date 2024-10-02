@@ -15,6 +15,7 @@ class CreateProductosTable extends Migration
     $table->decimal('precioProducto', 10, 2);
     $table->string('categoria', 100)->nullable();
     $table->foreignId('idComercio_fk')->constrained('comercios','idComercio')->onDelete('cascade');  // Asegúrate de que coincidan los tipos de dato
+    $table->string('imagenProducto')->nullable();
     $table->timestamps();
 });
 
