@@ -51,6 +51,10 @@
         </ul>
     </nav>
 
+    <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
+<a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a>
+
+
     <div class="content">
         <section id="login">
             <h2>Login y Registro</h2>

@@ -13,6 +13,16 @@ Route::resource('productos', ProductoController::class);
 Route::resource('eventos', EventoController::class);
 Route::resource('alojamiento', AlojamientoController::class);
 
+Route::get('lang/{lang}', function ($lang) {
+    // Validar que el idioma sea permitido ('en' o 'es')
+    if (in_array($lang, ['en', 'es'])) {
+        // Guardar el idioma en la sesión
+        session(['locale' => $lang]);
+    }
+    // Redirigir a la página anterior
+    return redirect()->back();
+})->name('set.language');
+
 Route::get('/', function () {
     return view('welcome');
 });
