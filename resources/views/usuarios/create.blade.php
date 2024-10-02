@@ -1,92 +1,95 @@
 @extends('layout.administracion')
 
 @section('content')
-    <h1 class="card-title">Crear Producto</h1>
+    <h1 class="card-title">Crear Usuario</h1>
 
     <div class="card">
         <div class="card-body">
-            <!-- Agregamos el id "crearProductoForm" al formulario -->
-            <form id="crearProductoForm" action="{{ route('productos.store') }}" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
+            <h5 class="card-title"></h5>
+            <form id="crearUsuarioForm" action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
-                
-                <!-- Nombre del Producto -->
+
+                <!-- Nombre del Usuario -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
-                    <label for="nombreProducto" class="form-label">Nombre del Producto</label>
-                    <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" required>
+                    <label for="nombreUsuario" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombre" required>
                     <div class="invalid-feedback">
-                        Por favor, ingrese el nombre del producto.
+                        Por favor, ingrese el nombre del usuario.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
                 </div>
 
-                <!-- Descripción del Producto -->
+                <!-- Correo del Usuario -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
-                    <label for="descripcionProducto" class="form-label">Descripción del Producto</label>
-                    <textarea class="form-control" id="descripcionProducto" name="descripcionProducto"></textarea>
+                    <label for="correoUsuario" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="correoUsuario" name="correo" required>
                     <div class="invalid-feedback">
-                        Por favor, ingrese una descripción.
+                        Por favor, ingrese un correo válido.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
                 </div>
 
-                <!-- Precio del Producto -->
+                <!-- Contraseña del Usuario -->
                 <div class="col-md-6">
-                    <label for="precioProducto" class="form-label">Precio del Producto</label>
-                    <input type="number" step="0.01" class="form-control" id="precioProducto" name="precioProducto" required>
+                    <label for="contrasenaUsuario" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasenaUsuario" name="contrasena" required>
                     <div class="invalid-feedback">
-                        Por favor, ingrese un precio válido.
+                        Por favor, ingrese una contraseña.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
                 </div>
 
-                <!-- Categoría del Producto -->
+                <!-- Confirmar Contraseña -->
                 <div class="col-md-6">
-                    <label for="categoria" class="form-label">Categoría del Producto</label>
-                    <input type="text" class="form-control" id="categoria" name="categoria" required>
+                    <label for="confirmarContrasena" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="confirmarContrasena" name="contrasena_confirmation" required>
                     <div class="invalid-feedback">
-                        Por favor, ingrese una categoría.
+                        Por favor, confirme la contraseña.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
                 </div>
 
-                <!-- Comercio asociado -->
+                <!-- Teléfono del Usuario -->
                 <div class="col-md-6">
-                    <label for="idComercio_fk" class="form-label">Comercio Asociado</label>
-                    <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
-                        <option selected disabled value="">Seleccione un comercio</option>
-                        @foreach($comercios as $comercio)
-                            <option value="{{ $comercio->idComercio }}">{{ $comercio->nombreComercio }}</option>
-                        @endforeach
+                    <label for="telefonoUsuario" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefonoUsuario" name="telefono">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese un número de teléfono válido.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+
+                <!-- Rol del Usuario -->
+                <div class="col-md-6">
+                    <label for="rolUsuario" class="form-label">Rol</label>
+                    <select class="form-select" id="rolUsuario" name="rol" required>
+                        <option selected disabled value="">Seleccione un rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Usuario">Usuario</option>
                     </select>
                     <div class="invalid-feedback">
-                        Por favor, seleccione un comercio.
+                        Por favor, seleccione un rol.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
-                </div>
-
-                   <!-- Imagen del Producto -->
-                   <div class="col-md-6">
-                    <label for="imagenProducto" class="form-label">Imagen</label>
-                    <input type="file" id="imagenProducto" name="imagenProducto">
                 </div>
 
                 <!-- Botones de acción -->
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Guardar -->
                     <button class="btn btn-success" type="submit">Guardar</button>
-                    
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver
@@ -99,7 +102,7 @@
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('crearProductoForm').addEventListener('submit', function(event) {
+        document.getElementById('crearUsuarioForm').addEventListener('submit', function(event) {
             // Verifica si el formulario es válido
             if (!this.checkValidity()) {
                 event.preventDefault();
@@ -107,15 +110,15 @@
                 this.classList.add('was-validated');
             } else {
                 event.preventDefault(); // Evita que el formulario se envíe inmediatamente
-        
+
                 // Muestra la alerta rápida si el formulario es válido
                 Swal.fire({
                     icon: "success",
-                    title: "El producto ha sido creado",
+                    title: "El usuario ha sido creado",
                     showConfirmButton: false,
                     timer: 2100
                 });
-        
+
                 // Envía el formulario después de un breve retraso para permitir que se muestre la alerta
                 setTimeout(() => {
                     this.submit();

@@ -12,7 +12,7 @@ class Usuario extends Authenticatable
 
     // Definir el nombre de la tabla
     protected $table = 'usuarios';
-
+    protected $primaryKey = 'idUsuario';
     // Las columnas que se pueden llenar automáticamente
     protected $fillable = [
         'nombre',
