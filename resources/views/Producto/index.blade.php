@@ -17,7 +17,7 @@
                     <table class="table datatable">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Precio</th>

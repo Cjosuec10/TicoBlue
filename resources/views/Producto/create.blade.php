@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-body">
             <!-- Agregamos el id "crearProductoForm" al formulario -->
-            <form id="crearProductoForm" action="{{ route('productos.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="crearProductoForm" action="{{ route('productos.store') }}" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
                 @csrf
                 
                 <!-- Nombre del Producto -->
@@ -74,6 +74,12 @@
                     <div class="valid-feedback">
                         ¡Correcto!
                     </div>
+                </div>
+
+                   <!-- Imagen del Producto -->
+                   <div class="col-md-6">
+                    <label for="imagenProducto" class="form-label">Imagen</label>
+                    <input type="file" id="imagenProducto" name="imagenProducto">
                 </div>
 
                 <!-- Botones de acción -->

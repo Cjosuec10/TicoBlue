@@ -18,6 +18,7 @@ class Producto extends Model
         'precioProducto',
         'categoria',
         'idComercio_fk',
+        'imagenProducto'
     ];
 
     // Relación con el modelo Comercio
