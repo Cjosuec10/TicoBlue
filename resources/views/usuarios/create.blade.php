@@ -72,10 +72,11 @@
                 <!-- Rol del Usuario -->
                 <div class="col-md-6">
                     <label for="rolUsuario" class="form-label">Rol</label>
-                    <select class="form-select" id="rolUsuario" name="rol" required>
+                    <select class="form-select" id="rolUsuario" name="roles[]" required>
                         <option selected disabled value="">Seleccione un rol</option>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Usuario">Usuario</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                        @endforeach
                     </select>
                     <div class="invalid-feedback">
                         Por favor, seleccione un rol.
