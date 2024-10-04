@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateEventosTable extends Migration
 {
@@ -16,7 +16,8 @@ class CreateEventosTable extends Migration
             $table->string('correoEvento', 100)->nullable();
             $table->string('telefonoEvento', 20)->nullable();
             $table->string('direccionEvento', 255)->nullable();
-            $table->foreignId('idComercio_fk')->constrained('comercios','idComercio')->onDelete('cascade');
+            $table->unsignedBigInteger('idComercio_fk');
+            $table->foreign('idComercio_fk')->references('idComercio')->on('comercios')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,3 +27,4 @@ class CreateEventosTable extends Migration
         Schema::dropIfExists('eventos');
     }
 }
+

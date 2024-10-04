@@ -52,8 +52,11 @@
                     <label for="rolUsuario" class="form-label">Rol</label>
                     <select class="form-select" id="rolUsuario" name="rol" required>
                         <option disabled value="">Seleccione un rol</option>
-                        <option value="Administrador" {{ $usuario->rol == 'Administrador' ? 'selected' : '' }}>Administrador</option>
-                        <option value="Usuario" {{ $usuario->rol == 'Usuario' ? 'selected' : '' }}>Usuario</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}" {{ $usuario->roles->contains('name', $role->name) ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
                     </select>
                     <div class="invalid-feedback">
                         Por favor, seleccione un rol.
@@ -62,7 +65,6 @@
                         ¡Correcto!
                     </div>
                 </div>
-
                 <!-- Contraseña del Usuario (opcional) -->
                 <div class="col-md-6">
                     <label for="contrasenaUsuario" class="form-label">Nueva Contraseña (opcional)</label>

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateComerciosTable extends Migration
 {
@@ -15,13 +15,13 @@ class CreateComerciosTable extends Migration
             $table->string('correoComercio', 100)->unique();
             $table->string('telefonoComercio', 20)->nullable();
             $table->text('descripcionComercio')->nullable();
-            $table->string('imagen')->nullable();             // Agregamos la columna imagen
-            $table->string('direccion_url')->nullable();      // Campo para una dirección (enlace)
-            $table->string('direccion_texto')->nullable();    // Campo para una dirección en texto
-            $table->foreignId('idUsuario_fk')->constrained('usuarios', 'idUsuario')->onDelete('cascade');
+            $table->string('imagen')->nullable();
+            $table->string('direccion_url')->nullable();
+            $table->string('direccion_texto')->nullable();
+            $table->unsignedBigInteger('idUsuario_fk');
+            $table->foreign('idUsuario_fk')->references('idUsuario')->on('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
-
     }
 
     public function down()
