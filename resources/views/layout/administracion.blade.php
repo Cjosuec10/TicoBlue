@@ -127,7 +127,11 @@
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gem"></i><span>Módulo #5</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+       
       </li><!-- End Módulo #5 Nav -->
+
+
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
@@ -141,6 +145,10 @@
         </a>
       </li><!-- End Módulo #7 Nav -->
 
+
+
+      <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
+      <a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a>
     </ul>
     @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
   </aside><!-- End Sidebar-->
