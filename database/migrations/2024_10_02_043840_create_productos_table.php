@@ -15,6 +15,7 @@ class CreateProductosTable extends Migration
             $table->decimal('precioProducto', 10, 2);
             $table->string('categoria', 100)->nullable();
             $table->unsignedBigInteger('idComercio_fk');
+            $table->string('imagenProducto')->nullable();
             $table->foreign('idComercio_fk')->references('idComercio')->on('comercios')->onDelete('cascade');
             $table->timestamps();
         });
