@@ -61,9 +61,6 @@
                     <div class="invalid-feedback">
                         Por favor, seleccione un rol.
                     </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
                 </div>
                 <!-- Contraseña del Usuario (opcional) -->
                 <div class="col-md-6">

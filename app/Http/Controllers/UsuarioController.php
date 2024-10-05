@@ -92,16 +92,16 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $idUsuario)
     {
-        // Validar los datos del formulario
+        // Validar datos
         $request->validate([
             'nombre' => 'required|string|max:100',
-            'correo' => 'required|string|email|max:100|unique:usuarios,correo,'.$idUsuario,
+            'correo' => 'required|string|email|max:100|unique:usuarios,correo,' . $idUsuario,
             'telefono' => 'nullable|string|max:20',
-            'contrasena' => 'nullable|string|min:8|confirmed', // No es obligatorio cambiar la contraseña
-            'roles' => 'required|array', // Asegúrate de que se seleccione al menos un rol
+            'contrasena' => 'nullable|string|min:8|confirmed',
+            'rol' => 'required|string', // Asegúrate de que se esté enviando el rol
         ]);
 
-        // Buscar el usuario en la base de datos
+        // Encontrar el usuario
         $usuario = Usuario::findOrFail($idUsuario);
 
         // Actualizar los datos del usuario
@@ -109,11 +109,11 @@ class UsuarioController extends Controller
             'nombre' => $request->nombre,
             'correo' => $request->correo,
             'telefono' => $request->telefono,
-            'contrasena' => $request->contrasena ? Hash::make($request->contrasena) : $usuario->contrasena, // Actualiza la contraseña solo si se proporciona
+            'contrasena' => $request->contrasena ? Hash::make($request->contrasena) : $usuario->contrasena,
         ]);
 
-        // Sincronizar roles
-        $usuario->syncRoles($request->input('roles'));
+        // Asignar el nuevo rol
+        $usuario->syncRoles([$request->rol]); // Asegúrate de que el rol sea un array
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado con éxito.');
     }

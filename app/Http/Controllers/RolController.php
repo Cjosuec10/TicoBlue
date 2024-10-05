@@ -82,7 +82,7 @@ class RolController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         $permissions = Permission::all(); // Obtener todos los permisos disponibles
         $rolePermissions = $role->permissions->pluck('id')->toArray(); // Obtener permisos actuales del rol
 
@@ -101,18 +101,19 @@ class RolController extends Controller
         // Validar los datos del rol
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id,
-            'permission' => 'required',
+            'permission' => 'required|array', // Asegúrate de que sea un array
         ]);
 
-        // Actualizar el nombre del rol y sincronizar permisos
+        // Obtener el rol y actualizarlo
         $role = Role::findOrFail($id);
         $role->name = $request->input('name');
         $role->save();
 
-        $role->syncPermissions($request->input('permission'));
+        // Sincronizar permisos
+        $permissions = Permission::whereIn('id', $request->input('permission'))->pluck('id')->toArray(); // Obtener IDs de permisos válidos
+        $role->syncPermissions($permissions);
 
-        return redirect()->route('roles.index')
-                         ->with('success', 'Rol actualizado exitosamente');
+        return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente');
     }
 
     /**

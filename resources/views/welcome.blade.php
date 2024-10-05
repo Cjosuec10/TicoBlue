@@ -51,8 +51,8 @@
         </ul>
     </nav>
 
-    <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
-<a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a>
+    {{-- <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
+    <a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a> --}}
 
 
     <div class="content">

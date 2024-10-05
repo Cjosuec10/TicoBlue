@@ -147,8 +147,8 @@
 
 
 
-      <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
-      <a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a>
+      {{-- <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
+      <a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a> --}}
     </ul>
     @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
   </aside><!-- End Sidebar-->
