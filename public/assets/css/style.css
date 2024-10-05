@@ -13,6 +13,49 @@
   scroll-behavior: smooth;
 }
 
+.flags {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  
+  margin-left: 1427px;
+}
+
+.flags__item {
+  width: 30px;
+  height: 30px; 
+  overflow: hidden;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  cursor: pointer; /* Cambia el cursor al pasar sobre las banderas */
+  transition: transform 0.3s, background-color 0.3s; /* Efecto suave para cambios */
+}
+
+.flags__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+.flags__item img {
+  width: 30px; /* Ajusta el tamaño de las banderas */
+  height: auto; /* Mantiene la proporción */
+}
+
+.flags__item.selected {
+  background-color: #007bff; /* Color de fondo cuando está seleccionado */
+  border-radius: 5px; /* Bordes redondeados */
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño */
+}
+
+.flags__img{
+  display: block;
+  cursor: pointer;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
