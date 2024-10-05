@@ -9,11 +9,14 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AlojamientoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\LanguageController;
 
 // Ruta principal
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/set-language/{language}', [LanguageController::class, 'setLanguage'])->name('set.language');
 
 // Rutas de autenticación
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
