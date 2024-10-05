@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('reservaciones', ReservacionController::class);
     Route::resource('alojamiento', AlojamientoController::class);
     Route::resource('usuarios', UsuarioController::class);
+    Route::resource('roles', RolController::class);
+
     Route::get('/set-language/{lang}', function ($lang) {
         // Guarda el idioma en la sesión
         session(['locale' => $lang]);

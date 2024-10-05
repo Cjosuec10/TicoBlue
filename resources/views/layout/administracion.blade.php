@@ -135,7 +135,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/reservaciones">
-          <i class="bi bi-gem"></i><span data-translate="reserves">Reservas(pendiente)</span>
+          <i class="bi bi-gem"></i><span data-translate="reserves">Módulo de Reservas</span>
         </a>
       </li><!-- End Módulo #5 Nav -->
 
