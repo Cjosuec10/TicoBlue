@@ -24,10 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('comercios', ComercioController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('eventos', EventoController::class);
-
-Route::resource('reservaciones', ReservacionController::class);
-
-
+    Route::resource('reservaciones', ReservacionController::class);
     Route::resource('alojamiento', AlojamientoController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::get('/set-language/{lang}', function ($lang) {
