@@ -7,6 +7,11 @@
             <li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
             <li class="breadcrumb-item active">@yield('breadcrumb')</li>
         </ol>
+
+
+
+
+</div>
         </nav>
     </div>
 @endsection
