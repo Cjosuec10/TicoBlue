@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +11,8 @@ class Alojamiento extends Model
     use HasFactory;
 
     protected $table = 'alojamiento';
+
+    protected $primaryKey = 'idAlojamiento';
 
     protected $fillable = [
         'nombreAlojamiento',
