@@ -76,10 +76,29 @@ return redirect()->route('eventos.index')->with('success', 'Evento creado exitos
             'correoEvento' => 'required|email',
             'telefonoEvento' => 'nullable|max:20',
             'direccionEvento' => 'nullable',
+            'imagen' => 'nullable|image|max:2048', // Asegúrate de validar que sea una imagen
             'idComercio_fk' => 'required|exists:comercios,idComercio',
         ]);
 
-        $evento->update($request->all());
+        // Si hay una nueva imagen, procesar la carga
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'img/imagen/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $evento->imagen = $destinationPath . $fileName; // Actualiza la imagen
+        }
+
+        // Actualiza otros campos
+        $evento->nombreEvento = $request->nombreEvento;
+        $evento->descripcionEvento = $request->descripcionEvento;
+        $evento->tipoEvento = $request->tipoEvento;
+        $evento->telefonoEvento = $request->telefonoEvento;
+        $evento->correoEvento = $request->correoEvento;
+        $evento->direccionEvento = $request->direccionEvento;
+        $evento->idComercio_fk = $request->idComercio_fk;
+
+        $evento->save();
 
         return redirect()->route('eventos.index')->with('success', 'Evento actualizado exitosamente.');
     }

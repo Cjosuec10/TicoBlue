@@ -5,7 +5,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="col-md-6">
@@ -32,6 +32,13 @@
                     <input type="text" class="form-control" id="direccionEvento" name="direccionEvento" value="{{ $evento->direccionEvento }}">
                 </div>
                 <div class="col-md-6">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                    @if ($evento->imagen)
+                        <img src="{{ asset($evento->imagen) }}" alt="Imagen del evento" class="img-fluid" width="120px">
+                    @endif
+                </div>
+                <div class="col-md-6">
                     <label for="idComercio_fk" class="form-label">Comercio</label>
                     <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
                         <option disabled value="">Seleccione un comercio</option>
@@ -41,13 +48,7 @@
                     </select>
                     <div class="invalid-feedback">Por favor, seleccione un comercio.</div>
                 </div>
-                <div class="col-md-6">
-                    <label for="imagen">Imagen</label>
-                    <input type="file" class="form-control" id="imagen" name="imagen">
-                    @if ($evento->imagen)
-                        <img src="{{ asset($evento->imagen) }}" alt="Imagen del evento" class="img-fluid" width="120px">
-                    @endif
-                </div>
+
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <button class="btn btn-success" type="submit">Actualizar</button>
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">Volver</button>

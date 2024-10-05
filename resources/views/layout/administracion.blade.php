@@ -39,28 +39,39 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center">
         <img src="{{ asset('assets/img/logo.png') }}" alt="">
-        <span class="d-none d-lg-block">Tico Blue</span>
+        <span class="d-none d-lg-block" data-translate="logo">Tico Blue</span> <!-- Marcado para traducción -->
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
+    <div class="flags" id="flags">
+  <div class="flags__item" data-language="es" onclick="selectLanguage(this)">
+    <img src="/assets/icons/cr.svg" alt="Español">
+  </div>
+  <div class="flags__item" data-language="en" onclick="selectLanguage(this)">
+    <img src="/assets/icons/us.svg" alt="English">
+  </div>
+</div>
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
+
+        
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+            
           </a><!-- End Profile Image Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
               <hr class="dropdown-divider">
             </li>
+            
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ url('users-profile') }}">
                 <i class="bi bi-person"></i>
-                <span>Perfil</span>
+                <span data-translate="profile">Perfil</span> <!-- Marcado para traducción -->
               </a>
             </li>
             <li>
@@ -71,7 +82,7 @@
               <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Cerrar Sesión</span>
+                <span data-translate="logout">Cerrar Sesión</span> <!-- Marcado para traducción -->
               </a>
 
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -94,61 +105,62 @@
       <li class="nav-item">
         <a class="nav-link " href="/admin">
           <i class="bi bi-grid"></i>
-          <span>Menu</span>
+          <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="/comercios">
-            <i class="bi bi-gem"></i><span>Módulo de comercios</span>
+            <i class="bi bi-gem"></i><span data-translate="commerceModule">Módulo de comercios</span> <!-- Marcado para traducción -->
         </a>
-    </li><!-- End Módulo #1 Nav -->
-
+      </li><!-- End Módulo #1 Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="/productos">
-          <i class="bi bi-gem"></i><span>Módulo de productos</span>
+          <i class="bi bi-gem"></i><span data-translate="productModule">Módulo de productos</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Módulo #2 Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="/eventos">
-            <i class="bi bi-gem"></i><span>Módulo de Eventos</span>
+            <i class="bi bi-gem"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Marcado para traducción -->
         </a>
-    </li><!-- End Módulo #3 Nav -->
+      </li><!-- End Módulo #3 Nav -->
 
       <li class="nav-item">
-      <a class="nav-link" href="/alojamiento">
-          <i class="bi bi-gem"></i><span>Alojamiento</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link" href="/alojamiento">
+          <i class="bi bi-gem"></i><span data-translate="accommodation">Alojamiento</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Módulo #4 Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #5</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span data-translate="reserves">Reservas(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-       
       </li><!-- End Módulo #5 Nav -->
-
-
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Módulo #6</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span data-translate="images">Imagenes(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Módulo #6 Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="/usuarios">
-          <i class="bi bi-gem"></i><span>Módulo de Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Marcado para traducción -->
+          <i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Módulo #7 Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span data-translate="roles">Roles(pendiente)</span> <!-- Marcado para traducción -->
+          <i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li><!-- End Módulo #6 Nav -->
 
+    
 
-      {{-- <a href="{{ route('set.language', ['lang' => 'en']) }}">English</a> | 
-      <a href="{{ route('set.language', ['lang' => 'es']) }}">Español</a> --}}
     </ul>
     @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
   </aside><!-- End Sidebar-->
@@ -164,7 +176,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Tico Blue</span></strong>. Todos los derechos reservados.
+      &copy; Copyright <strong><span data-translate="footer">Tico Blue</span></strong>. <span data-translate="all_rights_reserved">Todos los derechos reservados.</span> <!-- Marcado para traducción -->
     </div>
   </footer><!-- End Footer -->
 
@@ -182,9 +194,9 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
+  <script src="{{ asset('assets/js/Idioma.js') }}"></script>
 
-
-  @yield('scripts') <!-- Para incluir scripts adicionales en las vistas específicas -->
+  @yield('scripts') 
 
 </body>
 
