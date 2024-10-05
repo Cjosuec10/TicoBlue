@@ -9,6 +9,9 @@ use App\Http\Controllers\ReservacionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AlojamientoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\LanguageController;
+
 
 // Rutas de autenticación
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
