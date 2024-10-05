@@ -103,33 +103,33 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/admin">
+        <a class="nav-link collapsed" href="/admin">
           <i class="bi bi-grid"></i>
           <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="/comercios">
-            <i class="bi bi-gem"></i><span data-translate="commerceModule">Módulo de comercios</span> <!-- Marcado para traducción -->
+        <a class="nav-link collapsed" href="/comercios">
+            <i class="bi bi-gem"></i><span data-translate="commerceModule">Módulo de Comercios</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Módulo #1 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="/productos">
-          <i class="bi bi-gem"></i><span data-translate="productModule">Módulo de productos</span> <!-- Marcado para traducción -->
+        <a class="nav-link collapsed" href="/productos">
+          <i class="bi bi-gem"></i><span data-translate="productModule">Módulo de Productos</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Módulo #2 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="/eventos">
+        <a class="nav-link collapsed" href="/eventos">
             <i class="bi bi-gem"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Módulo #3 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="/alojamiento">
-          <i class="bi bi-gem"></i><span data-translate="accommodation">Alojamiento</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" href="/alojamiento">
+          <i class="bi bi-gem"></i><span data-translate="accommodation">Módulo de Alojamiento</span>
         </a>
       </li><!-- End Módulo #4 Nav -->
 
@@ -146,16 +146,14 @@
       </li><!-- End Módulo #6 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="/usuarios">
+        <a class="nav-link collapsed" href="/usuarios">
           <i class="bi bi-gem"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Marcado para traducción -->
-          <i class="bi bi-chevron-down ms-auto"></i>
         </a>
       </li><!-- End Módulo #7 Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span data-translate="roles">Roles(pendiente)</span> <!-- Marcado para traducción -->
-          <i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" href="/roles">
+          <i class="bi bi-gem"></i><span data-translate="roles">Módulo de Roles</span> <!-- Marcado para traducción -->
         </a>
       </li><!-- End Módulo #6 Nav -->
 
