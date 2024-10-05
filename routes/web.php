@@ -4,11 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ComercioController;
 use App\Http\Controllers\EventoController;
-
+use App\Http\Controllers\ReservacionController;
 
 Route::resource('comercios', ComercioController::class);
 
 Route::resource('eventos', EventoController::class);
+
+Route::resource('reservaciones', ReservacionController::class);
+
+
 
 Route::get('/', function () {
     return view('welcome');
