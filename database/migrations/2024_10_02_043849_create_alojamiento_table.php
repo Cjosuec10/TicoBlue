@@ -14,10 +14,15 @@ class CreateAlojamientoTable extends Migration
             $table->text('descripcionAlojamiento')->nullable();
             $table->decimal('precioAlojamiento', 10, 2);
             $table->integer('capacidad');
+        
+            // Relación con Comercio
             $table->unsignedBigInteger('idComercio_fk');
             $table->foreign('idComercio_fk')->references('idComercio')->on('comercios')->onDelete('cascade');
+        
             $table->timestamps();
         });
+        
+        
     }
 
     public function down()
@@ -25,4 +30,3 @@ class CreateAlojamientoTable extends Migration
         Schema::dropIfExists('alojamiento');
     }
 }
-
