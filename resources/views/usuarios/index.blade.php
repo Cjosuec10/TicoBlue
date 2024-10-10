@@ -1,7 +1,7 @@
 @extends('layout.administracion')
 
 @section('content')
-    <h1 class="card-title">Lista de Comercios</h1>
+    <h1 class="card-title">Lista de Usuarios</h1>
 
     <section class="section">
         <div class="row">
@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
-                        <a href="{{ route('comercios.create') }}" class="btn btn-success" title="Crear">
+                        <a href="{{ route('usuarios.create') }}" class="btn btn-success" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
                         <div class="table-responsive">
@@ -18,42 +18,32 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
-                                        <th>Tipo de Negocio</th>
+                                        <th>Correo</th>
                                         <th>Teléfono</th>
-                                        <th>Imagen</th>
-                                        <th>Dirección Texto</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($comercios as $comercio)
+                                @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $comercio->idComercio }}</td>
-                                    <td>{{ $comercio->nombreComercio }}</td>
-                                    <td>{{ $comercio->tipoNegocio }}</td>
-                                    <td>{{ $comercio->telefonoComercio }}</td>
-                                    <td>
-                                        @if ($comercio->imagen)
-                                            <img src="{{asset($comercio->imagen)}}" alt="{{$comercio->nombreComercio}}" class="img-fluid" width="120px">
-                                        @else
-                                            <span>No disponible</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $comercio->direccion_texto ?? 'No disponible' }}</td>
+                                    <td>{{ $usuario->idUsuario }}</td>
+                                    <td>{{ $usuario->nombre }}</td>
+                                    <td>{{ $usuario->correo }}</td>
+                                    <td>{{ $usuario->telefono ?? 'No disponible' }}</td>
                                     <td>
                                         <div class="d-flex">
-
-                                            <a href="{{ route('comercios.show', $comercio->idComercio) }}" class="btn btn-info me-1 w-80" title="Ver">
+                                            <!-- Botón Ver -->
+                                            <a href="{{ route('usuarios.show', $usuario->idUsuario) }}" class="btn btn-info me-1 w-80" title="Ver">
                                                 <i class="bi bi-eye"></i> Ver
                                             </a>                             
 
                                             <!-- Botón Editar -->
-                                            <a href="{{ route('comercios.edit', $comercio->idComercio) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                            <a href="{{ route('usuarios.edit', $usuario->idUsuario) }}" class="btn btn-warning me-1 w-80" title="Editar">
                                                 <i class="bi bi-exclamation-triangle"></i> Editar
                                             </a>
 
                                             <!-- Botón Eliminar -->
-                                            <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
+                                            <form action="{{ route('usuarios.destroy', $usuario->idUsuario) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger w-100" title="Eliminar">

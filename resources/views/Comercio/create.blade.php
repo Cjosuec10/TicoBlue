@@ -93,6 +93,24 @@
                     <input type="file" id="imagen" name="imagen">
                 </div>
 
+                <!-- Dirección URL -->
+                <div class="col-md-6">
+                    <label for="direccion_url" class="form-label">Dirección URL</label>
+                    <input type="url" class="form-control" id="direccion_url" name="direccion_url" placeholder="http://ejemplo.com">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una URL válida.
+                    </div>
+                </div>
+
+                <!-- Dirección en Texto -->
+                <div class="col-md-6">
+                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
+                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una dirección.
+                    </div>
+                </div>
+
                 <!-- Selección de Usuario -->
                 <div class="col-md-6">
                     <label for="idUsuario_fk" class="form-label">Usuario</label>
