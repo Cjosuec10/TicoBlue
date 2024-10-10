@@ -9,14 +9,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
+                        @can('crear-comercio')
                         <a href="{{ route('comercios.create') }}" class="btn btn-success" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
+                        @endcan
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Nombre</th>
                                         <th>Tipo de Negocio</th>
                                         <th>Teléfono</th>
@@ -42,24 +44,27 @@
                                     <td>{{ $comercio->direccion_texto ?? 'No disponible' }}</td>
                                     <td>
                                         <div class="d-flex">
+                                            @can('ver-comercio')
+                                                <a href="{{ route('comercios.show', $comercio->idComercio) }}" class="btn btn-info me-1 w-80" title="Ver">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                            @endcan
 
-                                            <a href="{{ route('comercios.show', $comercio->idComercio) }}" class="btn btn-info me-1 w-80" title="Ver">
-                                                <i class="bi bi-eye"></i> Ver
-                                            </a>                             
+                                            @can('editar-comercio')
+                                                <a href="{{ route('comercios.edit', $comercio->idComercio) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                                    <i class="bi bi-exclamation-triangle"></i> Editar
+                                                </a>
+                                            @endcan
 
-                                            <!-- Botón Editar -->
-                                            <a href="{{ route('comercios.edit', $comercio->idComercio) }}" class="btn btn-warning me-1 w-80" title="Editar">
-                                                <i class="bi bi-exclamation-triangle"></i> Editar
-                                            </a>
-
-                                            <!-- Botón Eliminar -->
-                                            <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger w-100" title="Eliminar">
-                                                    <i class="bi bi-exclamation-octagon"></i> Eliminar
-                                                </button>
-                                            </form>
+                                            @can('borrar-comercio')
+                                                <form action="{{ route('comercios.destroy', $comercio->idComercio) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger w-100" title="Eliminar">
+                                                        <i class="bi bi-exclamation-octagon"></i> Eliminar
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
@@ -77,9 +82,7 @@
 
     <!-- Script para el SweetAlert en la eliminación -->
     <script>
-        // Esperar a que el DOM esté completamente cargado
         document.addEventListener('DOMContentLoaded', function () {
-            // Función para asignar el evento de confirmación a los formularios de eliminación
             function setDeleteEventListeners() {
                 document.querySelectorAll('.form-eliminar').forEach(form => {
                     form.addEventListener('submit', function(event) {
@@ -96,7 +99,6 @@
                             cancelButtonText: 'Cancelar'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Si el usuario confirma, se envía el formulario
                                 form.submit();
                             }
                         });
@@ -104,11 +106,7 @@
                 });
             }
 
-            // Asignar los eventos al cargar la página
             setDeleteEventListeners();
-
-            // Si estás haciendo algún tipo de actualización dinámica de la tabla, deberías
-            // llamar a setDeleteEventListeners() nuevamente después de actualizar la tabla
         });
     </script>
 @endsection

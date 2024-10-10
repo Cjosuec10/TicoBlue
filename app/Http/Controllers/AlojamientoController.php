@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class AlojamientoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ver-alojamiento|crear-alojamiento|editar-alojamiento|borrar-alojamiento', ['only' => ['index']]);
+        $this->middleware('permission:crear-alojamiento', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-alojamiento', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-alojamiento', ['only' => ['destroy']]);
+    }
+
+
     public function index()
     {
         $alojamientos = Alojamiento::all();

@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class ReservacionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ver-reservacion|crear-reservacion|editar-reservacion|borrar-reservacion', ['only' => ['index']]);
+        $this->middleware('permission:crear-reservacion', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-reservacion', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-reservacion', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $reservaciones = Reservacion::all(); // Obtener todas las reservaciones

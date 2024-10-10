@@ -10,9 +10,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
+                        @can('crear-alojamiento')
                         <a href="{{ route('alojamiento.create') }}" class="btn btn-success" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
+                        @endcan
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
@@ -36,11 +38,13 @@
                                         <td>
                                             <div class="d-flex">
                                                 <!-- Botón Editar -->
+                                                @can('editar-alojamiento')
                                                 <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning me-1 w-80" title="Editar">
                                                     <i class="bi bi-exclamation-triangle"></i> Editar
                                                 </a>
-
+                                                @endcan
                                                 <!-- Botón Eliminar -->
+                                                @can('borrar-alojamiento')
                                                 <form action="{{ route('alojamiento.destroy', $alojamiento->idAlojamiento) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
@@ -48,6 +52,7 @@
                                                         <i class="bi bi-exclamation-octagon"></i> Eliminar
                                                     </button>
                                                 </form>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class EventoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:ver-evento|crear-evento|editar-evento|borrar-evento', ['only' => ['index']]);
+        $this->middleware('permission:crear-evento', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-evento', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-evento', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $eventos = Evento::all();

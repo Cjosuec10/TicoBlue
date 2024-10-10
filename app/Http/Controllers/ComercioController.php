@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ComercioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ver-comercio|crear-comercio|editar-comercio|borrar-comercio', ['only' => ['index']]);
+        $this->middleware('permission:crear-comercio', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-comercio', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-comercio', ['only' => ['destroy']]);
+    }
     // Mostrar todos los comercios
     public function index()
     {
