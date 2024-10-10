@@ -12,6 +12,8 @@ Route::resource('eventos', EventoController::class);
 
 Route::resource('reservaciones', ReservacionController::class);
 
+Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
+
 
 
 Route::get('/', function () {

@@ -9,6 +9,9 @@ class Alojamiento extends Model
 {
     use HasFactory;
 
+       // Clave primaria de la tabla
+    protected $primaryKey = 'idAlojamiento';
+
     protected $table = 'alojamiento';
 
     protected $fillable = [

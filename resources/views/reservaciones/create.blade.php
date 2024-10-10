@@ -83,13 +83,13 @@
             </div>
         </div>
 
-    <!-- Selección de Alojamiento -->
-{{-- <div class="col-md-6">
+<!-- Selección de Alojamiento -->
+<div class="col-md-6">
     <label for="idAlojamiento_fk" class="form-label">Alojamiento (opcional)</label>
     <select class="form-select" id="idAlojamiento_fk" name="idAlojamiento_fk">
         <option selected disabled value="">Seleccione un alojamiento</option>
-        @foreach($alojamiento as $alojamientos)
-            <option value="{{ $alojamientos->idAlojamiento }}">{{ $alojamiento->nombreAlojamiento }}</option>
+        @foreach($alojamientos as $alojamiento)
+            <option value="{{ $alojamiento->idAlojamiento }}">{{ $alojamiento->nombreAlojamiento }}</option>
         @endforeach
     </select>
     <div class="invalid-feedback">
@@ -98,7 +98,8 @@
     <div class="valid-feedback">
         ¡Correcto!
     </div>
-</div> --}}
+</div>
+
 
 
         <button type="submit" class="btn btn-primary">Crear Reservación</button>
