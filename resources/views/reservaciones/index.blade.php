@@ -9,22 +9,21 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('reservaciones.create') }}" class="btn btn-success mb-3" title="Crear">
+                        <h5 class="card-title"></h5>
+                        @can('crear-reservacion')
+                        <a href="{{ route('reservaciones.create') }}" class="btn btn-success btn-sm" title="Crear">
                             <i class="bi bi-plus-circle"></i> Crear
                         </a>
+                        @endcan
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Fecha de Inicio</th>
                                         <th>Fecha de Fin</th>
-                                        <th>Usuario</th>
-                                        <th>Correo</th>
-                                        <th>Teléfono</th>
                                         <th>Comercio</th>
                                         <th>Evento</th>
-                                        <th>Alojamiento</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -34,30 +33,30 @@
                                             <td>{{ $reservacion->idReservacion }}</td>
                                             <td>{{ $reservacion->fechaInicio }}</td>
                                             <td>{{ $reservacion->fechaFin }}</td>
-                                            <td>{{ $reservacion->nombreUsuarioReservacion }}</td>
-                                            <td>{{ $reservacion->correoUsuarioReservacion }}</td>
-                                            <td>{{ $reservacion->telefonoUsuarioReservacion }}</td>
                                             <td>{{ $reservacion->comercio->nombreComercio ?? 'N/A' }}</td>
                                             <td>{{ $reservacion->evento->nombreEvento ?? 'N/A' }}</td>
-                                            <td>{{ $reservacion->alojamiento->nombreAlojamiento ?? 'N/A' }}</td>
-
                                             <td>
                                                 <div class="d-flex">
                                                     <!-- Botón Ver -->
-                                                    <a href="{{ route('reservaciones.show', $reservacion->idReservacion) }}" class="btn btn-info me-1" title="Ver">
+                                                    @can('ver-reservacion')
+                                                    <a href="{{ route('reservaciones.show', $reservacion->idReservacion) }}" class="btn btn-info btn-sm me-1 w-80"  title="Ver">
                                                         <i class="bi bi-eye"></i> Ver
                                                     </a>
-                                                    <a href="{{ route('reservaciones.edit', $reservacion->idReservacion) }}" class="btn btn-warning me-1" title="Editar">
+                                                    @endcan
+                                                    @can('editar-reservacion')
+                                                    <a href="{{ route('reservaciones.edit', $reservacion->idReservacion) }}" class="btn btn-warning btn-sm me-1 w-80"  title="Editar">
                                                         <i class="bi bi-pencil"></i> Editar
                                                     </a>
+                                                    @endcan
+                                                    @can('borrar-reservacion')
                                                     <form action="{{ route('reservaciones.destroy', $reservacion->idReservacion) }}" method="POST" class="form-eliminar" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger" title="Eliminar">
+                                                        <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
                                                             <i class="bi bi-trash"></i> Eliminar
                                                         </button>
                                                     </form>
-
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

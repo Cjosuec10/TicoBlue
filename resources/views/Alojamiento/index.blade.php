@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         @can('crear-alojamiento')
-                        <a href="{{ route('alojamiento.create') }}" class="btn btn-success" title="Crear">
+                        <a href="{{ route('alojamiento.create') }}" class="btn btn-success btn-sm" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
                         @endcan
@@ -19,7 +19,7 @@
                             <table class="table datatable">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>#</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
                                     <th>Precio</th>
@@ -39,16 +39,16 @@
                                             <div class="d-flex">
                                                 <!-- Botón Editar -->
                                                 @can('editar-alojamiento')
-                                                <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                                <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
                                                     <i class="bi bi-exclamation-triangle"></i> Editar
                                                 </a>
                                                 @endcan
                                                 <!-- Botón Eliminar -->
                                                 @can('borrar-alojamiento')
-                                                <form action="{{ route('alojamiento.destroy', $alojamiento->idAlojamiento) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
+                                                <form action="{{ route('alojamiento.destroy', $alojamiento->idAlojamiento) }}" method="POST" class="form-eliminar btn-sm me-1 w-80" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger w-100" title="Eliminar">
+                                                    <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
                                                         <i class="bi bi-exclamation-octagon"></i> Eliminar
                                                     </button>
                                                 </form>

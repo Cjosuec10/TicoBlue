@@ -10,19 +10,20 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title"></h5>
+                @can('crear-producto')
                 <a href="{{ route('productos.create') }}" class="btn btn-success btn-sm" title="Crear">
                     <i class="bi bi-check-circle"></i> Crear 
                 </a> 
+                @endcan
                 <div class="table-responsive">               
                     <table class="table datatable">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
                             <th>Precio</th>
-                            <th>Categoría</th>
                             <th>Comercio</th>
+                            <th>Imagen</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -31,22 +32,32 @@
                             <tr>
                                 <td>{{ $producto->idProducto }}</td>
                                 <td>{{ $producto->nombreProducto }}</td>
-                                <td>{{ $producto->descripcionProducto }}</td>
                                 <td>{{ $producto->precioProducto }}</td>
-                                <td>{{ $producto->categoria }}</td>
                                 <td>{{ $producto->comercio->nombreComercio }}</td> <!-- Relación con comercio -->
+                                <td>
+                                    @if ($producto->imagen)
+                                        <img src="{{asset($producto->imagen)}}" alt="{{$producto->nombreComercio}}" class="img-fluid" width="120px">
+                                    @else
+                                        <span>No disponible</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex">
                                          <!-- Botón Ver -->
+                                         @can('ver-producto')
                                         <a href="{{ route('productos.show', $producto->idProducto) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
                                             <i class="bi bi-eye"></i> Ver
                                         </a>
+                                        @endcan
                                         <!-- Botón Editar -->
+                                        @can('editar-producto')
                                         <a href="{{ route('productos.edit', $producto->idProducto) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
                                             <i class="bi bi-exclamation-triangle"></i> Editar
                                         </a>
+                                        @endcan
                                 
                                         <!-- Botón Eliminar -->
+                                        @can('borrar-producto')
                                         <form action="{{ route('productos.destroy', $producto->idProducto) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -54,6 +65,7 @@
                                                 <i class="bi bi-exclamation-octagon"></i> Eliminar
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>                     
                             </tr>

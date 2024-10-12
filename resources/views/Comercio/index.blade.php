@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         @can('crear-comercio')
-                        <a href="{{ route('comercios.create') }}" class="btn btn-success" title="Crear">
+                        <a href="{{ route('comercios.create') }}" class="btn btn-success btn-sm" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
                         @endcan
@@ -22,8 +22,7 @@
                                         <th>Nombre</th>
                                         <th>Tipo de Negocio</th>
                                         <th>Teléfono</th>
-                                        <th>Imagen</th>
-                                        <th>Dirección Texto</th>
+                                        <th>Imagen</th>                                       
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -41,7 +40,6 @@
                                             <span>No disponible</span>
                                         @endif
                                     </td>
-                                    <td>{{ $comercio->direccion_texto ?? 'No disponible' }}</td>
                                     <td>
                                         <div class="d-flex">
                                             @can('ver-comercio')

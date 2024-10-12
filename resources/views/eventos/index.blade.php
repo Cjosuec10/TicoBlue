@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         @can('crear-evento')
-                        <a href="{{ route('eventos.create') }}" class="btn btn-success mb-3" title="Crear">
+                        <a href="{{ route('eventos.create') }}" class="btn btn-success btn-sm" title="Crear">
                             <i class="bi bi-plus-circle"></i> Crear
                         </a>
                         @endcan
@@ -18,12 +18,9 @@
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Nombre</th>
                                         <th>Tipo de Evento</th>
-                                        <th>Correo</th>
-                                        <th>Teléfono</th>
-                                        <th>Dirección</th>
                                         <th>Comercio</th>
                                         <th>Imagen</th>
                                         <th>Acciones</th>
@@ -35,9 +32,6 @@
                                             <td>{{ $evento->idEvento }}</td>
                                             <td>{{ $evento->nombreEvento }}</td>
                                             <td>{{ $evento->tipoEvento }}</td>
-                                            <td>{{ $evento->correoEvento }}</td>
-                                            <td>{{ $evento->telefonoEvento }}</td>
-                                            <td>{{ $evento->direccionEvento }}</td>
                                             <td>{{ $evento->comercio->nombreComercio }}</td>
                                             <td>
                                                 <img src="{{asset($evento->imagen)}}" alt="{{$evento->imagen}}" class="img-fluid" width="120px">

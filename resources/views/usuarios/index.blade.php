@@ -9,14 +9,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"></h5>
-                        <a href="{{ route('usuarios.create') }}" class="btn btn-success" title="Crear">
+                        @can('crear-usuario')
+                        <a href="{{ route('usuarios.create') }}" class="btn btn-success btn-sm" title="Crear">
                             <i class="bi bi-check-circle"></i> Crear
                         </a>
+                        @endcan
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Nombre</th>
                                         <th>Correo</th>
                                         <th>Teléfono</th>
@@ -33,23 +35,27 @@
                                     <td>
                                         <div class="d-flex">
                                             <!-- Botón Ver -->
-                                            <a href="{{ route('usuarios.show', $usuario->idUsuario) }}" class="btn btn-info me-1 w-80" title="Ver">
+                                            @can('ver-usuario')
+                                            <a href="{{ route('usuarios.show', $usuario->idUsuario) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
                                                 <i class="bi bi-eye"></i> Ver
                                             </a>                             
-
+                                            @endcan
                                             <!-- Botón Editar -->
-                                            <a href="{{ route('usuarios.edit', $usuario->idUsuario) }}" class="btn btn-warning me-1 w-80" title="Editar">
+                                            @can('editar-usuario')
+                                            <a href="{{ route('usuarios.edit', $usuario->idUsuario) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
                                                 <i class="bi bi-exclamation-triangle"></i> Editar
                                             </a>
-
+                                            @endcan
                                             <!-- Botón Eliminar -->
+                                            @can('borrar-usuario')
                                             <form action="{{ route('usuarios.destroy', $usuario->idUsuario) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger w-100" title="Eliminar">
+                                                <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
                                                     <i class="bi bi-exclamation-octagon"></i> Eliminar
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
