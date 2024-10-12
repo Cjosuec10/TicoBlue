@@ -28,20 +28,16 @@
                     <label for="tipoNegocio" class="form-label">Tipo de Negocio</label>
                     <select class="form-select" id="tipoNegocio" name="tipoNegocio" required>
                         <option selected disabled value="">Seleccione el tipo de negocio</option>
-                        <option value="Alimentación y Bebidas">Alimentación y Bebidas</option>
-                        <option value="Salud y Belleza">Salud y Belleza</option>
-                        <option value="Moda y Accesorios">Moda y Accesorios</option>
-                        <option value="Hogar y Decoración">Hogar y Decoración</option>
-                        <option value="Tecnología y Electrónica">Tecnología y Electrónica</option>
-                        <option value="Servicios">Servicios</option>
-                        <option value="Deportes y Ocio">Deportes y Ocio</option>
-                        <option value="Automoción">Automoción</option>
-                        <option value="Arte y Entretenimiento">Arte y Entretenimiento</option>
+                        <option value="Soda">Soda</option>
+                        <option value="Restaurante">Restaurante</option>
+                        <option value="Cafeterías">Cafeterías</option>
+                        <option value="Mercadoslocales">Mercados locales</option>
+                        <option value="Tiendasdeartesanías">Tiendas de artesanías</option>
+                        <option value="Talleres">Talleres</option>
+                        <option value="DeportesyOcio">Deportes y Ocio</option>
+                        <option value="alojamientosalojamientos">alojamientos alojamientos</option>
+                        <option value="ArteyEntretenimiento">Arte y Entretenimiento</option>
                         <option value="Educación">Educación</option>
-                        <option value="Mascotas y Animales">Mascotas y Animales</option>
-                        <option value="Jardinería y Agricultura">Jardinería y Agricultura</option>
-                        <option value="Construcción e Inmobiliaria">Construcción e Inmobiliaria</option>
-                        <option value="Juguetes y Niños">Juguetes y Niños</option>
                         <option value="Otros">Otros</option>
                     </select>
                     <div class="invalid-feedback">
