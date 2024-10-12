@@ -59,21 +59,35 @@
                 </div>
 
                 <!-- Selección de Usuario -->
-                <div class="col-md-6">
-                    <label for="idUsuario_fk" class="form-label">Usuario</label>
-                    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
-                        <option selected disabled value="">Seleccione un usuario</option>
-                        @foreach($usuarios as $usuario)
-                            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">
-                        Por favor, seleccione un usuario.
-                    </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
-                </div>
+          <!-- Selección de Usuario -->
+<div class="col-md-6">
+    <label for="idUsuario_fk" class="form-label">Usuario</label>
+    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
+        <option selected disabled value="">Seleccione un usuario</option>
+        @foreach($usuarios as $usuario)
+            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
+        @endforeach
+    </select>
+    <div class="invalid-feedback">
+        Por favor, seleccione un usuario.
+    </div>
+    <div class="valid-feedback">
+        ¡Correcto!
+    </div>
+</div>
+
+<!-- Selección de Comercio -->
+<div class="col-md-6">
+    <label for="idComercio_fk" class="form-label">Comercio</label>
+    <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
+        <option selected disabled value="">Seleccione un comercio</option>
+        @foreach($comercios as $comercio)
+            <option value="{{ $comercio->idComercio }}">{{ $comercio->nombreComercio }}</option>
+        @endforeach
+    </select>
+    <div class="invalid-feedback">Por favor, seleccione un comercio.</div>
+</div>
+
 
                 <!-- Botón para Enviar -->
                 <div class="col-12 d-flex justify-content-center gap-2">

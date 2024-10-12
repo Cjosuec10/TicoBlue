@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alojamiento;
-use App\Models\Usuario;  // Asegúrate de importar el modelo Usuario
+use App\Models\Usuario; // Asegúrate de que este modelo también esté importado
+use App\Models\Comercio; // Importa el modelo Comercio
 use Illuminate\Http\Request;
 
 class AlojamientoController extends Controller
@@ -24,48 +25,66 @@ class AlojamientoController extends Controller
     }
 
     public function create()
-    {
-        // Recupera la lista de usuarios y pásala a la vista
-        $usuarios = Usuario::all();
-        return view('alojamiento.create', compact('usuarios'));
-    }
+{
+    $usuarios = Usuario::all(); // Obtiene todos los usuarios
+    $comercios = Comercio::all(); // Obtiene todos los comercios
+    return view('alojamiento.create', compact('usuarios', 'comercios'));
+}
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
+            'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
-            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idComercio_fk' => 'required|exists:comercios,idComercio', // Asegúrate de que este campo esté presente
+            'idUsuario_fk' => 'required|exists:usuarios,idUsuario', // Asegúrate de que este campo también esté presente
         ]);
 
-        Alojamiento::create($request->all());
+        Alojamiento::create($validatedData);
+
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento creado con éxito.');
     }
 
-    public function edit(Alojamiento $alojamiento)
+    // Mostrar un alojamiento en particular
+    public function show($id)
     {
-        // Recupera la lista de usuarios para el campo de selección y pasa el alojamiento
-        $usuarios = Usuario::all();
-        return view('alojamiento.edit', compact('alojamiento', 'usuarios'));
+        $alojamiento = Alojamiento::findOrFail($id);
+        return view('alojamiento.show', compact('alojamiento')); // Cambié 'alojamientos.show' por 'alojamiento.show'
     }
 
-    public function update(Request $request, Alojamiento $alojamiento)
+    // Mostrar el formulario para editar un alojamiento
+    public function edit($id)
     {
-        $request->validate([
+        $alojamiento = Alojamiento::findOrFail($id);
+        $usuarios = Usuario::all(); // Asegúrate de obtener usuarios para la vista de edición
+        return view('alojamiento.edit', compact('alojamiento', 'usuarios')); // Cambié 'alojamientos.edit' por 'alojamiento.edit'
+    }
+
+    // Actualizar un alojamiento existente
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
+            'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
-            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idComercio_fk' => 'required|exists:comercios,idComercio'
         ]);
 
-        $alojamiento->update($request->all());
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.');
+        $alojamiento = Alojamiento::findOrFail($id);
+        $alojamiento->update($validatedData);
+
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
     }
 
-    public function destroy(Alojamiento $alojamiento)
+    // Eliminar un alojamiento
+    public function destroy($id)
     {
+        $alojamiento = Alojamiento::findOrFail($id);
         $alojamiento->delete();
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
+
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
     }
 }
