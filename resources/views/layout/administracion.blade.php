@@ -157,7 +157,6 @@
         </a>
       </li><!-- End Módulo #6 Nav -->
 
-    
 
     </ul>
     @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->

@@ -25,7 +25,7 @@
                 <!-- Tipo de Negocio -->
                 <div class="col-md-6">
                     <label for="tipoNegocio" class="form-label">Tipo de Negocio</label>
-                    <select class="form-select" id="tipoNegocio" name="tipoNegocio" required>
+                    <select class="form-select" id="tipoNegocio" name="tipoNegocio" required
                         <option disabled value="">Seleccione el tipo de negocio</option>
                         <option value="Alimentación y Bebidas" {{ $comercio->tipoNegocio == 'Alimentación y Bebidas' ? 'selected' : '' }}>Alimentación y Bebidas</option>
                         <option value="Salud y Belleza" {{ $comercio->tipoNegocio == 'Salud y Belleza' ? 'selected' : '' }}>Salud y Belleza</option>
