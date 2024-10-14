@@ -97,70 +97,85 @@
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+  <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin">
-          <i class="bi bi-grid"></i>
-          <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Dashboard Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/admin">
+        <i class="bi bi-grid"></i>
+        <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
+      </a>
+    </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/comercios">
-            <i class="bi bi-gem"></i><span data-translate="commerceModule">Módulo de Comercios</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Módulo #1 Nav -->
+    @can('ver-comercio')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/comercios">
+          <i class="bi bi-shop"></i><span data-translate="commerceModule">Módulo de Comercios</span> <!-- Usé un ícono de tienda -->
+      </a>
+    </li><!-- End Módulo de Comercios Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/productos">
-          <i class="bi bi-gem"></i><span data-translate="productModule">Módulo de Productos</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Módulo #2 Nav -->
+    @can('ver-producto')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/productos">
+        <i class="bi bi-box-seam"></i><span data-translate="productModule">Módulo de Productos</span> <!-- Usé un ícono de caja -->
+      </a>
+    </li><!-- End Módulo de Productos Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/eventos">
-            <i class="bi bi-gem"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Módulo #3 Nav -->
+    @can('ver-evento')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/eventos">
+          <i class="bi bi-calendar-event"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Usé un ícono de evento -->
+      </a>
+    </li><!-- End Módulo de Eventos Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/alojamiento">
-          <i class="bi bi-gem"></i><span data-translate="accommodation">Módulo de Alojamiento</span>
-        </a>
-      </li><!-- End Módulo #4 Nav -->
+    @can('ver-alojamiento')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/alojamiento">
+        <i class="bi bi-house-door"></i><span data-translate="accommodation">Módulo de Alojamiento</span> <!-- Usé un ícono de casa -->
+      </a>
+    </li><!-- End Módulo de Alojamiento Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/reservaciones">
-          <i class="bi bi-gem"></i><span data-translate="reserves">Módulo de Reservas</span>
-        </a>
-      </li><!-- End Módulo #5 Nav -->
+    @can('ver-reservacion')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/reservaciones">
+        <i class="bi bi-bookmark-check"></i><span data-translate="reserves">Módulo de Reservas</span> <!-- Usé un ícono de reserva/marcador -->
+      </a>
+    </li><!-- End Módulo de Reservas Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span data-translate="images">Imagenes(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-      </li><!-- End Módulo #6 Nav -->
+    @can('ver-imagen')
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-image"></i><span data-translate="images">Imagenes(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i> <!-- Usé un ícono de imagen -->
+      </a>
+    </li><!-- End Módulo de Imágenes Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/usuarios">
-          <i class="bi bi-gem"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Módulo #7 Nav -->
+    @can('ver-usuario')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/usuarios">
+        <i class="bi bi-person"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Usé un ícono de persona -->
+      </a>
+    </li><!-- End Módulo de Usuarios Nav -->
+    @endcan
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/roles">
-          <i class="bi bi-gem"></i><span data-translate="roles">Módulo de Roles</span> <!-- Marcado para traducción -->
-        </a>
-      </li><!-- End Módulo #6 Nav -->
+    @can('ver-rol')
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/roles">
+        <i class="bi bi-shield-lock"></i><span data-translate="roles">Módulo de Roles</span> <!-- Usé un ícono de escudo para roles/permisos -->
+      </a>
+    </li><!-- End Módulo de Roles Nav -->
+    @endcan
 
-
-    </ul>
-    @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
-  </aside><!-- End Sidebar-->
+  </ul>
+  @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
     <section class="section dashboard">
