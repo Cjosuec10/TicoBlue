@@ -12,8 +12,13 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\LanguageController;
 
-Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
-
+// Rutas públicas (accesibles sin autenticación)
+Route::view('/Alojamientos', 'frontend.alojamientos')->name('alojamientos');
+Route::view('/Comercios', 'frontend.comercios')->name('comercios');
+Route::view('/Contacto', 'frontend.contacto')->name('contacto');
+Route::view('/Eventos', 'frontend.eventos')->name('eventos');
+Route::view('/Productos', 'frontend.productos')->name('productos');
+Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
 
 // Rutas de autenticación
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -25,7 +30,8 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register'])->name('register');
 
 // Rutas protegidas por autenticación
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function () {
+    // Recursos CRUD protegidos
     Route::resource('comercios', ComercioController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('eventos', EventoController::class);
@@ -33,21 +39,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('alojamiento', AlojamientoController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('roles', RolController::class);
-
-    Route::get('/set-language/{lang}', function ($lang) {
-        // Guarda el idioma en la sesión
-        session(['locale' => $lang]);
     
-        // Redirige de vuelta a la página anterior
-        return redirect()->back();
+    // Eliminar una reservación
+    Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
+
+    // Ruta para cambiar el idioma
+    Route::get('/set-language/{lang}', function ($lang) {
+        session(['locale' => $lang]); // Guarda el idioma en la sesión
+        return redirect()->back(); // Redirige de vuelta a la página anterior
     })->name('set.language');
 
-    Route::get('/admin', function () {
-        return view('admin.admin');
-    })->name('admin'); 
+    // Vista del panel de administración
+    Route::view('/admin', 'admin.admin')->name('admin');
 });
 
-// Ruta principal
+// Ruta principal (home)
 Route::get('/', function () {
     return view('welcome');
-});
+});// Ruta principal (home)
+

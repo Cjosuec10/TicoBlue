@@ -33,7 +33,7 @@ class LoginController extends Controller
     
             // Regenerar la sesión y redirigir
             $request->session()->regenerate();
-            return redirect()->intended(route('admin'))->with('success', 'Inicio de sesión exitoso.');
+            return redirect()->intended('/')->with('success', 'Inicio de sesión exitoso.');
         }
     
         // Si la autenticación falla

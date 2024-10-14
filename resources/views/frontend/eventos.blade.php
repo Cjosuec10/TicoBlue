@@ -1,68 +1,28 @@
-@extends('layout.inicio')
 
-@section('title', 'Inicio')
+  @extends('layout.inicio')
 
-@section('content')
-<main class="main">
+  @section('title', 'eventos')
+  
+  @section('content')
+   
+  <main class="main">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-
-      <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-
-        <div class="carousel-item active">
-          <img src="assets/img/hero_1.jpg" alt="">
-          <div class="carousel-container">
-            <h2>Farming is the best solution of worlds starvation</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero_2.jpg" alt="">
-          <div class="carousel-container">
-            <h2>Organic vegetables is good for health</h2>
-            <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.</p>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero_3.jpg" alt="">
-          <div class="carousel-container">
-            <h2>Providing Fresh Produce Every Single Day</h2>
-            <p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero_4.jpg" alt="">
-          <div class="carousel-container">
-            <h2>Farming as a Passione</h2>
-            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius.</p>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <div class="carousel-item">
-          <img src="assets/img/hero_5.jpg" alt="">
-          <div class="carousel-container">
-            <h2>Good Food For All</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div><!-- End Carousel Item -->
-
-        <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
-
-        <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
-
-        <ol class="carousel-indicators"></ol>
-
+    <!-- Page Title -->
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
+      <div class="container position-relative">
+        <h1>Services</h1>
+        <p>
+          Home
+          /
+          Services</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Services</li>
+          </ol>
+        </nav>
       </div>
-
-    </section><!-- /Hero Section -->
+    </div><!-- End Page Title -->
 
     <!-- Services Section -->
     <section id="services" class="services section">
@@ -291,169 +251,6 @@
       </div>
     </section><!-- /About Section -->
 
-    <!-- About 3 Section -->
-    <section id="about-3" class="about-3 section">
-
-      <div class="container">
-        <div class="row gy-4 justify-content-between align-items-center">
-          <div class="col-lg-6 order-lg-2 position-relative" data-aos="zoom-out">
-            <img src="assets/img/img_sq_1.jpg" alt="Image" class="img-fluid">
-            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox pulsating-play-btn">
-              <span class="play"><i class="bi bi-play-fill"></i></span>
-            </a>
-          </div>
-          <div class="col-lg-5 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-            <h2 class="content-title mb-4">Plants Make Life Better</h2>
-            <p class="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-              necessitatibus placeat, atque qui voluptatem velit explicabo vitae
-              repellendus architecto provident nisi ullam minus asperiores commodi!
-              Tenetur, repellat aliquam nihil illo.
-            </p>
-            <ul class="list-unstyled list-check">
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Velit explicabo vitae repellendu</li>
-              <li>Repellat aliquam nihil illo</li>
-            </ul>
-
-            <p><a href="#" class="btn-cta">Get in touch</a></p>
-          </div>
-        </div>
-      </div>
-    </section><!-- /About 3 Section -->
-
-    <!-- Services 2 Section -->
-    <section id="services-2" class="services-2 section dark-background">
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Necessitatibus eius consequatur</p>
-      </div><!-- End Section Title -->
-
-      <div class="services-carousel-wrap">
-        <div class="container">
-          <div class="swiper init-swiper">
-            <script type="application/json" class="swiper-config">
-              {
-                "loop": true,
-                "speed": 600,
-                "autoplay": {
-                  "delay": 5000
-                },
-                "slidesPerView": "auto",
-                "pagination": {
-                  "el": ".swiper-pagination",
-                  "type": "bullets",
-                  "clickable": true
-                },
-                "navigation": {
-                  "nextEl": ".js-custom-next",
-                  "prevEl": ".js-custom-prev"
-                },
-                "breakpoints": {
-                  "320": {
-                    "slidesPerView": 1,
-                    "spaceBetween": 40
-                  },
-                  "1200": {
-                    "slidesPerView": 3,
-                    "spaceBetween": 40
-                  }
-                }
-              }
-            </script>
-            <button class="navigation-prev js-custom-prev">
-              <i class="bi bi-arrow-left-short"></i>
-            </button>
-            <button class="navigation-next js-custom-next">
-              <i class="bi bi-arrow-right-short"></i>
-            </button>
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Planting</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_1.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Mulching</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_3.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Watering</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_8.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Fertilizing</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_4.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Harvesting</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_5.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Mowing</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_6.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="service-item">
-                  <div class="service-item-contents">
-                    <a href="#">
-                      <span class="service-item-category">We do</span>
-                      <h2 class="service-item-title">Seeding Plants</h2>
-                    </a>
-                  </div>
-                  <img src="assets/img/img_sq_8.jpg" alt="Image" class="img-fluid">
-                </div>
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </div>
-    </section><!-- /Services 2 Section -->
-
     <!-- Testimonials Section -->
     <section class="testimonials-12 testimonials section" id="testimonials">
       <!-- Section Title -->
@@ -522,118 +319,6 @@
       </div>
     </section><!-- /Testimonials Section -->
 
-    <!-- Recent Posts Section -->
-    <section id="recent-posts" class="recent-posts section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Recent Posts</h2>
-        <p>Necessitatibus eius consequatur</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-5">
-
-          <div class="col-xl-4 col-md-6">
-            <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-1.jpg" class="img-fluid" alt="">
-                <span class="post-date">December 12</span>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Eum ad dolor et. Autem aut fugiat debitis</h3>
-
-                <div class="meta d-flex align-items-center">
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
-                  </div>
-                  <span class="px-3 text-black-50">/</span>
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
-                  </div>
-                </div>
-
-                <hr>
-
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </div>
-          </div><!-- End post item -->
-
-          <div class="col-xl-4 col-md-6">
-            <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="200">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-2.jpg" class="img-fluid" alt="">
-                <span class="post-date">July 17</span>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Et repellendus molestiae qui est sed omnis</h3>
-
-                <div class="meta d-flex align-items-center">
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-person"></i> <span class="ps-2">Mario Douglas</span>
-                  </div>
-                  <span class="px-3 text-black-50">/</span>
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">Sports</span>
-                  </div>
-                </div>
-
-                <hr>
-
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </div>
-          </div><!-- End post item -->
-
-          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="post-item position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt="">
-                <span class="post-date">September 05</span>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Quia assumenda est et veritati tirana ploder</h3>
-
-                <div class="meta d-flex align-items-center">
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-person"></i> <span class="ps-2">Lisa Hunter</span>
-                  </div>
-                  <span class="px-3 text-black-50">/</span>
-                  <div class="d-flex align-items-center">
-                    <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
-                  </div>
-                </div>
-
-                <hr>
-
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </div>
-          </div><!-- End post item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Recent Posts Section -->
-
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section light-background">
 
@@ -666,4 +351,4 @@
     </section><!-- /Call To Action Section -->
 
   </main>
-@endsection
+  @endsection
