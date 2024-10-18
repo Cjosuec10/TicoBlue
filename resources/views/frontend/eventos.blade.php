@@ -6,8 +6,38 @@
   @section('content')
    
   <main class="main">
+  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-    <!-- Page Title -->
+  <!-- Page Title -->
+<h1 style="text-align:center;">Lista de Eventos</h1>
+
+@if($evento->isEmpty())
+    <p>No hay eventos disponibles.</p>
+@else
+    <div class="eventos-container">
+        @foreach($evento as $ev)
+            <div class="evento-card">
+                <!-- Mostrar la imagen si está disponible -->
+                @if($ev->imagen)
+                    <img src="{{ asset($ev->imagen) }}" alt="{{ $ev->nombreEvento }}">
+                @else
+                    <p>No hay imagen disponible.</p>
+                @endif
+
+                <h3>{{ $ev->nombreEvento }}</h3>
+                <p>{{ $ev->descripcionEvento }}</p>
+                <p><strong>Correo:</strong> {{ $ev->correoEvento }}</p>
+                <p><strong>Teléfono:</strong> {{ $ev->telefonoEvento }}</p>
+                <p><strong>Dirección:</strong> {{ $ev->direccionEvento }}</p>
+
+                <!-- Botón de Ver -->
+                <a href="#S" class="btn-ver">Ver</a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+
     <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
       <div class="container position-relative">
         <h1>Services</h1>
@@ -23,7 +53,20 @@
         </nav>
       </div>
     </div><!-- End Page Title -->
+    
+    
+    
+ 
 
+    
+
+
+
+
+
+ 
+
+   
     <!-- Services Section -->
     <section id="services" class="services section">
 

@@ -117,4 +117,14 @@ return redirect()->route('eventos.index')->with('success', 'Evento creado exitos
         $evento->delete();
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado exitosamente.');
     }
+
+
+    public function mostrarInformacionEventos()
+    {
+        // Obtener todos los eventos
+        $evento = Evento::all();
+        
+        // Pasar los eventos a la vista
+        return view('frontend.eventos', compact('evento'));
+    }
 }

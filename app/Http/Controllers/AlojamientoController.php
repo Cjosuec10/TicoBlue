@@ -87,4 +87,14 @@ class AlojamientoController extends Controller
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
     }
+
+    public function mostrarAlojamientos()
+    {
+        // Obtener todos los alojamientos
+        $alojamientos = Alojamiento::all();
+        
+        // Pasar los alojamientos a la vista
+        return view('frontend.alojamientos', compact('alojamientos'));
+    }
+
 }

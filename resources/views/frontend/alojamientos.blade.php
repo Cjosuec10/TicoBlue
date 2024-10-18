@@ -6,6 +6,38 @@
   @section('content')
   
   <main class="main">
+  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
+  <h1 style="text-align:center;">Lista de Alojamientos</h1>
+
+
+  @if($alojamientos->isEmpty())
+    <p>No hay alojamientos disponibles.</p>
+@else
+    <div class="alojamientos-container">
+        @foreach($alojamientos as $aloja)
+            <div class="alojamiento-card">
+                <!-- Si hay imagen, mostrarla -->
+                @if($aloja->imagen)
+                    <img src="{{ asset($aloja->imagen) }}" alt="{{ $aloja->nombreAlojamiento }}">
+                @else
+                    <img src="{{ asset('assets/img/default-image.jpg') }}" alt="Imagen no disponible">
+                @endif
+
+                <h3>{{ $aloja->nombreAlojamiento }}</h3>
+                <p>{{ $aloja->descripcionAlojamiento }}</p>
+                <p class="precio">Precio: {{ $aloja->precioAlojamiento }} USD</p>
+                <p>Capacidad: {{ $aloja->capacidad }} personas</p>
+                <p>ID Comercio: {{ $aloja->idComercio_fk }}</p>
+
+                <!-- Botón de Ver -->
+                <a href="#" class="btn-ver">Ver</a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
+
 
     <!-- Page Title -->
     <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
@@ -20,6 +52,12 @@
         </nav>
       </div>
     </div><!-- End Page Title -->
+    
+
+
+
+
+
 
     <div class="container">
       <div class="row">

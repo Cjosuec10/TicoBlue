@@ -19,6 +19,8 @@ Route::view('/Contacto', 'frontend.contacto')->name('contacto');
 Route::view('/Eventos', 'frontend.eventos')->name('eventos');
 Route::view('/Productos', 'frontend.productos')->name('productos');
 Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
+Route::get('/Eventos', [EventoController::class, 'mostrarInformacionEventos'])->name('eventos');
+Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarAlojamientos'])->name('alojamientos');
 
 // Rutas de autenticación
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

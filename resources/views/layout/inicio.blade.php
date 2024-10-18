@@ -48,6 +48,7 @@
           <li><a href="/Alojamientos" class="{{ request()->is('alojamientos') ? 'active' : '' }}">Alojamientos</a></li>
           <li><a href="/Sobre-nosotros" class="{{ request()->is('sobre-nosotros') ? 'active' : '' }}">Sobre Nosotros</a></li>
           <li><a href="/Contacto" class="{{ request()->is('contacto') ? 'active' : '' }}">Contacto</a></li>
+          
           <!-- Verificar si el usuario tiene uno o varios de los permisos -->
             @canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
               <li class="dropdown">
