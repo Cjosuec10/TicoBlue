@@ -17,7 +17,7 @@ Route::view('/Alojamientos', 'frontend.alojamientos')->name('alojamientos');
 Route::view('/Comercios', 'frontend.comercios')->name('comercios');
 Route::view('/Contacto', 'frontend.contacto')->name('contacto');
 Route::view('/Eventos', 'frontend.eventos')->name('eventos');
-Route::view('/Productos', 'frontend.productos')->name('productos');
+Route::get('/Productos', [ProductoController::class, 'mostrarInformacionProductos'])->name('productos');
 Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
 
 // Rutas de autenticación
@@ -28,6 +28,11 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Rutas de registro
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
+
+
+//rutas busqueda
+Route::get('/buscar-productos', [ProductoController::class, 'buscar'])->name('buscar.productos');
+
 
 // Rutas protegidas por autenticación
 Route::middleware('auth')->group(function () {
