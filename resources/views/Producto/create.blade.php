@@ -47,17 +47,38 @@
                     </div>
                 </div>
 
-                <!-- Categoría del Producto -->
-                <div class="col-md-6">
-                    <label for="categoria" class="form-label">Categoría del Producto</label>
-                    <input type="text" class="form-control" id="categoria" name="categoria" required>
-                    <div class="invalid-feedback">
-                        Por favor, ingrese una categoría.
-                    </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
-                </div>
+               <!-- Categoría del Producto -->
+<div class="col-md-6">
+    <label for="categoria" class="form-label">Categoría del Producto</label>
+    <select class="form-select" id="categoria" name="categoria" required>
+        <option selected disabled value="">Seleccione una categoría</option>
+        <option value="Ropa">Ropa</option>
+        <option value="Electrónica">Electrónica</option>
+        <option value="Hogar">Hogar</option>
+        <option value="Juguetes">Juguetes</option>
+        <option value="Libros">Libros</option>
+        <option value="Deportes">Deportes</option>
+        <option value="Salud y Belleza">Salud y Belleza</option>
+        <option value="Automóviles">Automóviles</option>
+        <option value="Joyería">Joyería</option>
+        <option value="Alimentos y Bebidas">Alimentos y Bebidas</option>
+        <option value="Muebles">Muebles</option>
+        <option value="Mascotas">Mascotas</option>
+        <option value="Accesorios">Accesorios</option>
+        <option value="Herramientas">Herramientas</option>
+        <option value="Hospedaje">Hospedaje</option>
+        <option value="Jardinería">Jardinería</option>
+        <option value="Videojuegos">Videojuegos</option>
+        <option value="Instrumentos Musicales">Instrumentos Musicales</option>
+    </select>
+    <div class="invalid-feedback">
+        Por favor, seleccione una categoría.
+    </div>
+    <div class="valid-feedback">
+        ¡Correcto!
+    </div>
+</div>
+
 
                 <!-- Comercio asociado -->
                 <div class="col-md-6">
