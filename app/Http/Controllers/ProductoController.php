@@ -41,20 +41,22 @@ class ProductoController extends Controller
     
 
     public function buscar(Request $request)
-{
-    $query = $request->input('q');
-
-    // Filtrar productos por nombre o descripción y paginar
-    $productos = Producto::where('nombreProducto', 'LIKE', "%{$query}%")
-                         ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
-                         ->paginate(8); // Asegúrate de usar paginación
-
-    // Retornar productos con paginación en la respuesta JSON
-    return response()->json([
-        'productos' => $productos->items(),
-        'pagination' => (string) $productos->links('pagination::bootstrap-4'),
-    ]);
-}
+    {
+        $query = $request->input('q');
+    
+        // Filtrar productos por nombre o descripción y cargar la relación comercio
+        $productos = Producto::with('comercio') // Asegura que la relación comercio esté cargada
+                             ->where('nombreProducto', 'LIKE', "%{$query}%")
+                             ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
+                             ->paginate(8); // Paginación con 8 productos
+    
+        // Retornar productos con paginación en la respuesta JSON
+        return response()->json([
+            'productos' => $productos->items(),
+            'pagination' => (string) $productos->links('pagination::bootstrap-4'),
+        ]);
+    }
+    
 
 
 
