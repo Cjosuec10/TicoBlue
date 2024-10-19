@@ -113,14 +113,6 @@
         modalTriggerList.forEach(function (modalTriggerEl) {
             new bootstrap.Modal(modalTriggerEl);
         });
-
-        // Habilitar los botones "Ver más" después de 2 segundos
-        setTimeout(() => {
-            const verMasButtons = document.querySelectorAll('.btn-primary');
-            verMasButtons.forEach(button => {
-                button.removeAttribute('disabled');
-            });
-        }, 2000); // Retardo de 2 segundos
     }
 
     // Función para realizar la búsqueda AJAX y manejar la paginación
@@ -147,7 +139,7 @@
                                         <h5 class="card-title text-center">${producto.nombreProducto}</h5>
                                         <p class="text-center">$${producto.precioProducto}</p>
                                         <div class="d-flex justify-content-center mt-3">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productoModal${producto.idProducto}" disabled>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productoModal${producto.idProducto}">
                                                 Ver más
                                             </button>
                                         </div>
@@ -155,31 +147,31 @@
                                 </div>
                             </div>
 
-                             <!-- Modal -->
-                                <div class="modal fade" id="productoModal${producto.idProducto}" tabindex="-1" aria-labelledby="productoModalLabel${producto.idProducto}" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                        <div class="modal-content border-0 shadow-lg rounded-4">
-                                            <div class="modal-header bg-light text-dark justify-content-center">
-                                                <h5 class="modal-title text-center fw-bold" id="productoModalLabel${producto.idProducto}" style="font-size: 1.75rem;">
-                                                    ${producto.nombreProducto}
-                                                </h5>
-                                                <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
-                                                <div class="product-details">
-                                                    <p><strong>Descripción:</strong> ${producto.descripcionProducto}</p>
-                                                    <p class="text-success"><strong>Precio:</strong> $${producto.precioProducto}</p>
-                                                    <p><strong>Categoría:</strong> ${producto.categoria}</p>
-                                           <p><strong>Vendido por:</strong> <span class="text-primary">${producto.comercio.nombreComercio || 'Comercio desconocido'}</span></p>
+                            <!-- Modal -->
+                            <div class="modal fade" id="productoModal${producto.idProducto}" tabindex="-1" aria-labelledby="productoModalLabel${producto.idProducto}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content border-0 shadow-lg rounded-4">
+                                        <div class="modal-header bg-light text-dark justify-content-center">
+                                            <h5 class="modal-title text-center fw-bold" id="productoModalLabel${producto.idProducto}" style="font-size: 1.75rem;">
+                                                ${producto.nombreProducto}
+                                            </h5>
+                                            <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
+                                        <div class="modal-body">
+                                            <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
+                                            <div class="product-details">
+                                                <p><strong>Descripción:</strong> ${producto.descripcionProducto}</p>
+                                                <p class="text-success"><strong>Precio:</strong> $${producto.precioProducto}</p>
+                                                <p><strong>Categoría:</strong> ${producto.categoria}</p>
+                                                <p><strong>Vendido por:</strong> <span class="text-primary">${producto.comercio.nombreComercio || 'Comercio desconocido'}</span></p>
                                             </div>
-                                            <div class="modal-footer bg-light">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-light">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         `;
                         productWrap.insertAdjacentHTML('beforeend', productHTML);
                     });
@@ -191,7 +183,13 @@
                 const pagination = document.querySelector('.pagination');
                 pagination.innerHTML = data.pagination;
 
-                // Reinicializar modales y habilitar los botones después de 2 segundos
+                // Habilitar los botones inmediatamente después de cargar los productos
+                const newVerMasButtons = document.querySelectorAll('.btn-primary');
+                newVerMasButtons.forEach(button => {
+                    button.removeAttribute('disabled');
+                });
+
+                // Reinicializar modales
                 initializeModals();
             });
     }
