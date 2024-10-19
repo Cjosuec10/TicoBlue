@@ -155,27 +155,31 @@
                                 </div>
                             </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="productoModal${producto.idProducto}" tabindex="-1" aria-labelledby="productoModalLabel${producto.idProducto}" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="productoModalLabel${producto.idProducto}">${producto.nombreProducto}</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="img-fluid mb-3 d-block mx-auto" style="max-height: 300px;">
-                                            <p><strong>Descripción:</strong> ${producto.descripcionProducto}</p>
-                                            <p><strong>Precio:</strong> $${producto.precioProducto}</p>
-                                            <p><strong>Categoría:</strong> ${producto.categoria}</p>
+                             <!-- Modal -->
+                                <div class="modal fade" id="productoModal${producto.idProducto}" tabindex="-1" aria-labelledby="productoModalLabel${producto.idProducto}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content border-0 shadow-lg rounded-4">
+                                            <div class="modal-header bg-light text-dark justify-content-center">
+                                                <h5 class="modal-title text-center fw-bold" id="productoModalLabel${producto.idProducto}" style="font-size: 1.75rem;">
+                                                    ${producto.nombreProducto}
+                                                </h5>
+                                                <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
+                                                <div class="product-details">
+                                                    <p><strong>Descripción:</strong> ${producto.descripcionProducto}</p>
+                                                    <p class="text-success"><strong>Precio:</strong> $${producto.precioProducto}</p>
+                                                    <p><strong>Categoría:</strong> ${producto.categoria}</p>
                                            <p><strong>Vendido por:</strong> <span class="text-primary">${producto.comercio.nombreComercio || 'Comercio desconocido'}</span></p>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                            <div class="modal-footer bg-light">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         `;
                         productWrap.insertAdjacentHTML('beforeend', productHTML);
                     });
