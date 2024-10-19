@@ -46,17 +46,38 @@
                     </div>
                 </div>
 
-                <!-- Categoría del Producto -->
-                <div class="col-md-6">
-                    <label for="categoria" class="form-label">Categoría del Producto</label>
-                    <input type="text" class="form-control" id="categoria" name="categoria" value="{{ $producto->categoria }}" required>
-                    <div class="invalid-feedback">
-                        Por favor, ingrese una categoría.
-                    </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
-                </div>
+<!-- Categoría del Producto -->
+<div class="col-md-6">
+    <label for="categoria" class="form-label">Categoría del Producto</label>
+    <select class="form-select" id="categoria" name="categoria" required>
+        <option selected disabled value="">Seleccione una categoría</option>
+        <option value="Ropa" {{ $producto->categoria == 'Ropa' ? 'selected' : '' }}>Ropa</option>
+        <option value="Electrónica" {{ $producto->categoria == 'Electrónica' ? 'selected' : '' }}>Electrónica</option>
+        <option value="Hogar" {{ $producto->categoria == 'Hogar' ? 'selected' : '' }}>Hogar</option>
+        <option value="Juguetes" {{ $producto->categoria == 'Juguetes' ? 'selected' : '' }}>Juguetes</option>
+        <option value="Libros" {{ $producto->categoria == 'Libros' ? 'selected' : '' }}>Libros</option>
+        <option value="Deportes" {{ $producto->categoria == 'Deportes' ? 'selected' : '' }}>Deportes</option>
+        <option value="Salud y Belleza" {{ $producto->categoria == 'Salud y Belleza' ? 'selected' : '' }}>Salud y Belleza</option>
+        <option value="Automóviles" {{ $producto->categoria == 'Automóviles' ? 'selected' : '' }}>Automóviles</option>
+        <option value="Joyería" {{ $producto->categoria == 'Joyería' ? 'selected' : '' }}>Joyería</option>
+        <option value="Alimentos y Bebidas" {{ $producto->categoria == 'Alimentos y Bebidas' ? 'selected' : '' }}>Alimentos y Bebidas</option>
+        <option value="Muebles" {{ $producto->categoria == 'Muebles' ? 'selected' : '' }}>Muebles</option>
+        <option value="Mascotas" {{ $producto->categoria == 'Mascotas' ? 'selected' : '' }}>Mascotas</option>
+        <option value="Accesorios" {{ $producto->categoria == 'Accesorios' ? 'selected' : '' }}>Accesorios</option>
+        <option value="Herramientas" {{ $producto->categoria == 'Herramientas' ? 'selected' : '' }}>Herramientas</option>
+        <option value="Hospedaje" {{ $producto->categoria == 'Hospedaje' ? 'selected' : '' }}>Hospedaje</option>
+        <option value="Jardinería" {{ $producto->categoria == 'Jardinería' ? 'selected' : '' }}>Jardinería</option>
+        <option value="Videojuegos" {{ $producto->categoria == 'Videojuegos' ? 'selected' : '' }}>Videojuegos</option>
+        <option value="Instrumentos Musicales" {{ $producto->categoria == 'Instrumentos Musicales' ? 'selected' : '' }}>Instrumentos Musicales</option>
+    </select>
+    <div class="invalid-feedback">
+        Por favor, seleccione una categoría.
+    </div>
+    <div class="valid-feedback">
+        ¡Correcto!
+    </div>
+</div>
+
 
                 <!-- Comercio asociado -->
                 <div class="col-md-6">

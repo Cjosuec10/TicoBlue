@@ -25,6 +25,41 @@ class ProductoController extends Controller
         return view('Producto.index', compact('productos'));
     }
     
+    public function mostrarInformacionProductos(Request $request)
+    {
+        // Obtener los productos paginados (por ejemplo, 8 productos por página)
+        $productos = Producto::paginate(8);
+    
+        // Verificar si es una solicitud AJAX para búsqueda
+        if ($request->ajax()) {
+            return view('frontend.productos_lista', compact('productos'))->render();
+        }
+    
+        // Retornar la vista principal
+        return view('frontend.productos', compact('productos'));
+    }
+    
+
+    public function buscar(Request $request)
+    {
+        $query = $request->input('q');
+    
+        // Filtrar productos por nombre o descripción y cargar la relación comercio
+        $productos = Producto::with('comercio') // Asegura que la relación comercio esté cargada
+                             ->where('nombreProducto', 'LIKE', "%{$query}%")
+                             ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
+                             ->paginate(8); // Paginación con 8 productos
+    
+        // Retornar productos con paginación en la respuesta JSON
+        return response()->json([
+            'productos' => $productos->items(),
+            'pagination' => (string) $productos->links('pagination::bootstrap-4'),
+        ]);
+    }
+    
+
+
+
     public function create()
     {
         // Obtener todos los comercios disponibles
