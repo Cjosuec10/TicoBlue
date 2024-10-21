@@ -35,7 +35,7 @@
                         <option value="Tiendasdeartesanías">Tiendas de artesanías</option>
                         <option value="Talleres">Talleres</option>
                         <option value="DeportesyOcio">Deportes y Ocio</option>
-                        <option value="alojamientosalojamientos">alojamientos alojamientos</option>
+                        <option value="alojamientosalojamientos">Alojamientos</option>
                         <option value="ArteyEntretenimiento">Arte y Entretenimiento</option>
                         <option value="Educación">Educación</option>
                         <option value="Otros">Otros</option>
