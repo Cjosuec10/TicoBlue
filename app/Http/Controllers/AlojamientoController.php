@@ -25,11 +25,11 @@ class AlojamientoController extends Controller
     }
 
     public function create()
-{
-    $usuarios = Usuario::all(); // Obtiene todos los usuarios
-    $comercios = Comercio::all(); // Obtiene todos los comercios
-    return view('alojamiento.create', compact('usuarios', 'comercios'));
-}
+    {
+        $usuarios = Usuario::all(); // Obtiene todos los usuarios
+        $comercios = Comercio::all(); // Obtiene todos los comercios
+        return view('alojamiento.create', compact('usuarios', 'comercios'));
+    }
 
     public function store(Request $request)
     {
@@ -38,12 +38,29 @@ class AlojamientoController extends Controller
             'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
+            'imagen' => 'nullable|image|max:2048', // Validación de imagen
             'idComercio_fk' => 'required|exists:comercios,idComercio', // Asegúrate de que este campo esté presente
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario', // Asegúrate de que este campo también esté presente
         ]);
+        $alojamiento = new Alojamiento();
 
-        Alojamiento::create($validatedData);
+        if ($request->hasFile('imagen')) {
+            //dd($request->all());
+            $file = $request->file('imagen');
+            $destinationPath = 'img/imagen/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $alojamiento->imagen = $destinationPath . $fileName; // Guarda la ruta de la imagen
+        }
 
+        $alojamiento->nombreAlojamiento = $request->nombreAlojamiento;
+        $alojamiento->descripcionAlojamiento = $request->descripcionAlojamiento;
+        $alojamiento->precioAlojamiento = $request->precioAlojamiento;
+        $alojamiento->capacidad = $request->capacidad;
+        $alojamiento->idComercio_fk = $request->idComercio_fk;
+
+        //Alojamiento::create($validatedData);
+        $alojamiento->save();
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento creado con éxito.');
     }
 
@@ -55,29 +72,60 @@ class AlojamientoController extends Controller
     }
 
     // Mostrar el formulario para editar un alojamiento
+    // public function edit($id)
+    // {
+    //     $alojamiento = Alojamiento::findOrFail($id);
+    //     $usuarios = Usuario::all(); // Asegúrate de obtener usuarios para la vista de edición
+    //     return view('alojamiento.edit', compact('alojamiento', 'usuarios')); // Cambié 'alojamientos.edit' por 'alojamiento.edit'
+    // }
     public function edit($id)
     {
         $alojamiento = Alojamiento::findOrFail($id);
         $usuarios = Usuario::all(); // Asegúrate de obtener usuarios para la vista de edición
-        return view('alojamiento.edit', compact('alojamiento', 'usuarios')); // Cambié 'alojamientos.edit' por 'alojamiento.edit'
+        $comercios = Comercio::all();
+        return view('alojamiento.edit', compact('alojamiento', 'usuarios', 'comercios')); // Cambié 'alojamientos.edit' por 'alojamiento.edit'
     }
+
 
     // Actualizar un alojamiento existente
     public function update(Request $request, $id)
     {
+        // Validar los datos
         $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
             'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
+            'imagen' => 'nullable|image|max:2048',
             'idComercio_fk' => 'required|exists:comercios,idComercio'
         ]);
 
+        // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
-        $alojamiento->update($validatedData);
 
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
+        // Asignar los demás datos del formulario
+        $alojamiento->nombreAlojamiento = $request->nombreAlojamiento;
+        $alojamiento->descripcionAlojamiento = $request->descripcionAlojamiento;
+        $alojamiento->precioAlojamiento = $request->precioAlojamiento;
+        $alojamiento->capacidad = $request->capacidad;
+        $alojamiento->idComercio_fk = $request->idComercio_fk;
+
+        // Manejo de la subida de imagen
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'img/imagen/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $alojamiento->imagen = $destinationPath . $fileName;
+        }
+
+        // Guardar el alojamiento actualizado en la base de datos
+        $alojamiento->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('alojamientos.index')->with('success', 'Alojamiento actualizado con éxito.');
     }
+
 
     // Eliminar un alojamiento
     public function destroy($id)

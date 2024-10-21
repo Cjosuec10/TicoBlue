@@ -6,16 +6,29 @@
     <div class="card">
         <div class="card-body">
             <!-- Formulario para editar alojamiento -->
-            <form id="editarAlojamientoForm" action="{{ route('alojamientos.update', $alojamiento->idAlojamiento) }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="editarAlojamientoForm" action="{{ route('alojamientos.update', $alojamiento->idAlojamiento) }}"
+                method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
                 @method('PUT')
-                
+
                 <!-- Nombre del Alojamiento -->
                 <div class="col-md-6">
                     <label for="nombreAlojamiento" class="form-label">Nombre del Alojamiento</label>
-                    <input type="text" class="form-control" id="nombreAlojamiento" name="nombreAlojamiento" value="{{ $alojamiento->nombreAlojamiento }}" required>
+                    <input type="text" class="form-control" id="nombreAlojamiento" name="nombreAlojamiento"
+                        value="{{ $alojamiento->nombreAlojamiento }}" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese el nombre del alojamiento.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+                <!-- Descripción del Alojamiento -->
+                <div class="col-md-12">
+                    <label for="descripcionAlojamiento" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcionAlojamiento" name="descripcionAlojamiento" required>{{ $alojamiento->descripcionAlojamiento }}</textarea>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una descripción.
                     </div>
                     <div class="valid-feedback">
                         ¡Correcto!
@@ -25,7 +38,8 @@
                 <!-- Precio del Alojamiento -->
                 <div class="col-md-6">
                     <label for="precioAlojamiento" class="form-label">Precio por Noche</label>
-                    <input type="number" step="0.01" class="form-control" id="precioAlojamiento" name="precioAlojamiento" value="{{ $alojamiento->precioAlojamiento }}" required>
+                    <input type="number" step="0.01" class="form-control" id="precioAlojamiento"
+                        name="precioAlojamiento" value="{{ $alojamiento->precioAlojamiento }}" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese el precio por noche.
                     </div>
@@ -37,7 +51,8 @@
                 <!-- Capacidad -->
                 <div class="col-md-6">
                     <label for="capacidad" class="form-label">Capacidad</label>
-                    <input type="number" class="form-control" id="capacidad" name="capacidad" value="{{ $alojamiento->capacidad }}" required>
+                    <input type="number" class="form-control" id="capacidad" name="capacidad"
+                        value="{{ $alojamiento->capacidad }}" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese la capacidad.
                     </div>
@@ -46,13 +61,31 @@
                     </div>
                 </div>
 
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagenActual">Imagen Actual</label>
+                    <div class="mb-3">
+                        @if ($alojamiento->imagen)
+                            <img src="{{ asset($alojamiento->imagen) }}" alt="Imagen actual del alojamiento"
+                                class="img-thumbnail" style="max-width: 200px;">
+                        @else
+                            <p>No hay imagen disponible</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="imagen">Ingresa nueva Imagen (opcional)</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
+
                 <!-- Selección de Comercio (deshabilitado) -->
                 <div class="col-md-6">
                     <label for="idComercio_fk" class="form-label">Comercio</label>
                     <select class="form-select" id="idComercio_fk" name="idComercio_fk_disabled" disabled>
                         <option selected disabled value="">Seleccione un comercio</option>
-                        @foreach($comercios as $comercio)
-                            <option value="{{ $comercio->idComercio }}" {{ $alojamiento->idComercio_fk == $comercio->idComercio ? 'selected' : '' }}>
+                        @foreach ($comercios as $comercio)
+                            <option value="{{ $comercio->idComercio }}"
+                                {{ $alojamiento->idComercio_fk == $comercio->idComercio ? 'selected' : '' }}>
                                 {{ $comercio->nombreComercio }}
                             </option>
                         @endforeach
@@ -70,13 +103,13 @@
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Actualizar -->
                     <button class="btn btn-success" type="submit">Actualizar</button>
-                    
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver
                     </button>
                 </div>
-                
+
             </form>
         </div>
     </div>
@@ -92,7 +125,7 @@
                 this.classList.add('was-validated');
             } else {
                 event.preventDefault(); // Evita que el formulario se envíe inmediatamente
-        
+
                 // Muestra la alerta rápida si el formulario es válido
                 Swal.fire({
                     icon: "success",
@@ -100,11 +133,11 @@
                     showConfirmButton: false,
                     timer: 2100
                 });
-        
-                
+
+
                 setTimeout(() => {
                     this.submit();
-                }, 1600); 
+                }, 1600);
             }
         });
     </script>

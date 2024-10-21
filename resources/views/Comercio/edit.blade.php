@@ -88,13 +88,14 @@
                 </div>
 
                 <!-- Dirección URL -->
-                <div class="col-md-6">
-                    <label for="direccion_url" class="form-label">Dirección URL</label>
-                    <input type="url" class="form-control" id="direccion_url" name="direccion_url" value="{{ $comercio->direccion_url }}">
+                <div class="col-md-12">
+                    <label for="direccion_url" class="form-label">ID de Mapa de Google</label>
+                    <textarea class="form-control" id="direccion_url" name="direccion_url" rows="3" placeholder="Ingrese el ID de Mapa de Google">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
                     <div class="invalid-feedback">
-                        Por favor, ingrese una URL válida.
+                        Por favor, ingrese el ID de Mapa de Google
                     </div>
                 </div>
+
 
                 <!-- Dirección en Texto -->
                 <div class="col-md-6">
@@ -134,13 +135,13 @@
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Actualizar -->
                     <button class="btn btn-success" type="submit">Actualizar</button>
-                    
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver
                     </button>
                 </div>
-                
+
             </form>
         </div>
     </div>
@@ -156,7 +157,7 @@
                 this.classList.add('was-validated');
             } else {
                 event.preventDefault(); // Evita que el formulario se envíe inmediatamente
-        
+
                 // Muestra la alerta rápida si el formulario es válido
                 Swal.fire({
                     icon: "success",
@@ -164,7 +165,7 @@
                     showConfirmButton: false,
                     timer: 2100
                 });
-        
+
                 // Envía el formulario después de un breve retraso para permitir que se muestre la alerta
                 setTimeout(() => {
                     this.submit();

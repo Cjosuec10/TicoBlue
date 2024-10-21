@@ -90,13 +90,14 @@
                 </div>
 
                 <!-- Dirección URL -->
-                <div class="col-md-6">
-                    <label for="direccion_url" class="form-label">Dirección URL</label>
-                    <input type="url" class="form-control" id="direccion_url" name="direccion_url" placeholder="http://ejemplo.com">
+                <div class="col-md-12">
+                    <label for="direccion_url" class="form-label">ID del Mapa de Google</label>
+                    <textarea class="form-control" id="direccion_url" name="direccion_url" rows="3" placeholder="Ingrese ID de Mapa de Google">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
                     <div class="invalid-feedback">
-                        Por favor, ingrese una URL válida.
+                        Por favor, ingrese el ID de Mapa de Google
                     </div>
                 </div>
+
 
                 <!-- Dirección en Texto -->
                 <div class="col-md-6">
@@ -166,3 +167,6 @@
         });
     </script>
 @endsection
+
+
+

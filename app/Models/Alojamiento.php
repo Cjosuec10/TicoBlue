@@ -21,6 +21,7 @@ class Alojamiento extends Model
         'descripcionAlojamiento',
         'precioAlojamiento',
         'capacidad',
+        'imagen',
         'idComercio_fk'
     ];
 }
