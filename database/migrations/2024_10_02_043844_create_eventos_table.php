@@ -16,6 +16,8 @@ class CreateEventosTable extends Migration
             $table->string('correoEvento', 100)->nullable();
             $table->string('telefonoEvento', 20)->nullable();
             $table->string('imagen')->nullable();
+            $table->date('fechaInicio');
+            $table->date('fechaFin');
             $table->string('direccionEvento', 255)->nullable();
             $table->unsignedBigInteger('idComercio_fk');
             $table->foreign('idComercio_fk')->references('idComercio')->on('comercios')->onDelete('cascade');

@@ -20,6 +20,8 @@ class Evento extends Model
         'telefonoEvento',
         'direccionEvento',
         'imagen',
+        'fechaInicio',
+        'fechaFin',
         'idComercio_fk',
     ];
 

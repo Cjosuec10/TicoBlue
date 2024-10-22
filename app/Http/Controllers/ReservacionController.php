@@ -36,28 +36,40 @@ class ReservacionController extends Controller
         return view('reservaciones.create', compact('comercios', 'eventos', 'usuarios', 'alojamientos'));
     }
 
-    // Método para almacenar una nueva reservación en la base de datos
     public function store(Request $request)
     {
+        // Validar los datos de entrada
+        $request->validate([
+            'nombreUsuarioReservacion' => 'required|string|max:255',
+            'correoUsuarioReservacion' => 'required|email|max:255',
+            'telefonoUsuarioReservacion' => 'nullable|string|max:20',
+            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
+            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
+        ]);
+    
+        // Establecer `idEvento_fk` como `null` si no se proporciona
+        $idEventoFk = $request->idEvento_fk ?? null;
+        $idAlojamientoFk = $request->idAlojamiento_fk ?? null;
+    
         // Crear una nueva instancia de Reservacion
         $newReservacion = new Reservacion();
-
-        // Asignar los datos del request a los atributos del modelo
-        $newReservacion->fechaInicio = $request->fechaInicio;
-        $newReservacion->fechaFin = $request->fechaFin;
         $newReservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
         $newReservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
         $newReservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
         $newReservacion->idComercio_fk = $request->idComercio_fk;
-        $newReservacion->idEvento_fk = $request->idEvento_fk;
+        $newReservacion->idEvento_fk = $idEventoFk; // Asignar como null si no está presente
         $newReservacion->idUsuario_fk = $request->idUsuario_fk;
-        $newReservacion->idAlojamiento_fk = $request->idAlojamiento_fk;
-
+        $newReservacion->idAlojamiento_fk = $idAlojamientoFk; // Asignar como null si no está presente
+    
         // Guardar la reservación en la base de datos
         $newReservacion->save();
-
+    
         return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
     }
+    
+
 
     // Método para mostrar los detalles de una reservación específica
     public function show($id)
@@ -93,8 +105,6 @@ class ReservacionController extends Controller
 
         // Validar los campos del formulario
         $request->validate([
-            'fechaInicio' => 'required|date',
-            'fechaFin' => 'required|date',
             'nombreUsuarioReservacion' => 'required|string|max:255',
             'correoUsuarioReservacion' => 'required|email|max:255',
             'telefonoUsuarioReservacion' => 'nullable|string|max:20',

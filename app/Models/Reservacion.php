@@ -9,8 +9,6 @@ class Reservacion extends Model
     protected $primaryKey = 'idReservacion';
 
     protected $fillable = [
-        'fechaInicio',
-        'fechaFin',
         'nombreUsuarioReservacion',
         'correoUsuarioReservacion',
         'telefonoUsuarioReservacion',

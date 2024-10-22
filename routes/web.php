@@ -35,7 +35,6 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 //rutas busqueda
 Route::get('/buscar-productos', [ProductoController::class, 'buscar'])->name('buscar.productos');
 
-
 // Rutas protegidas por autenticación
 Route::middleware('auth')->group(function () {
     // Recursos CRUD protegidos

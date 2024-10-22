@@ -5,22 +5,18 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('eventos.store') }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+            <form action="{{ route('eventos.store') }}" method="POST" enctype="multipart/form-data"
+                class="row g-3 needs-validation" novalidate>
                 @csrf
                 <div class="col-md-6">
                     <label for="nombreEvento" class="form-label">Nombre del Evento</label>
                     <input type="text" class="form-control" id="nombreEvento" name="nombreEvento" required>
                     <div class="invalid-feedback">Por favor, ingrese el nombre del evento.</div>
                 </div>
-                {{-- <div class="col-md-6">
-                    <label for="tipoEvento" class="form-label">Tipo de Evento</label>
-                    <input type="text" class="form-control" id="tipoEvento" name="tipoEvento" required>
-                    <div class="invalid-feedback">Por favor, ingrese el tipo del evento.</div>
-                </div> --}}
                 <div class="col-md-6">
-                    <label for="descripcionEvento" class="form-label">Descripcion del Evento</label>
+                    <label for="descripcionEvento" class="form-label">Descripción del Evento</label>
                     <input type="text" class="form-control" id="descripcionEvento" name="descripcionEvento" required>
-                    <div class="invalid-feedback">Por favor, ingrese el nombre del evento.</div>
+                    <div class="invalid-feedback">Por favor, ingrese la descripción del evento.</div>
                 </div>
                 <div class="col-md-6">
                     <label for="tipoEvento" class="form-label">Tipo de Evento</label>
@@ -61,14 +57,24 @@
                     <input type="text" class="form-control" id="direccionEvento" name="direccionEvento">
                 </div>
                 <div class="col-md-6">
-                    <label for="imagen" >Imagen</label>
-                    <input type="file" id="imagen" name="imagen">
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                    <div class="invalid-feedback">Por favor, ingrese la fecha de inicio.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                    <div class="invalid-feedback">Por favor, ingrese la fecha de fin.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="imagen" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
                 </div>
                 <div class="col-md-6">
                     <label for="idComercio_fk" class="form-label">Comercio</label>
                     <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
                         <option selected disabled value="">Seleccione un comercio</option>
-                        @foreach($comercios as $comercio)
+                        @foreach ($comercios as $comercio)
                             <option value="{{ $comercio->idComercio }}">{{ $comercio->nombreComercio }}</option>
                         @endforeach
                     </select>

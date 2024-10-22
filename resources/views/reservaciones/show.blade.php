@@ -6,10 +6,9 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Reservación de: {{ $reservacion->nombreUsuarioReservacion }}</h5>
-            <p><strong>Fecha de Inicio:</strong> {{ $reservacion->fechaInicio }}</p>
-            <p><strong>Fecha de Fin:</strong> {{ $reservacion->fechaFin }}</p>
             <p><strong>Correo del Usuario:</strong> {{ $reservacion->correoUsuarioReservacion }}</p>
-            <p><strong>Teléfono del Usuario:</strong> {{ $reservacion->telefonoUsuarioReservacion ?? 'No proporcionado' }}</p>
+            <p><strong>Teléfono del Usuario:</strong> {{ $reservacion->telefonoUsuarioReservacion ?? 'No proporcionado' }}
+            </p>
 
             <p><strong>Comercio:</strong> {{ $reservacion->comercio->nombreComercio ?? 'N/A' }}</p>
             <p><strong>Evento:</strong> {{ $reservacion->evento->nombreEvento ?? 'N/A' }}</p>
