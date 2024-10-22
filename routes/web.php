@@ -31,7 +31,8 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 
 
 //rutas busqueda
-Route::get('/buscar-productos', [ProductoController::class, 'buscar'])->name('buscar.productos');
+Route::get('/buscar-productos-informativo', [ProductoController::class, 'buscarInformativo']);
+
 
 
 // Rutas protegidas por autenticación

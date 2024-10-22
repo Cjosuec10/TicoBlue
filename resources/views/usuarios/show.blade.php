@@ -30,11 +30,11 @@
                 </div>
 
                 <!-- Rol del Usuario -->
-                <div class="col-md-6">
-                    <h5 class="card-title"></h5>
-                    <label for="rolUsuario" class="form-label">Rol</label>
-                    <input type="text" class="form-control" id="rolUsuario" name="rolUsuario" value="{{ $usuario->rol }}" disabled>
-                </div>
+<div class="col-md-6">
+    <h5 class="card-title"></h5>
+    <label for="rolUsuario" class="form-label">Rol</label>
+    <input type="text" class="form-control" id="rolUsuario" name="rolUsuario" value="{{ $roles->implode(', ') }}" disabled>
+</div>
 
                 <!-- Botón para volver -->
                 <div class="col-12 d-flex justify-content-center gap-2">
