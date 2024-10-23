@@ -7,6 +7,102 @@
    
   <main class="main">
 
+  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
+  <h1 class="text-center">Contáctanos</h1>
+    <p class="text-center">¿Tienes alguna pregunta, duda o sugerencia? Estamos aquí para ayudarte. Llena el formulario o utiliza nuestros canales de contacto.</p>
+
+    <!-- Información de contacto general -->
+  
+
+
+   
+
+<!-- Contenedor del formulario de contacto -->
+<div class="container contact-container mt-5">
+    <h3 class="contact-title">Envíanos un mensaje</h3>
+    <p class="contact-description">Por favor, completa el formulario a continuación para contactarnos.</p>
+    <form action="#" method="POST" class="contact-form">
+        @csrf
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="tipo_consulta" class="form-label">Tipo de Consulta</label>
+                <select class="form-control" id="tipo_consulta" name="tipo_consulta" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Soporte Técnico">Soporte Técnico</option>
+                    <option value="Publicar Comercio/Evento">Publicar Comercio/Evento</option>
+                    <option value="Consultas Generales">Consultas Generales</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Enviar Mensaje</button>
+    </form>
+
+    <div class="container row justify-content-center align-items-center vh-100">
+        <div class="col-md-6 text-center">
+            <h3>Información General</h3>
+            <p><strong>Teléfono:</strong> +506 1234-5678</p>
+            <p><strong>Email:</strong> soporte@tuplataforma.com</p>
+            <p><strong>Dirección:</strong> Calle Principal, San José, Costa Rica</p>
+        </div>
+
+        <div class="container col-md-6 text-center">
+            <h3>Horario de Atención</h3>
+            <p><strong>Lunes a Viernes:</strong> 9:00 AM - 6:00 PM</p>
+            <p><strong>Sábado:</strong> 9:00 AM - 1:00 PM</p>
+            <p><strong>Domingo:</strong> Cerrado</p>
+        </div>
+    </div>
+
+
+    <div class="container contact-container mt-5 text-center">
+    <h3 class="contact-title">Síguenos en nuestras redes sociales</h3>
+    <p class="contact-description">Conéctate con nosotros para recibir noticias, ofertas especiales y más.</p>
+    <a href="https://facebook.com" target="_blank" class="btn btn-outline-primary">Facebook</a>
+    <a href="https://instagram.com" target="_blank" class="btn btn-outline-danger">Instagram</a>
+    <a href="https://twitter.com" target="_blank" class="btn btn-outline-info">Twitter</a>
+</div>
+</div>
+
+
+<!-- Redes sociales y otros contactos -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <!-- Page Title -->
     <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
       <div class="container position-relative">

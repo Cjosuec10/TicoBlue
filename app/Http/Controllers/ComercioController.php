@@ -118,10 +118,21 @@ class ComercioController extends Controller
         return redirect()->route('comercios.index')->with('success', 'Comercio actualizado exitosamente.');
     }
 
+    public function mostrarInformacionComercios()
+{
+    // Obtener todos los comercios
+    $comercios = Comercio::all();
+    
+    // Pasar los comercios a la vista
+    return view('frontend.comercios', compact('comercios'));
+}
+
     // Eliminar un comercio
     public function destroy(Comercio $comercio)
     {
         $comercio->delete();
         return redirect()->route('comercios.index')->with('success', 'Comercio eliminado exitosamente.');
     }
+
+    
 }

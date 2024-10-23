@@ -6,6 +6,34 @@
   
   @section('content')
   <main class="main">
+  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+<!-- Page Title -->
+<h1 style="text-align:center;">Lista de Comercios</h1>
+
+@if($comercios->isEmpty())
+    <p>No hay comercios disponibles.</p>
+@else
+    <div class="comercios-container">
+        @foreach($comercios as $comercio)
+            <div class="comercio-card">
+                <!-- Mostrar la imagen si está disponible -->
+                @if($comercio->imagen)
+                    <img src="{{ asset($comercio->imagen) }}" alt="{{ $comercio->nombreComercio }}">
+                @else
+                    <p>No hay imagen disponible.</p>
+                @endif
+
+                <h3>{{ $comercio->nombreComercio }}</h3>
+                <p>{{ $comercio->descripcionComercio }}</p>
+                <p><strong>Correo:</strong> {{ $comercio->correoComercio }}</p>
+                <p><strong>Teléfono:</strong> {{ $comercio->telefonoComercio }}</p>
+
+                <!-- Botón de Ver -->
+                <a href="#S" class="btn-ver">Ver</a>
+            </div>
+        @endforeach
+    </div>
+@endif
 
     <!-- Page Title -->
     <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
