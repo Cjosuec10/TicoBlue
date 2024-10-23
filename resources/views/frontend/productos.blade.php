@@ -107,6 +107,15 @@
     const searchInput = document.getElementById('search');
     const clearButton = document.getElementById('clear-search');
 
+    // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
+    function debounce(func, delay) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
     // Función para inicializar modales después de la actualización AJAX
     function initializeModals() {
         const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
@@ -123,7 +132,7 @@
             button.setAttribute('disabled', 'true');
         });
 
-        fetch(`/buscar-productos?q=${query}&page=${page}`)
+        fetch(`/buscar-productos-informativo?q=${query}&page=${page}`)
             .then(response => response.json())
             .then(data => {
                 const productWrap = document.querySelector('.product-wrap .row');
@@ -194,15 +203,15 @@
             });
     }
 
-    // Búsqueda en tiempo real
-    searchInput.addEventListener('input', function () {
+    // Búsqueda en tiempo real con debounce
+    searchInput.addEventListener('input', debounce(function () {
         fetchProducts(this.value);
-    });
+    }, 300));  // 300ms de espera antes de ejecutar la búsqueda
 
     // Limpiar el campo de búsqueda
     clearButton.addEventListener('click', function () {
         searchInput.value = '';
-        fetchProducts('');
+        fetchProducts('');  // Limpiar la búsqueda
     });
 
     // Manejar la paginación
@@ -214,7 +223,7 @@
         }
     });
 });
-
 </script>
+
 
 @endsection

@@ -18,8 +18,12 @@ class ProductoController extends Controller
 
     public function index()
     {
-        // Obtener todos los productos
-        $productos = Producto::all();
+
+        // Obtener los comercios del usuario autenticado
+    $comercios = auth()->user()->comercios->pluck('idComercio');
+
+        // Filtrar los productos que pertenecen a esos comercios
+    $productos = Producto::whereIn('idComercio_fk', $comercios)->get();
         
         // Pasamos los productos a la vista
         return view('Producto.index', compact('productos'));
@@ -43,12 +47,18 @@ class ProductoController extends Controller
     public function buscar(Request $request)
     {
         $query = $request->input('q');
+
+         // Obtener los comercios del usuario autenticado
+    $comercios = auth()->user()->comercios->pluck('idComercio');
     
-        // Filtrar productos por nombre o descripción y cargar la relación comercio
-        $productos = Producto::with('comercio') // Asegura que la relación comercio esté cargada
-                             ->where('nombreProducto', 'LIKE', "%{$query}%")
-                             ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
-                             ->paginate(8); // Paginación con 8 productos
+        // Filtrar productos por nombre o descripción y también por los comercios del usuario
+    $productos = Producto::with('comercio')
+    ->whereIn('idComercio_fk', $comercios)
+    ->where(function($q) use ($query) {
+        $q->where('nombreProducto', 'LIKE', "%{$query}%")
+          ->orWhere('descripcionProducto', 'LIKE', "%{$query}%");
+    })
+    ->paginate(8);
     
         // Retornar productos con paginación en la respuesta JSON
         return response()->json([
@@ -57,13 +67,28 @@ class ProductoController extends Controller
         ]);
     }
     
-
+    public function buscarInformativo(Request $request)
+    {
+        $query = $request->input('q');
+        
+        // Obtener todos los productos de la base de datos sin filtrar por usuario
+        $productos = Producto::with('comercio')
+                             ->where('nombreProducto', 'LIKE', "%{$query}%")
+                             ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
+                             ->paginate(8);
+        
+        // Retornar productos con paginación en la respuesta JSON
+        return response()->json([
+            'productos' => $productos->items(),
+            'pagination' => (string) $productos->links('pagination::bootstrap-4'),
+        ]);
+    }
 
 
     public function create()
     {
-        // Obtener todos los comercios disponibles
-        $comercios = \App\Models\Comercio::all();
+        // Obtener solo los comercios ligados al usuario autenticado
+        $comercios = auth()->user()->comercios; 
         
         // Pasar los comercios a la vista
         return view('Producto.create', compact('comercios'));
@@ -108,8 +133,8 @@ class ProductoController extends Controller
 
     public function edit(Producto $producto)
     {
-        // Obtener todos los comercios disponibles
-        $comercios = \App\Models\Comercio::all();
+       // Obtener solo los comercios ligados al usuario autenticado
+       $comercios = auth()->user()->comercios; 
         
         // Pasar los comercios y el producto a la vista
         return view('Producto.edit', compact('producto', 'comercios'));

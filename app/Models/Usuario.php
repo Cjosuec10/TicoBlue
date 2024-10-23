@@ -35,4 +35,9 @@ class Usuario extends Authenticatable
     {
         return $this->contrasena;
     }
+     // Relación con Comercios: Un usuario puede tener varios comercios
+     public function comercios()
+     {
+         return $this->hasMany(Comercio::class, 'idUsuario_fk', 'idUsuario');
+     }
 }
