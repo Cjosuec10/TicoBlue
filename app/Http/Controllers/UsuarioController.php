@@ -73,7 +73,9 @@ class UsuarioController extends Controller
     public function show($id)
     {
         $usuario = Usuario::findOrFail($id); // Encuentra el usuario o devuelve un error 404
-        return view('usuarios.show', compact('usuario')); // Devuelve la vista con el usuario
+        $roles = $usuario->getRoleNames(); // Obtener los roles asignados al usuario
+
+        return view('usuarios.show', compact('usuario', 'roles')); // Devuelve la vista con el usuario
     }
     /**
      * Mostrar el formulario para editar un usuario existente.
@@ -95,7 +97,7 @@ class UsuarioController extends Controller
         // Validar datos
         $request->validate([
             'nombre' => 'required|string|max:100',
-            'correo' => 'required|string|email|max:100|unique:usuarios,correo,' . $idUsuario . ',idUsuario',
+            'correo' => 'required|string|email|max:100|unique:usuarios,correo,' .$idUsuario . ',idUsuario',
             'telefono' => 'nullable|string|max:20',
             'contrasena' => 'nullable|string|min:8|confirmed',
             'roles' => 'required|array|min:1', // Asegúrate de que se esté enviando al menos un rol

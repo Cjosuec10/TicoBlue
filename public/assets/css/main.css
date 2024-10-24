@@ -193,10 +193,213 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Estilo para la lista de comercios */
+.comercios-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+/* Estilo para cada comercio (tarjeta) */
+.comercio-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  width: 23%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.comercio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen dentro de la tarjeta */
+.comercio-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Título del comercio */
+.comercio-card h3 {
+  font-size: 1.4em;
+  margin: 15px 0 10px 0;
+  color: #333;
+}
+
+/* Estilos adicionales para textos */
+.comercio-card p {
+  margin: 8px 0;
+  font-size: 1em;
+  color: #666;
+}
+
+/* Estilo del botón de Ver */
+.btn-ver {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-ver:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
 
 
 
+/* General */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px; /* Ajusta si es necesario */
+}
+
+/* Títulos y textos */
+.contact-title {
+  font-size: 2.5rem;
+  color: #1a73e8; /* Azul */
+  margin-bottom: 20px;
+}
+
+.contact-description {
+  font-size: 1.2rem;
+  color: #666; /* Gris */
+  margin-bottom: 20px; /* Ajustado de 40px a 20px */
+}
+
+/* Formulario */
+.contact-form {
+  background-color: #fff; /* Blanco */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0; /* Elimina margen inferior */
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333; /* Gris oscuro */
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #1a73e8; /* Azul */
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
+}
+
+/* Botón de envío */
+.submit-btn {
+  background-color: #1a73e8; /* Azul */
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #155bb5; /* Azul más oscuro */
+}
+
+
+.contact-container {
+  margin-bottom: 0;  /* Elimina margen inferior */
+  padding-bottom: 0; /* Elimina relleno inferior */
+}
+
+
+footer {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+
+html, body {
+  height: auto;
+}
+
+/* Estilos Responsivos */
+@media only screen and (max-width: 768px) {
+  .contact-container {
+      padding: 10px;
+  }
+
+  .contact-title {
+      font-size: 2rem;
+  }
+
+  .contact-description {
+      font-size: 1rem;
+  }
+
+  .contact-form {
+      padding: 20px;
+  }
+
+  .submit-btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .contact-container {
+      padding: 10px;
+  }
+
+  .contact-title {
+      font-size: 2rem;
+  }
+
+  .contact-description {
+      font-size: 1rem;
+  }
+
+  .contact-form {
+      padding: 20px;
+  }
+
+  .submit-btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+  }
+}
 
 
 
