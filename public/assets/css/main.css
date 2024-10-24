@@ -354,6 +354,19 @@ html, body {
   height: auto;
 }
 
+
+.map-iframe {
+  width: 100%; /* Ajusta el ancho para que se adapte a la columna */
+  height: 200px; /* Ajusta la altura según tus necesidades */
+  border-radius: 15px; /* Bordes redondeados */
+  border: none; /* Elimina el borde del iframe */
+  overflow: hidden; /* Asegura que no haya desbordamiento */
+}
+
+
+
+
+
 /* Estilos Responsivos */
 @media only screen and (max-width: 768px) {
   .contact-container {

@@ -56,53 +56,37 @@
         </div>
         <button type="submit" class="submit-btn">Enviar Mensaje</button>
     </form>
-
     <div class="container row justify-content-center align-items-center vh-100">
-        <div class="col-md-6 text-center">
-            <h3>Información General</h3>
-            <p><strong>Teléfono:</strong> +506 1234-5678</p>
-            <p><strong>Email:</strong> soporte@tuplataforma.com</p>
-            <p><strong>Dirección:</strong> Calle Principal, San José, Costa Rica</p>
-        </div>
-
-        <div class="container col-md-6 text-center">
-            <h3>Horario de Atención</h3>
-            <p><strong>Lunes a Viernes:</strong> 9:00 AM - 6:00 PM</p>
-            <p><strong>Sábado:</strong> 9:00 AM - 1:00 PM</p>
-            <p><strong>Domingo:</strong> Cerrado</p>
-        </div>
+    <div class="col-md-4 text-center">
+        <h3>Información General</h3>
+        <p><strong>Teléfono:</strong> +506 1234-5678</p>
+        <p><strong>Email:</strong> ticoblue@gmail.com</p>
+        <p><strong>Dirección:</strong> Nicoya, Costa Rica</p>
     </div>
 
+    <div class="col-md-4 text-center">
+        <h3>Horario de Atención</h3>
+        <p><strong>Lunes a Viernes:</strong> 9:00 AM - 6:00 PM</p>
+        <p><strong>Sábado:</strong> 9:00 AM - 1:00 PM</p>
+        <p><strong>Domingo:</strong> Cerrado</p>
+    </div>
 
-    <div class="container contact-container mt-5 text-center">
-    <h3 class="contact-title">Síguenos en nuestras redes sociales</h3>
-    <p class="contact-description">Conéctate con nosotros para recibir noticias, ofertas especiales y más.</p>
-    <a href="https://facebook.com" target="_blank" class="btn btn-outline-primary">Facebook</a>
-    <a href="https://instagram.com" target="_blank" class="btn btn-outline-danger">Instagram</a>
-    <a href="https://twitter.com" target="_blank" class="btn btn-outline-info">Twitter</a>
+    <div class="col-md-4 mb-5 text-center">
+       
+        <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20139.809096891896!2d-85.44625!3d10.134833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
+    </div><!-- End Google Maps -->
 </div>
+
 </div>
-
-
 <!-- Redes sociales y otros contactos -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+<div class="container contact-container mt-5 text-center">
+<h3 class="contact-title">Síguenos en nuestras redes sociales</h3>
+<p class="contact-description">Conéctate con nosotros para recibir noticias, ofertas especiales y más.</p>
+<a href="https://facebook.com" target="_blank" class="btn btn-outline-primary">Facebook</a>
+<a href="https://instagram.com" target="_blank" class="btn btn-outline-danger">Instagram</a>
+<a href="https://twitter.com" target="_blank" class="btn btn-outline-info">Twitter</a>
+</div> 
+</div>
     <!-- Page Title -->
     <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
       <div class="container position-relative">
@@ -124,9 +108,6 @@
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
-      <div class="mb-5">
-        <iframe style="width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
-      </div><!-- End Google Maps -->
 
       <div class="container" data-aos="fade">
 
