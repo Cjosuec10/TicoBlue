@@ -53,7 +53,7 @@
           <!-- Verificar si el usuario tiene uno o varios de los permisos -->
             @canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
               <li class="dropdown">
-                  <a href="#"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <a href="/admin"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
                       <!-- Mostrar opciones solo si el usuario tiene el permiso adecuado -->
                       @can('ver-rol')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comercio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ComercioController extends Controller
 {
@@ -39,10 +40,12 @@ class ComercioController extends Controller
             'telefonoComercio' => 'nullable|max:20',
             'descripcionComercio' => 'nullable',
             'imagen' => 'nullable|image|max:2048', // Validar que sea una imagen y el tamaño máximo
-            'direccion_url' => 'nullable|url|max:255', // Validar que sea una URL válida
+            'direccion_url' => 'nullable|string', // Validar que sea una URL válida
             'direccion_texto' => 'nullable|string|max:255', // Validar que sea una cadena de texto
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+            // dd($request->direccion_url)
         ]);
+
 
         // Crear una nueva instancia de Comercio
         $newcomercio = new Comercio();
@@ -97,10 +100,20 @@ class ComercioController extends Controller
             'telefonoComercio' => 'nullable|max:20',
             'descripcionComercio' => 'nullable',
             'imagen' => 'nullable|image|max:2048', // Validar que sea una imagen
-            'direccion_url' => 'nullable|url|max:255', // Validar que sea una URL válida
+            'direccion_url' => 'nullable|string', // Validar que sea una URL válida
             'direccion_texto' => 'nullable|string|max:255', // Validar que sea una cadena de texto
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
         ]);
+        // Actualizar los datos del comercio, incluyendo direccion_url
+        $comercio->nombreComercio = $request->nombreComercio;
+        $comercio->tipoNegocio = $request->tipoNegocio;
+        $comercio->correoComercio = $request->correoComercio;
+        $comercio->telefonoComercio = $request->telefonoComercio;
+        $comercio->descripcionComercio = $request->descripcionComercio;
+        $comercio->direccion_url = $request->direccion_url;
+        $comercio->direccion_texto = $request->direccion_texto;
+        $comercio->idUsuario_fk = $request->idUsuario_fk;
+
 
         // Manejo de subida de imagen
         if ($request->hasFile('imagen')) {
@@ -114,6 +127,8 @@ class ComercioController extends Controller
         // Actualizar los demás datos del comercio
         $comercio->update($request->except('imagen'));
 
+    // Guardar los cambios en la base de datos
+    $comercio->save();
         // Redirigir a la lista de comercios con un mensaje de éxito
         return redirect()->route('comercios.index')->with('success', 'Comercio actualizado exitosamente.');
     }

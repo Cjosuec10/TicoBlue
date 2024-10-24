@@ -6,12 +6,13 @@
     <div class="card">
         <div class="card-body">
             <!-- Agregamos el id "crearAlojamientoForm" al formulario -->
-            <form id="crearAlojamientoForm" action="{{ route('alojamiento.store') }}" method="POST" class="row g-3 needs-validation" novalidate>
+            <form id="crearAlojamientoForm" action="{{ route('alojamiento.store') }}" method="POST"
+                enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
-                
+
+
                 <!-- Nombre del Alojamiento -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
                     <label for="nombreAlojamiento" class="form-label">Nombre del Alojamiento</label>
                     <input type="text" class="form-control" id="nombreAlojamiento" name="nombreAlojamiento" required>
                     <div class="invalid-feedback">
@@ -21,7 +22,17 @@
                         ¡Correcto!
                     </div>
                 </div>
-
+                <!-- Selección de Comercio -->
+                <div class="col-md-6">
+                    <label for="idComercio_fk" class="form-label">Comercio</label>
+                    <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
+                        <option selected disabled value="">Seleccione un comercio</option>
+                        @foreach ($comercios as $comercio)
+                            <option value="{{ $comercio->idComercio }}">{{ $comercio->nombreComercio }}</option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">Por favor, seleccione un comercio.</div>
+                </div>
                 <!-- Descripción del Alojamiento -->
                 <div class="col-md-12">
                     <label for="descripcionAlojamiento" class="form-label">Descripción</label>
@@ -45,7 +56,11 @@
                         ¡Correcto!
                     </div>
                 </div>
-
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagen" >Imagen</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
                 <!-- Capacidad del Alojamiento -->
                 <div class="col-md-6">
                     <label for="capacidad" class="form-label">Capacidad</label>
@@ -58,42 +73,64 @@
                     </div>
                 </div>
 
-                <!-- Selección de Usuario -->
-          <!-- Selección de Usuario -->
-<div class="col-md-6">
-    <label for="idUsuario_fk" class="form-label">Usuario</label>
-    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
-        <option selected disabled value="">Seleccione un usuario</option>
-        @foreach($usuarios as $usuario)
-            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
-        @endforeach
-    </select>
-    <div class="invalid-feedback">
-        Por favor, seleccione un usuario.
-    </div>
-    <div class="valid-feedback">
-        ¡Correcto!
-    </div>
-</div>
+                <!-- Imagen del Alojamiento -->
+                <div class="col-md-6">
+                    <label for="imagen" class="form-label">Imagen</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                    <div class="invalid-feedback">
+                        Por favor, seleccione una imagen válida.
+                    </div>
+                </div>
 
-<!-- Selección de Comercio -->
-<div class="col-md-6">
-    <label for="idComercio_fk" class="form-label">Comercio</label>
-    <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
-        <option selected disabled value="">Seleccione un comercio</option>
-        @foreach($comercios as $comercio)
-            <option value="{{ $comercio->idComercio }}">{{ $comercio->nombreComercio }}</option>
-        @endforeach
-    </select>
-    <div class="invalid-feedback">Por favor, seleccione un comercio.</div>
-</div>
+                <!-- Fecha de Inicio -->
+                <div class="col-md-6">
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese la fecha de inicio.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+
+                <!-- Fecha de Fin -->
+                <div class="col-md-6">
+                    <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese la fecha de fin.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+
+                <!-- Selección de Usuario -->
+                <div class="col-md-6">
+                    <label for="idUsuario_fk" class="form-label">Usuario</label>
+                    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
+                        <option selected disabled value="">Seleccione un usuario</option>
+                        @foreach ($usuarios as $usuario)
+                            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor, seleccione un usuario.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+
 
 
                 <!-- Botón para Enviar -->
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Guardar -->
                     <button class="btn btn-success" type="submit">Guardar</button>
-                    
+
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver

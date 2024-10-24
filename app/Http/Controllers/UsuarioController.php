@@ -100,25 +100,40 @@ class UsuarioController extends Controller
             'correo' => 'required|string|email|max:100|unique:usuarios,correo,' .$idUsuario . ',idUsuario',
             'telefono' => 'nullable|string|max:20',
             'contrasena' => 'nullable|string|min:8|confirmed',
-            'rol' => 'required|string', // Asegúrate de que se esté enviando el rol
+            'roles' => 'required|array|min:1', // Asegúrate de que se esté enviando al menos un rol
+            'roles.*' => 'exists:roles,name', // Verifica que los roles existan en la tabla de roles
         ]);
 
-        // Encontrar el usuario
-        $usuario = Usuario::findOrFail($idUsuario);
+        try {
+            // Encontrar el usuario
+            $usuario = Usuario::findOrFail($idUsuario);
 
-        // Actualizar los datos del usuario
-        $usuario->update([
-            'nombre' => $request->nombre,
-            'correo' => $request->correo,
-            'telefono' => $request->telefono,
-            'contrasena' => $request->contrasena ? Hash::make($request->contrasena) : $usuario->contrasena,
-        ]);
+            // Preparar datos para actualizar
+            $data = [
+                'nombre' => $request->nombre,
+                'correo' => $request->correo,
+                'telefono' => $request->telefono,
+            ];
 
-        // Asignar el nuevo rol
-        $usuario->syncRoles([$request->rol]); // Asegúrate de que el rol sea un array
+            // Si se proporciona una nueva contraseña, la actualizamos
+            if ($request->filled('contrasena')) {
+                $data['contrasena'] = Hash::make($request->contrasena);
+            }
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado con éxito.');
+            // Actualizar los datos del usuario
+            $usuario->update($data);
+
+            // Asignar los nuevos roles
+            $roles = $request->input('roles'); // Obtener el array de roles del formulario
+            $usuario->syncRoles($roles);
+
+            return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado con éxito.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar el usuario: ' . $e->getMessage());
+        }
     }
+
+
 
     /**
      * Eliminar un usuario específico.

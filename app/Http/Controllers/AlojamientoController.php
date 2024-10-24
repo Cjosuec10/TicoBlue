@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alojamiento;
-use App\Models\Usuario; // Asegúrate de que este modelo también esté importado
-use App\Models\Comercio; // Importa el modelo Comercio
+use App\Models\Usuario;
+use App\Models\Comercio;
+use App\Models\Evento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlojamientoController extends Controller
 {
@@ -17,7 +19,6 @@ class AlojamientoController extends Controller
         $this->middleware('permission:borrar-alojamiento', ['only' => ['destroy']]);
     }
 
-
     public function index()
     {
         $alojamientos = Alojamiento::all();
@@ -25,11 +26,11 @@ class AlojamientoController extends Controller
     }
 
     public function create()
-{
-    $usuarios = Usuario::all(); // Obtiene todos los usuarios
-    $comercios = Comercio::all(); // Obtiene todos los comercios
-    return view('alojamiento.create', compact('usuarios', 'comercios'));
-}
+    {
+        $usuarios = Usuario::all();
+        $comercios = Comercio::all();
+        return view('alojamiento.create', compact('usuarios', 'comercios'));
+    }
 
     public function store(Request $request)
     {
@@ -38,63 +39,89 @@ class AlojamientoController extends Controller
             'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
-            'idComercio_fk' => 'required|exists:comercios,idComercio', // Asegúrate de que este campo esté presente
-            'idUsuario_fk' => 'required|exists:usuarios,idUsuario', // Asegúrate de que este campo también esté presente
+            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+            'imagen' => 'nullable|image|max:2048',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
+
+        // Manejo de la imagen si se carga
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'img/alojamientos/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $validatedData['imagen'] = $destinationPath . $fileName;
+        }
 
         Alojamiento::create($validatedData);
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento creado con éxito.');
     }
 
-    // Mostrar un alojamiento en particular
     public function show($id)
     {
         $alojamiento = Alojamiento::findOrFail($id);
-        return view('alojamiento.show', compact('alojamiento')); // Cambié 'alojamientos.show' por 'alojamiento.show'
+        return view('alojamiento.show', compact('alojamiento'));
     }
 
-    // Mostrar el formulario para editar un alojamiento
     public function edit($id)
     {
         $alojamiento = Alojamiento::findOrFail($id);
-        $usuarios = Usuario::all(); // Asegúrate de obtener usuarios para la vista de edición
-        return view('alojamiento.edit', compact('alojamiento', 'usuarios')); // Cambié 'alojamientos.edit' por 'alojamiento.edit'
+        $usuarios = Usuario::all();
+        $comercios = Comercio::all();
+        return view('alojamiento.edit', compact('alojamiento', 'usuarios', 'comercios'));
     }
 
-    // Actualizar un alojamiento existente
+
     public function update(Request $request, $id)
     {
+        // Validar los datos
         $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
             'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
-            'idComercio_fk' => 'required|exists:comercios,idComercio'
+            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'imagen' => 'nullable|image|max:2048',
+            'fechaInicio' => 'required|date',
+            'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
 
+        // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
+
+        // Manejo de la imagen si se carga una nueva
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $destinationPath = 'img/alojamientos/';
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $validatedData['imagen'] = $destinationPath . $fileName;
+        }
+
         $alojamiento->update($validatedData);
 
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.');
     }
 
-    // Eliminar un alojamiento
+
     public function destroy($id)
     {
         $alojamiento = Alojamiento::findOrFail($id);
         $alojamiento->delete();
 
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.'); // Cambié 'alojamientos.index' por 'alojamiento.index'
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
 
     public function mostrarAlojamientos()
-    {
-        // Obtener todos los alojamientos
-        $alojamientos = Alojamiento::all();
-        
-        // Pasar los alojamientos a la vista
-        return view('frontend.alojamientos', compact('alojamientos'));
-    }
+{
+    $alojamientos = Alojamiento::with('comercio')->get(); // Cargar la relación comercio
+    $comercios = Comercio::all(); // Asegurarse de obtener todos los comercios
+    $usuarioLogueado = Auth::user(); // Obtener el usuario actualmente autenticado
+
+    return view('frontend.alojamientos', compact('alojamientos', 'comercios', 'usuarioLogueado'));
+}
 
 }

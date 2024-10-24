@@ -12,19 +12,17 @@
 
     <h1 class="card-title" id="title">Información del Comercio</h1>
 
-    <div class="card">
+    <div class="card mx-auto" style="max-width: 800px;">
         <div class="card-body">
-            <form class="row g-3">
+            <form class="row g-4">
                 @csrf
 
-                <!-- Nombre del Comercio -->
+                <!-- Nombre del Comercio y Tipo de Negocio -->
                 <div class="col-md-6">
                     <h5 class="card-title"></h5>
                     <label for="nombreComercio" class="form-label" id="label-nombreComercio">Nombre del Comercio</label>
                     <input type="text" class="form-control" id="nombreComercio" name="nombreComercio" value="{{ $comercio->nombreComercio }}" disabled>
                 </div>
-
-                <!-- Tipo de Negocio -->
                 <div class="col-md-6">
                     <h5 class="card-title"></h5>
                     <label for="tipoNegocio" class="form-label" id="label-tipoNegocio">Tipo de Negocio</label>
@@ -38,13 +36,11 @@
                     </select>
                 </div>
 
-                <!-- Correo del Comercio -->
+                <!-- Correo y Teléfono del Comercio -->
                 <div class="col-md-6">
                     <label for="correoComercio" class="form-label" id="label-correoComercio">Correo</label>
                     <input type="email" class="form-control" id="correoComercio" name="correoComercio" value="{{ $comercio->correoComercio }}" disabled>
                 </div>
-
-                <!-- Teléfono del Comercio -->
                 <div class="col-md-6">
                     <label for="telefonoComercio" class="form-label" id="label-telefonoComercio">Teléfono</label>
                     <input type="text" class="form-control" id="telefonoComercio" name="telefonoComercio" value="{{ $comercio->telefonoComercio }}" disabled>
@@ -60,9 +56,7 @@
                 <div class="col-md-6">
                     <label for="imagen" id="label-imagen">Imagen</label>
                     @if ($comercio->imagen)
-                        <div>
-                            <img src="{{ asset($comercio->imagen) }}" alt="Imagen del comercio" class="img-fluid" style="max-width: 200px; border-radius: 8px;">
-                        </div>
+                        <img src="{{ asset($comercio->imagen) }}" alt="Imagen del comercio" class="img-fluid" style="max-width: 100%; height: auto; border-radius: 8px;">
                     @else
                         <p>No disponible</p>
                     @endif

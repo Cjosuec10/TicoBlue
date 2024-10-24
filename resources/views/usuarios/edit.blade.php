@@ -50,7 +50,7 @@
                 <!-- Rol del Usuario -->
                 <div class="col-md-6">
                     <label for="rolUsuario" class="form-label">Rol</label>
-                    <select class="form-select" id="rolUsuario" name="rol" required>
+                    <select class="form-select" id="rolUsuario" name="roles[]" required>
                         <option disabled value="">Seleccione un rol</option>
                         @foreach($roles as $role)
                             <option value="{{ $role->name }}" {{ $usuario->roles->contains('name', $role->name) ? 'selected' : '' }}>
@@ -99,27 +99,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.getElementById('editarUsuarioForm').addEventListener('submit', function(event) {
-            // Verifica si el formulario es válido
-            if (!this.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.classList.add('was-validated');
-            } else {
-                event.preventDefault(); // Evita que el formulario se envíe inmediatamente
+        // Verifica si el formulario es válido
+        if (!this.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.classList.add('was-validated');
+        } else {
+            event.preventDefault(); // Evita que el formulario se envíe inmediatamente
 
-                // Muestra la alerta rápida si el formulario es válido
-                Swal.fire({
-                    icon: "success",
-                    title: "El usuario ha sido actualizado",
-                    showConfirmButton: false,
-                    timer: 2100
-                });
-
-                // Envía el formulario después de un breve retraso para permitir que se muestre la alerta
-                setTimeout(() => {
-                    this.submit();
-                }, 1600); // Espera 1.6 segundos para que el SweetAlert desaparezca
-            }
-        });
+            // Muestra la alerta rápida si el formulario es válido
+            Swal.fire({
+                icon: "success",
+                title: "El usuario ha sido actualizado",
+                showConfirmButton: false,
+                timer: 2100
+            }).then(() => {
+                // Envía el formulario después de que SweetAlert desaparezca
+                this.submit();
+            });
+        }
+    });
     </script>
 @endsection

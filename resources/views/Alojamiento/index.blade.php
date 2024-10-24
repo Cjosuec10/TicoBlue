@@ -24,6 +24,7 @@
                                     <th>Descripción</th>
                                     <th>Precio</th>
                                     <th>Capacidad</th>
+                                    <th>Imagen</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -36,12 +37,20 @@
                                         <td>{{ $alojamiento->precioAlojamiento }}</td>
                                         <td>{{ $alojamiento->capacidad }}</td>
                                         <td>
+                                            @if ($alojamiento->imagen)
+                                                <img src="{{asset($alojamiento->imagen)}}" alt="{{$alojamiento->nombreAlojamiento}}" class="img-fluid" width="120px">
+                                            @else
+                                                <span>No disponible</span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <div class="d-flex">
                                                 <!-- Botón Editar -->
                                                 @can('editar-alojamiento')
-                                                <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
-                                                    <i class="bi bi-exclamation-triangle"></i> Editar
-                                                </a>
+                                                @method('PUT')
+                                                    <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
+                                                        <i class="bi bi-exclamation-triangle"></i> Editar
+                                                    </a>
                                                 @endcan
                                                 <!-- Botón Eliminar -->
                                                 @can('borrar-alojamiento')

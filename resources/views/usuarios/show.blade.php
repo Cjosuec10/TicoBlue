@@ -5,26 +5,24 @@
 
     <div class="card">
         <div class="card-body">
+            <h5 class="card-title"></h5>
             <form class="row g-3">
                 @csrf
 
                 <!-- Nombre del Usuario -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
                     <label for="nombreUsuario" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="{{ $usuario->nombre }}" disabled>
                 </div>
 
                 <!-- Correo del Usuario -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
                     <label for="correoUsuario" class="form-label">Correo Electrónico</label>
                     <input type="email" class="form-control" id="correoUsuario" name="correoUsuario" value="{{ $usuario->correo }}" disabled>
                 </div>
 
                 <!-- Teléfono del Usuario -->
                 <div class="col-md-6">
-                    <h5 class="card-title"></h5>
                     <label for="telefonoUsuario" class="form-label">Teléfono</label>
                     <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario" value="{{ $usuario->telefono }}" disabled>
                 </div>

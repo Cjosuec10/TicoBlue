@@ -5,45 +5,66 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+            <form action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" enctype="multipart/form-data"
+                class="row g-3 needs-validation" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="col-md-6">
                     <label for="nombreEvento" class="form-label">Nombre del Evento</label>
-                    <input type="text" class="form-control" id="nombreEvento" name="nombreEvento" value="{{ $evento->nombreEvento }}" required>
+                    <input type="text" class="form-control" id="nombreEvento" name="nombreEvento"
+                        value="{{ $evento->nombreEvento }}" required>
                     <div class="invalid-feedback">Por favor, ingrese el nombre del evento.</div>
                 </div>
                 <div class="col-md-6">
                     <label for="tipoEvento" class="form-label">Tipo de Evento</label>
-                    <input type="text" class="form-control" id="tipoEvento" name="tipoEvento" value="{{ $evento->tipoEvento }}" required>
+                    <input type="text" class="form-control" id="tipoEvento" name="tipoEvento"
+                        value="{{ $evento->tipoEvento }}" required>
                     <div class="invalid-feedback">Por favor, ingrese el tipo del evento.</div>
                 </div>
                 <div class="col-md-6">
                     <label for="correoEvento" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="correoEvento" name="correoEvento" value="{{ $evento->correoEvento }}" required>
+                    <input type="email" class="form-control" id="correoEvento" name="correoEvento"
+                        value="{{ $evento->correoEvento }}" required>
                     <div class="invalid-feedback">Por favor, ingrese un correo válido.</div>
                 </div>
                 <div class="col-md-6">
                     <label for="telefonoEvento" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="telefonoEvento" name="telefonoEvento" value="{{ $evento->telefonoEvento }}">
+                    <input type="text" class="form-control" id="telefonoEvento" name="telefonoEvento"
+                        value="{{ $evento->telefonoEvento }}">
                 </div>
                 <div class="col-md-6">
                     <label for="direccionEvento" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccionEvento" name="direccionEvento" value="{{ $evento->direccionEvento }}">
+                    <input type="text" class="form-control" id="direccionEvento" name="direccionEvento"
+                        value="{{ $evento->direccionEvento }}">
                 </div>
                 <div class="col-md-6">
-                    <label for="imagen">Imagen</label>
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"
+                        value="{{ $evento->fechaInicio }}" required>
+                    <div class="invalid-feedback">Por favor, ingrese la fecha de inicio.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                    <input type="date" class="form-control" id="fechaFin" name="fechaFin"
+                        value="{{ $evento->fechaFin }}" required>
+                    <div class="invalid-feedback">Por favor, ingrese la fecha de fin.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="imagen" class="form-label">Imagen</label>
                     <input type="file" class="form-control" id="imagen" name="imagen">
                     @if ($evento->imagen)
-                        <img src="{{ asset($evento->imagen) }}" alt="Imagen del evento" class="img-fluid" width="120px">
+                        <img src="{{ asset($evento->imagen) }}" alt="Imagen del evento" class="img-fluid mt-2"
+                            width="120px">
                     @endif
                 </div>
                 <div class="col-md-6">
                     <label for="idComercio_fk" class="form-label">Comercio</label>
                     <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
                         <option disabled value="">Seleccione un comercio</option>
-                        @foreach($comercios as $comercio)
-                            <option value="{{ $comercio->idComercio }}" {{ $evento->idComercio_fk == $comercio->idComercio ? 'selected' : '' }}>{{ $comercio->nombreComercio }}</option>
+                        @foreach ($comercios as $comercio)
+                            <option value="{{ $comercio->idComercio }}"
+                                {{ $evento->idComercio_fk == $comercio->idComercio ? 'selected' : '' }}>
+                                {{ $comercio->nombreComercio }}</option>
                         @endforeach
                     </select>
                     <div class="invalid-feedback">Por favor, seleccione un comercio.</div>

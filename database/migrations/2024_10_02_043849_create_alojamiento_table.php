@@ -14,6 +14,9 @@ class CreateAlojamientoTable extends Migration
             $table->text('descripcionAlojamiento')->nullable();
             $table->decimal('precioAlojamiento', 10, 2);
             $table->integer('capacidad');
+            $table->string('imagen')->nullable();
+            $table->date('fechaInicio');
+            $table->date('fechaFin');
         
             // Relación con Comercio
             $table->unsignedBigInteger('idComercio_fk');

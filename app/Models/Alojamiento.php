@@ -7,20 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alojamiento extends Model
 {
+   
     use HasFactory;
 
-       // Clave primaria de la tabla
+    // Clave primaria de la tabla
     protected $primaryKey = 'idAlojamiento';
 
     protected $table = 'alojamiento';
-
-   // protected $primaryKey = 'idAlojamiento';
 
     protected $fillable = [
         'nombreAlojamiento',
         'descripcionAlojamiento',
         'precioAlojamiento',
         'capacidad',
+        'imagen',
+        'fechaInicio',
+        'fechaFin',
         'idComercio_fk'
     ];
+    public function comercio()
+    {
+        return $this->belongsTo(Comercio::class, 'idComercio_fk');
+    }
 }
