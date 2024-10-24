@@ -11,9 +11,12 @@
                 @csrf
                 @method('PUT')
 
+
                 <!-- Nombre del Alojamiento -->
                 <div class="col-md-6">
                     <label for="nombreAlojamiento" class="form-label">Nombre del Alojamiento</label>
+                    <input type="text" class="form-control" id="nombreAlojamiento" name="nombreAlojamiento"
+                        value="{{ $alojamiento->nombreAlojamiento }}" required>
                     <input type="text" class="form-control" id="nombreAlojamiento" name="nombreAlojamiento"
                         value="{{ $alojamiento->nombreAlojamiento }}" required>
                     <div class="invalid-feedback">
@@ -44,10 +47,34 @@
                         Por favor, ingrese una descripción.
                     </div>
                 </div>
+                <!-- Descripción del Alojamiento -->
+                <div class="col-md-12">
+                    <label for="descripcionAlojamiento" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcionAlojamiento" name="descripcionAlojamiento" required>{{ $alojamiento->descripcionAlojamiento }}</textarea>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una descripción.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
+                <!-- Descripción del Alojamiento -->
+                <div class="col-md-12">
+                    <label for="descripcionAlojamiento" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcionAlojamiento" name="descripcionAlojamiento" required>{{ $alojamiento->descripcionAlojamiento }}</textarea>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una descripción.
+                    </div>
+                    <div class="valid-feedback">
+                        ¡Correcto!
+                    </div>
+                </div>
 
                 <!-- Precio del Alojamiento -->
                 <div class="col-md-6">
                     <label for="precioAlojamiento" class="form-label">Precio por Noche</label>
+                    <input type="number" step="0.01" class="form-control" id="precioAlojamiento"
+                        name="precioAlojamiento" value="{{ $alojamiento->precioAlojamiento }}" required>
                     <input type="number" step="0.01" class="form-control" id="precioAlojamiento"
                         name="precioAlojamiento" value="{{ $alojamiento->precioAlojamiento }}" required>
                     <div class="invalid-feedback">
@@ -58,6 +85,8 @@
                 <!-- Capacidad -->
                 <div class="col-md-6">
                     <label for="capacidad" class="form-label">Capacidad</label>
+                    <input type="number" class="form-control" id="capacidad" name="capacidad"
+                        value="{{ $alojamiento->capacidad }}" required>
                     <input type="number" class="form-control" id="capacidad" name="capacidad"
                         value="{{ $alojamiento->capacidad }}" required>
                     <div class="invalid-feedback">
@@ -98,6 +127,40 @@
                     </div>
                 </div>
 
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagenActual">Imagen Actual</label>
+                    <div class="mb-3">
+                        @if ($alojamiento->imagen)
+                            <img src="{{ asset($alojamiento->imagen) }}" alt="Imagen actual del alojamiento"
+                                class="img-thumbnail" style="max-width: 200px;">
+                        @else
+                            <p>No hay imagen disponible</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="imagen">Ingresa nueva Imagen (opcional)</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
+
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagenActual">Imagen Actual</label>
+                    <div class="mb-3">
+                        @if ($alojamiento->imagen)
+                            <img src="{{ asset($alojamiento->imagen) }}" alt="Imagen actual del alojamiento"
+                                class="img-thumbnail" style="max-width: 200px;">
+                        @else
+                            <p>No hay imagen disponible</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="imagen">Ingresa nueva Imagen (opcional)</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
+
                 <!-- Selección de Usuario -->
                 <div class="col-md-6">
                     <label for="idUsuario_fk" class="form-label">Usuario</label>
@@ -120,11 +183,13 @@
                     <!-- Botón Actualizar -->
                     <button class="btn btn-success" type="submit">Actualizar</button>
 
+
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">
                         Volver
                     </button>
                 </div>
+
 
             </form>
         </div>
@@ -142,6 +207,7 @@
             } else {
                 event.preventDefault(); // Evita que el formulario se envíe inmediatamente
 
+
                 // Muestra la alerta rápida si el formulario es válido
                 Swal.fire({
                     icon: "success",
@@ -152,6 +218,7 @@
 
                 setTimeout(() => {
                     this.submit();
+                }, 1600);
                 }, 1600);
             }
         });

@@ -25,11 +25,4 @@ class Alojamiento extends Model
         'fechaFin',
         'idComercio_fk'
     ];
-
-    // Definir la relación con Comercio
-    public function comercio()
-    {
-        return $this->belongsTo(Comercio::class, 'idComercio_fk', 'idComercio');
-    }
-
 }

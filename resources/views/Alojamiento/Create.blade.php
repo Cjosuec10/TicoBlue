@@ -10,6 +10,7 @@
                 enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
 
+
                 <!-- Nombre del Alojamiento -->
                 <div class="col-md-6">
                     <label for="nombreAlojamiento" class="form-label">Nombre del Alojamiento</label>
@@ -55,7 +56,11 @@
                         ¡Correcto!
                     </div>
                 </div>
-
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagen" >Imagen</label>
+                    <input type="file" id="imagen" name="imagen">
+                </div>
                 <!-- Capacidad del Alojamiento -->
                 <div class="col-md-6">
                     <label for="capacidad" class="form-label">Capacidad</label>
@@ -124,6 +129,7 @@
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Guardar -->
                     <button class="btn btn-success" type="submit">Guardar</button>
+
 
                     <!-- Botón Volver -->
                     <button type="button" class="btn btn-primary" onclick="window.history.back();">

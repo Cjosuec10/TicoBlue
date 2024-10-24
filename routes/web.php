@@ -50,7 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('alojamiento', AlojamientoController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('roles', RolController::class);
-    
+
+
+    Route::put('/alojamientos/{alojamiento}', [AlojamientoController::class, 'update'])->name('alojamientos.update');
+    Route::get('/alojamientos', [AlojamientoController::class, 'index'])->name('alojamientos.index');
+
     // Eliminar una reservación
     Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
 

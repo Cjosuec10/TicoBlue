@@ -6,6 +6,8 @@
 
         <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+        <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
             <div class="form-group">
                 <label for="nombreUsuarioReservacion">Nombre del Usuario:</label>

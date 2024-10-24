@@ -74,8 +74,10 @@ class AlojamientoController extends Controller
         return view('alojamiento.edit', compact('alojamiento', 'usuarios', 'comercios'));
     }
 
+
     public function update(Request $request, $id)
     {
+        // Validar los datos
         $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
             'descripcionAlojamiento' => 'nullable',
@@ -87,6 +89,7 @@ class AlojamientoController extends Controller
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
 
+        // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
 
         // Manejo de la imagen si se carga una nueva
@@ -102,6 +105,7 @@ class AlojamientoController extends Controller
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.');
     }
+
 
     public function destroy($id)
     {
