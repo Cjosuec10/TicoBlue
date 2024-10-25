@@ -86,9 +86,23 @@
                         ¡Correcto!
                     </div>
                 </div>
-
+                <div class="col-md-4 d-flex flex-column align-items-center">
+                    @if ($comercio->direccion_url)
+                        <label for="mapa" class="form-label">Mapa de Ubicación</label>
+                        <iframe
+                            width="100%"
+                            height="250"
+                            style="border:0; border-radius: 8px;"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed?pb={{ $comercio->direccion_url }}">
+                        </iframe>
+                    @else
+                        <p>No hay información de ubicación disponible para este comercio.</p>
+                    @endif
+                </div>
                 <!-- Dirección URL -->
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <label for="direccion_url" class="form-label">ID de Mapa de Google</label>
                     <textarea class="form-control" id="direccion_url" name="direccion_url" rows="3" placeholder="Ingrese el ID de Mapa de Google">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
                     <div class="invalid-feedback">
