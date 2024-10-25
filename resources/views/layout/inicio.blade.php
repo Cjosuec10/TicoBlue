@@ -27,6 +27,7 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+  
 
   @stack('css') <!-- Para incluir CSS adicional específico de la vista -->
 </head>
@@ -34,12 +35,10 @@
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center position-relative">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="AgriCulture">
+      <img src="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" alt="" style="width: 100px; height: auto;">
       </a>
-
     <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Inicio</a></li>
@@ -114,20 +113,20 @@
     @yield('content') <!-- Sección donde se incluirá el contenido de cada vista -->
   </main>
 
-  <footer id="footer" class="footer dark-background">
+  <footer id="footer" class="footer">
 
     <div class="footer-top">
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-4 col-md-6 footer-about">
-            <a href="/" class="logo d-flex align-items-center">
-              <span class="sitename">AgriCulture</span>
-            </a>
+          <a href="/" class="logo d-flex align-items-center">
+      <img src="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" alt="" style="width: 100px; height: auto;">
+      </a>
             <div class="footer-contact pt-3">
-              <p>A108 Adam Street</p>
-              <p>New York, NY 535022</p>
+              <p>Nicoya</p>
+              <p>Costa Rica, Guanacaste</p>
               <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-              <p><strong>Email:</strong> <span>info@example.com</span></p>
+              <p><strong>Email:</strong> <span>info@ticoblue.com</span></p>
             </div>
           </div>
 
@@ -150,10 +149,7 @@
 
         <div class="d-flex flex-column align-items-center align-items-lg-start">
           <div>
-            © Copyright <strong><span>AgriCulture</span></strong>. Todos los derechos reservados
-          </div>
-          <div class="credits">
-            Diseñado por <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            © Copyright <strong><span style="color: #107acc;" >TICOBLUE</span></strong>. Todos los derechos reservados
           </div>
         </div>
 
