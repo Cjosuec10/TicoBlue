@@ -74,9 +74,11 @@
                 <!-- Dirección URL -->
                 <div class="col-md-12">
                     <label for="direccion_url" class="form-label">ID del Mapa de Google</label>
-                    <textarea class="form-control @error('direccion_url') is-invalid @enderror" id="direccion_url" name="direccion_url" rows="3" placeholder="Ingrese ID de Mapa de Google">{{ old('direccion_url') }}</textarea>
+                    <textarea class="form-control @error('direccion_url') is-invalid @enderror" id="direccion_url" name="direccion_url"
+                        rows="3" placeholder="Ingrese ID de Mapa de Google">{{ old('direccion_url') }}</textarea>
                     <div class="invalid-feedback">
-                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres, EJEMPLO: !1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
+                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres, EJEMPLO:
+                        !1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
                     </div>
 
                 </div>
@@ -95,9 +97,7 @@
                     <label for="idUsuario_fk" class="form-label">Usuario</label>
                     <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
                         <option selected disabled value="">Seleccione un usuario</option>
-                        @foreach ($usuarios as $usuario)
-                            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
-                        @endforeach
+                        <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
                     </select>
                     <div class="invalid-feedback">
                         Por favor, seleccione un usuario.

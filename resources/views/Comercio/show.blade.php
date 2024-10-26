@@ -1,14 +1,7 @@
 @extends('layout.administracion')
 
 @section('content')
-    <div class="flags" id="flags">
-        <div class="flags__item" data-language="es" onclick="selectLanguage('es')">
-            <img src="/assets/icons/cr.svg" alt="Español">
-        </div>
-        <div class="flags__item" data-language="en" onclick="selectLanguage('en')">
-            <img src="/assets/icons/us.svg" alt="English">
-        </div>
-    </div>
+ 
 
     <h1 class="card-title" id="title">Información del Comercio</h1>
 

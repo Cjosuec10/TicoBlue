@@ -39,8 +39,8 @@
 
             <!-- Selección de Evento -->
             <div class="col-md-6">
-                <label for="idEvento_fk" class="form-label">Evento (opcional)</label>
-                <select class="form-select" id="idEvento_fk" name="idEvento_fk">
+                <label for="idEvento_fk" class="form-label">Evento</label>
+                <select class="form-select" id="idEvento_fk" name="idEvento_fk" required>
                     <option selected disabled value="">Seleccione un evento</option>
                     @foreach ($eventos as $evento)
                         <option value="{{ $evento->idEvento }}">{{ $evento->nombreEvento }}</option>

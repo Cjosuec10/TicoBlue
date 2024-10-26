@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 class Reservacion extends Model
 {
     protected $table = 'reservaciones';
-    protected $primaryKey = 'idReservacion';
 
     protected $fillable = [
         'nombreUsuarioReservacion',
@@ -38,10 +37,4 @@ class Reservacion extends Model
     {
         return $this->belongsTo(Alojamiento::class, 'idAlojamiento_fk');
     }
-
-    public function getRouteKeyName()
-    {
-        return 'idReservacion';
-    }
-
 }

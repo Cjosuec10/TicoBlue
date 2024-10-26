@@ -21,10 +21,9 @@ class ReservacionController extends Controller
 
     public function index()
     {
-        $reservaciones = Reservacion::with(['comercio', 'evento', 'alojamiento'])->get();
+        $reservaciones = Reservacion::all();
         return view('reservaciones.index', compact('reservaciones'));
     }
-
 
     // Método para mostrar el formulario de creación de una nueva reservación
     public function create()
@@ -38,36 +37,43 @@ class ReservacionController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validar los datos de entrada
-    $request->validate([
-        'nombreUsuarioReservacion' => 'required|string|max:255',
-        'correoUsuarioReservacion' => 'required|email|max:255',
-        'telefonoUsuarioReservacion' => 'nullable|string|max:20',
-        'idComercio_fk' => 'required|exists:comercios,idComercio',
-        'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Ahora es opcional
-        'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-        'idAlojamiento_fk' => 'nullable|exists:alojamientos,idAlojamiento',
-    ]);
-
-    // Crear la reservación
-    $reservacion = Reservacion::create([
-        'nombreUsuarioReservacion' => $request->nombreUsuarioReservacion,
-        'correoUsuarioReservacion' => $request->correoUsuarioReservacion,
-        'telefonoUsuarioReservacion' => $request->telefonoUsuarioReservacion,
-        'idComercio_fk' => $request->idComercio_fk,
-        'idEvento_fk' => $request->idEvento_fk ?? null, // Establecer como null si no se proporciona
-        'idUsuario_fk' => $request->idUsuario_fk,
-        'idAlojamiento_fk' => $request->idAlojamiento_fk ?? null, // Establecer como null si no se proporciona
-    ]);
-
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
-}
+    {
+        // Validar los datos de entrada
+        $request->validate([
+            'nombreUsuarioReservacion' => 'required|string|max:255',
+            'correoUsuarioReservacion' => 'required|email|max:255',
+            'telefonoUsuarioReservacion' => 'nullable|string|max:20',
+            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
+            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
+        ]);
+    
+        // Establecer `idEvento_fk` como `null` si no se proporciona
+        $idEventoFk = $request->idEvento_fk ?? null;
+        $idAlojamientoFk = $request->idAlojamiento_fk ?? null;
+    
+        // Crear una nueva instancia de Reservacion
+        $newReservacion = new Reservacion();
+        $newReservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
+        $newReservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
+        $newReservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
+        $newReservacion->idComercio_fk = $request->idComercio_fk;
+        $newReservacion->idEvento_fk = $idEventoFk; // Asignar como null si no está presente
+        $newReservacion->idUsuario_fk = $request->idUsuario_fk;
+        $newReservacion->idAlojamiento_fk = $idAlojamientoFk; // Asignar como null si no está presente
+    
+        // Guardar la reservación en la base de datos
+        $newReservacion->save();
+    
+        return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
+    }
     
 
     // Método para mostrar los detalles de una reservación específica
-    public function show(Reservacion $reservacion)
+    public function show($id)
     {
+        $reservacion = Reservacion::findOrFail($id);
         return view('reservaciones.show', compact('reservacion'));
     }
 
@@ -77,47 +83,62 @@ class ReservacionController extends Controller
     //     return view('reservaciones.edit', compact('reservacion')); // Carga la vista de edición
     // }
     // // Método para mostrar el formulario de edición de una reservación existente
-    public function edit(Reservacion $reservacion)
+    public function edit($id)
     {
+
+        $reservacion = Reservacion::findOrFail($id);
         $comercios = Comercio::all();
         $eventos = Evento::all();
         $usuarios = Usuario::all();
         $alojamientos = Alojamiento::all();
-    
+
         return view('reservaciones.edit', compact('reservacion', 'comercios', 'eventos', 'usuarios', 'alojamientos'));
     }
 
     // Método para actualizar una reservación existente en la base de datos
 
-    public function update(Request $request, Reservacion $reservacion)
-{
-    // Validar los campos del formulario
-    $request->validate([
-        'nombreUsuarioReservacion' => 'required|string|max:255',
-        'correoUsuarioReservacion' => 'required|email|max:255',
-        'telefonoUsuarioReservacion' => 'nullable|string|max:20',
-        'idComercio_fk' => 'required|exists:comercios,idComercio',
-        'idEvento_fk' => 'nullable|exists:eventos,idEvento',
-        'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-        'idAlojamiento_fk' => 'nullable|exists:alojamientos,idAlojamiento',
-    ]);
+    public function update(Request $request, $id)
+    {
+        // Encuentra la reservación por su ID
+        $reservacion = Reservacion::findOrFail($id);
 
-    // Actualiza la reservación con los datos del formulario
-    $reservacion->update($request->all());
+        // Validar los campos del formulario
+        $request->validate([
+            'nombreUsuarioReservacion' => 'required|string|max:255',
+            'correoUsuarioReservacion' => 'required|email|max:255',
+            'telefonoUsuarioReservacion' => 'nullable|string|max:20',
+            'idComercio_fk' => 'required|exists:comercios,idComercio',
+            'idEvento_fk' => 'nullable|exists:eventos,idEvento',
+            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento',
+        ]);
 
-    // Redirige de vuelta al índice con un mensaje de éxito
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada exitosamente.');
-}
+        // Actualiza la reservación con los datos del formulario
+        $reservacion->update($request->all());
+
+        // Redirige de vuelta al índice con un mensaje de éxito
+        return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada exitosamente.');
+    }
 
 
 
-public function destroy(Reservacion $reservacion)
-{
-    // Eliminar la reservación
-    $reservacion->delete();
+    public function destroy($id)
+    {
+        // Intentar cargar la reservación
+        $reservacion = Reservacion::find($id);
 
-    return redirect()->route('reservaciones.index')->with('success', 'Reservación eliminada exitosamente.');
-}
+        if (!$reservacion) {
+            return redirect()->route('reservaciones.index')->with('error', 'Reservación no encontrada.');
+        }
+
+        // Verificar que el objeto se ha cargado correctamente
+       // dd($reservacion); // Depuración: Aquí deberías ver los datos de la reservación
+
+        // Eliminar la reservación
+        $reservacion->delete();
+
+        return redirect()->route('reservaciones.index')->with('success', 'Reservación eliminada exitosamente.');
+    }
 
 
 }

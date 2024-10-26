@@ -55,9 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/alojamientos/{alojamiento}', [AlojamientoController::class, 'update'])->name('alojamientos.update');
     Route::get('/alojamientos', [AlojamientoController::class, 'index'])->name('alojamientos.index');
 
-    // Eliminar una reservación
-    Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
-    Route::get('/reservaciones/{reservacion}', [ReservacionController::class, 'show'])->name('reservaciones.show');
 
 
     // Ruta para cambiar el idioma
