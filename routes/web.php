@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
 
     // Eliminar una reservación
     Route::delete('/reservaciones/{reservacion}', [ReservacionController::class, 'destroy'])->name('reservaciones.destroy');
+    Route::get('/reservaciones/{reservacion}', [ReservacionController::class, 'show'])->name('reservaciones.show');
+
 
     // Ruta para cambiar el idioma
     Route::get('/set-language/{lang}', function ($lang) {

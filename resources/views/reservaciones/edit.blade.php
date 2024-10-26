@@ -41,11 +41,7 @@
                                 {{ $comercio->nombreComercio }}
                             </option>
                         @endforeach
-                    </select>
-                </div>
-
-                <!-- Selección de Evento (opcional) -->
-                <div class="mb-3">
+@@ -56,55 +49,55 @@
                     <label for="idEvento_fk" class="form-label">Evento (opcional)</label>
                     <select name="idEvento_fk" id="idEvento_fk" class="form-select">
                         <option value="">Seleccione un evento</option>

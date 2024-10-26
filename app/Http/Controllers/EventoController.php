@@ -22,19 +22,25 @@ class EventoController extends Controller
 
     public function index()
     {
-        $eventos = Evento::all();
-        return view('eventos.index', compact('eventos'));
+         // Obtener los comercios del usuario autenticado
+         $comercios = auth()->user()->comercios->pluck('idComercio');
+
+         // Filtrar los eventos que pertenecen a esos comercios
+         $eventos = Evento::whereIn('idComercio_fk', $comercios)->get();
+ 
+         return view('eventos.index', compact('eventos'));
     }
 
     public function create()
     {
-        $comercios = Comercio::all();
+        // Obtener solo los comercios ligados al usuario autenticado
+        $comercios = auth()->user()->comercios;
+        
         return view('eventos.create', compact('comercios'));
     }
 
     public function store(Request $request)
     {
-        // Validar los datos de la solicitud
         $request->validate([
             'nombreEvento' => 'required|max:100',
             'descripcionEvento' => 'nullable',
@@ -48,7 +54,7 @@ class EventoController extends Controller
             'idComercio_fk' => 'required|exists:comercios,idComercio',
         ]);
 
-        $newevento = new Evento();
+        $newevento = new Evento($request->except('imagen'));
 
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
@@ -57,17 +63,6 @@ class EventoController extends Controller
             $file->move($destinationPath, $fileName);
             $newevento->imagen = $destinationPath . $fileName;
         }
-
-        // Asignar los valores del formulario
-        $newevento->nombreEvento = $request->nombreEvento;
-        $newevento->descripcionEvento = $request->descripcionEvento;
-        $newevento->tipoEvento = $request->tipoEvento;
-        $newevento->telefonoEvento = $request->telefonoEvento;
-        $newevento->correoEvento = $request->correoEvento;
-        $newevento->direccionEvento = $request->direccionEvento;
-        $newevento->fechaInicio = $request->fechaInicio;
-        $newevento->fechaFin = $request->fechaFin;
-        $newevento->idComercio_fk = $request->idComercio_fk;
 
         $newevento->save();
 
@@ -81,7 +76,7 @@ class EventoController extends Controller
 
     public function edit(Evento $evento)
     {
-        $comercios = Comercio::all();
+        $comercios = auth()->user()->comercios;
         return view('eventos.edit', compact('evento', 'comercios'));
     }
 
@@ -100,6 +95,8 @@ class EventoController extends Controller
             'idComercio_fk' => 'required|exists:comercios,idComercio',
         ]);
 
+        $evento->fill($request->except('imagen'));
+
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $destinationPath = 'img/imagen/';
@@ -107,16 +104,6 @@ class EventoController extends Controller
             $file->move($destinationPath, $fileName);
             $evento->imagen = $destinationPath . $fileName;
         }
-
-        $evento->nombreEvento = $request->nombreEvento;
-        $evento->descripcionEvento = $request->descripcionEvento;
-        $evento->tipoEvento = $request->tipoEvento;
-        $evento->telefonoEvento = $request->telefonoEvento;
-        $evento->correoEvento = $request->correoEvento;
-        $evento->direccionEvento = $request->direccionEvento;
-        $evento->fechaInicio = $request->fechaInicio;
-        $evento->fechaFin = $request->fechaFin;
-        $evento->idComercio_fk = $request->idComercio_fk;
 
         $evento->save();
 

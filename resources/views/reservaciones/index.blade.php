@@ -28,6 +28,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($reservaciones as $reservacion)
+                                        
                                         <tr>
                                             <td>{{ $reservacion->idReservacion }}</td>
                                             <td>{{ $reservacion->comercio->nombreComercio ?? 'N/A' }}</td>
@@ -37,30 +38,30 @@
                                                 <div class="d-flex">
                                                     <!-- Botón Ver -->
                                                     @can('ver-reservacion')
-                                                        <a href="{{ route('reservaciones.show', $reservacion->idReservacion) }}"
-                                                            class="btn btn-info btn-sm me-1 w-80" title="Ver">
-                                                            <i class="bi bi-eye"></i> Ver
+                                                    <a href="{{ route('reservaciones.show', $reservacion) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">                                                            <i class="bi bi-eye"></i> Ver
                                                         </a>
                                                     @endcan
+                                                
+                                                    <!-- Botón Editar -->
                                                     @can('editar-reservacion')
-                                                        <a href="{{ route('reservaciones.edit', $reservacion->idReservacion) }}"
-                                                            class="btn btn-warning btn-sm me-1 w-80" title="Editar">
-                                                            <i class="bi bi-pencil"></i> Editar
-                                                        </a>
+                                                        <!-- Botón Editar -->
+<a href="{{ route('reservaciones.edit', $reservacion) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
+    <i class="bi bi-pencil"></i> Editar
+</a>
                                                     @endcan
+                                                
+                                                    <!-- Formulario para Eliminar -->
                                                     @can('borrar-reservacion')
-                                                        <form
-                                                            action="{{ route('reservaciones.destroy', $reservacion->idReservacion) }}"
-                                                            method="POST" class="form-eliminar" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm w-100"
-                                                                title="Eliminar">
-                                                                <i class="bi bi-trash"></i> Eliminar
-                                                            </button>
-                                                        </form>
+                                                    <form action="{{ route('reservaciones.destroy', $reservacion) }}" method="POST" class="form-eliminar" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
+                                                            <i class="bi bi-trash"></i> Eliminar
+                                                        </button>
+                                                    </form>
                                                     @endcan
                                                 </div>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -98,7 +99,6 @@
                     });
                 });
             }
-
             setDeleteEventListeners();
         });
     </script>

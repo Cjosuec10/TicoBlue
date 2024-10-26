@@ -21,15 +21,19 @@ class AlojamientoController extends Controller
 
     public function index()
     {
-        $alojamientos = Alojamiento::all();
+        // Obtener los comercios del usuario autenticado
+        $comercios = auth()->user()->comercios->pluck('idComercio');
+
+        // Filtrar los alojamientos que pertenecen a esos comercios
+        $alojamientos = Alojamiento::whereIn('idComercio_fk', $comercios)->get();
         return view('alojamiento.index', compact('alojamientos'));
     }
 
     public function create()
     {
-        $usuarios = Usuario::all();
-        $comercios = Comercio::all();
-        return view('alojamiento.create', compact('usuarios', 'comercios'));
+        $comercios = auth()->user()->comercios;
+        return view('alojamiento.create', compact('comercios'));
+    
     }
 
     public function store(Request $request)
@@ -40,11 +44,13 @@ class AlojamientoController extends Controller
             'precioAlojamiento' => 'required|numeric',
             'capacidad' => 'required|integer',
             'idComercio_fk' => 'required|exists:comercios,idComercio',
-            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
             'imagen' => 'nullable|image|max:2048',
             'fechaInicio' => 'required|date',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
+
+        // Forzar el ID del usuario autenticado
+        $validatedData['idUsuario_fk'] = auth()->id();
 
         // Manejo de la imagen si se carga
         if ($request->hasFile('imagen')) {
@@ -68,16 +74,16 @@ class AlojamientoController extends Controller
 
     public function edit($id)
     {
+        // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
-        $usuarios = Usuario::all();
-        $comercios = Comercio::all();
-        return view('alojamiento.edit', compact('alojamiento', 'usuarios', 'comercios'));
+
+        // Retornar la vista del show con el alojamiento encontrado
+        return view('alojamiento.show', compact('alojamiento'));
     }
 
 
     public function update(Request $request, $id)
     {
-        // Validar los datos
         $validatedData = $request->validate([
             'nombreAlojamiento' => 'required|max:100',
             'descripcionAlojamiento' => 'nullable',
@@ -88,10 +94,13 @@ class AlojamientoController extends Controller
             'fechaInicio' => 'required|date',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
-
+    
         // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
-
+    
+        // Forzar el ID del usuario autenticado
+        $validatedData['idUsuario_fk'] = auth()->id();
+    
         // Manejo de la imagen si se carga una nueva
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
@@ -100,9 +109,9 @@ class AlojamientoController extends Controller
             $file->move($destinationPath, $fileName);
             $validatedData['imagen'] = $destinationPath . $fileName;
         }
-
+    
         $alojamiento->update($validatedData);
-
+    
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.');
     }
 

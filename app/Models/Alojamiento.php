@@ -29,4 +29,10 @@ class Alojamiento extends Model
     {
         return $this->belongsTo(Comercio::class, 'idComercio_fk');
     }
+    
+    public function reservaciones()
+{
+    return $this->hasMany(Reservacion::class, 'idAlojamiento_fk');
+}
+
 }

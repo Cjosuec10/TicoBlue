@@ -56,11 +56,6 @@
                         ¡Correcto!
                     </div>
                 </div>
-                <!-- Selección de imagen -->
-                <div class="col-md-6">
-                    <label for="imagen" >Imagen</label>
-                    <input type="file" id="imagen" name="imagen">
-                </div>
                 <!-- Capacidad del Alojamiento -->
                 <div class="col-md-6">
                     <label for="capacidad" class="form-label">Capacidad</label>
@@ -105,24 +100,6 @@
                         ¡Correcto!
                     </div>
                 </div>
-
-                <!-- Selección de Usuario -->
-                <div class="col-md-6">
-                    <label for="idUsuario_fk" class="form-label">Usuario</label>
-                    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
-                        <option selected disabled value="">Seleccione un usuario</option>
-                        @foreach ($usuarios as $usuario)
-                            <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">
-                        Por favor, seleccione un usuario.
-                    </div>
-                    <div class="valid-feedback">
-                        ¡Correcto!
-                    </div>
-                </div>
-
 
 
                 <!-- Botón para Enviar -->
