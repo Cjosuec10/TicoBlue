@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
         <!-- Título y Barra de Búsqueda -->
-        <section class="events section py-5" id="events">
+        <section class="events section py-5 bg-light" id="events">
             <div class="container section-title mb-3">
                 <!-- Título principal -->
                 <div class="row">
