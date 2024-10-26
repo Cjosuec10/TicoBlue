@@ -1062,7 +1062,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background-color: var(--accent-color);
+  background-color: #0dcaf0;
   width: 40px;
   height: 40px;
   border-radius: 4px;

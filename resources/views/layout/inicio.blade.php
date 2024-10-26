@@ -147,7 +147,7 @@
             <li class="mb-2"><a href="/Eventos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Eventos</a></li>
             <li class="mb-2"><a href="/Productos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Productos</a></li>
             <li class="mb-2"><a href="/Alojamientos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Alojamientos</a></li>
-            <li class="mb-2"><a href="/#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Servicios</a></li>
+            <li class="mb-2"><a href="#services" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Servicios</a></li>
           </ul>
         </div>
 
@@ -159,8 +159,8 @@
             <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Nuestra misión</a></li>
             <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Visión</a></li>
             <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Valores</a></li>
-            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Contacto</a></li>
-            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Login</a></li>
+            <li class="mb-2"><a href="/Contacto" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Contacto</a></li>
+            <li class="mb-2"><a href="/login" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Login</a></li>
           </ul>
         </div>
 
