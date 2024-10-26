@@ -6,8 +6,6 @@
 
         <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
 
             <div class="form-group">
                 <label for="nombreUsuarioReservacion">Nombre del Usuario:</label>
@@ -23,7 +21,6 @@
                 <label for="telefonoUsuarioReservacion">Teléfono:</label>
                 <input type="text" name="telefonoUsuarioReservacion" class="form-control">
             </div>
-
             <div class="col-md-6">
                 <label for="idComercio_fk" class="form-label">Comercio</label>
                 <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>
@@ -42,8 +39,8 @@
 
             <!-- Selección de Evento -->
             <div class="col-md-6">
-                <label for="idEvento_fk" class="form-label">Evento</label>
-                <select class="form-select" id="idEvento_fk" name="idEvento_fk" required>
+                <label for="idEvento_fk" class="form-label">Evento (opcional)</label>
+                <select class="form-select" id="idEvento_fk" name="idEvento_fk">
                     <option selected disabled value="">Seleccione un evento</option>
                     @foreach ($eventos as $evento)
                         <option value="{{ $evento->idEvento }}">{{ $evento->nombreEvento }}</option>

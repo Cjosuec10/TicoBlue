@@ -45,6 +45,12 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
+                                                <!-- Botón Ver -->
+                                                @can('ver-alojamiento')
+                                                <a href="{{ route('alojamiento.show',  $alojamiento->idAlojamiento) }}" class="btn btn-info me-1 w-80" title="Ver">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                @endcan
                                                 <!-- Botón Editar -->
                                                 @can('editar-alojamiento')
                                                 @method('PUT')

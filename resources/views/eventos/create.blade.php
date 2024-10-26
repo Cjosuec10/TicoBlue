@@ -5,8 +5,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('eventos.store') }}" method="POST" enctype="multipart/form-data"
-                class="row g-3 needs-validation" novalidate>
+            <form id="crearEventoForm" action="{{ route('eventos.store') }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
                 <div class="col-md-6">
                     <label for="nombreEvento" class="form-label">Nombre del Evento</label>
@@ -87,4 +86,27 @@
             </form>
         </div>
     </div>
+    <script>
+        document.getElementById('crearEventoForm').addEventListener('submit', function(event) {
+        if (!this.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.classList.add('was-validated');
+        } else {
+            // Remueve temporalmente el preventDefault para probar si el formulario se envía correctamente.
+            // event.preventDefault();
+            Swal.fire({
+                icon: "success",
+                title: "El evento ha sido creado",
+                showConfirmButton: false,
+                timer: 2100
+            });
+            setTimeout(() => {
+                this.submit();
+            }, 1600);
+        }
+    });
+    </script>
 @endsection
+
+

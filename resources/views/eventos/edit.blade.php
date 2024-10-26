@@ -5,8 +5,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" enctype="multipart/form-data"
-                class="row g-3 needs-validation" novalidate>
+            <form id="editarEventoForm" action="{{ route('eventos.update', $evento->idEvento) }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="col-md-6">
@@ -77,4 +76,25 @@
             </form>
         </div>
     </div>
+    <script>
+        document.getElementById('editarEventoForm').addEventListener('submit', function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                this.classList.add('was-validated');
+            } else {
+                event.preventDefault();
+                Swal.fire({
+                    icon: "success",
+                    title: "El evento ha sido actualizado",
+                    showConfirmButton: false,
+                    timer: 2100
+                });
+                setTimeout(() => {
+                    this.submit();
+                }, 1600);
+            }
+        });
+    </script>
 @endsection
+

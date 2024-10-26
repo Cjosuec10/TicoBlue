@@ -116,40 +116,37 @@
                                             <input type="hidden" name="idAlojamiento_fk"
                                                 value="{{ $aloja->idAlojamiento }}">
 
-                                            <!-- Mostrar el Usuario Logueado -->
-                                            <input type="hidden" name="idUsuario_fk"
-                                                value="{{ $usuarioLogueado->idUsuario }}">
+                                            @if (Auth::check())
+                                                <input type="hidden" name="idUsuario_fk"
+                                                    value="{{ Auth::user()->idUsuario }}">
 
-                                            <!-- Nombre del Usuario para la Reservación -->
-                                            <div class="form-group mb-3">
-                                                <label for="nombreUsuarioReservacion">Nombre del Usuario:</label>
-                                                <input type="text" name="nombreUsuarioReservacion" class="form-control"
-                                                    value="{{ $usuarioLogueado->nombre }}" required readonly>
-                                            </div>
+                                                <!-- Nombre del Usuario para la Reservación -->
+                                                <div class="form-group mb-3">
+                                                    <label for="nombreUsuarioReservacion">Nombre del Usuario:</label>
+                                                    <input type="text" name="nombreUsuarioReservacion"
+                                                        class="form-control" value="{{ Auth::user()->nombre }}" required
+                                                        readonly>
+                                                </div>
 
-                                            <!-- Correo del Usuario -->
-                                            <div class="form-group mb-3">
-                                                <label for="correoUsuarioReservacion">Correo del Usuario:</label>
-                                                <input type="email" name="correoUsuarioReservacion" class="form-control"
-                                                    value="{{ $usuarioLogueado->correo }}" required readonly>
-                                            </div>
+                                                <!-- Correo del Usuario -->
+                                                <div class="form-group mb-3">
+                                                    <label for="correoUsuarioReservacion">Correo del Usuario:</label>
+                                                    <input type="email" name="correoUsuarioReservacion"
+                                                        class="form-control" value="{{ Auth::user()->correo }}" required
+                                                        readonly>
+                                                </div>
 
-                                            <!-- Teléfono del Usuario -->
-                                            <div class="form-group mb-3">
-                                                <label for="telefonoUsuarioReservacion">Teléfono:</label>
-                                                <input type="text" name="telefonoUsuarioReservacion"
-                                                    class="form-control" value="{{ $usuarioLogueado->telefono }}">
-                                            </div>
-
-                                            <!-- Mostrar Nombre del Comercio sin Select, Solo Lectura -->
-                                            <div class="form-group mb-3">
-                                                <label for="idComercio_fk">Comercio:</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $aloja->comercio->nombreComercio ?? 'No especificado' }}"
-                                                    readonly>
-                                                <input type="hidden" name="idComercio_fk"
-                                                    value="{{ $aloja->idComercio_fk }}">
-                                            </div>
+                                                <!-- Teléfono del Usuario -->
+                                                <div class="form-group mb-3">
+                                                    <label for="telefonoUsuarioReservacion">Teléfono:</label>
+                                                    <input type="text" name="telefonoUsuarioReservacion"
+                                                        class="form-control" value="{{ Auth::user()->telefono }}">
+                                                </div>
+                                            @else
+                                                <!-- Mostrar mensaje o redirigir al login -->
+                                                <p class="text-center text-danger">Por favor, inicia sesión para hacer una
+                                                    reservación.</p>
+                                            @endif
 
                                             <button type="submit" class="btn btn-primary w-100">Crear
                                                 Reservación</button>

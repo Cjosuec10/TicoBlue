@@ -38,4 +38,10 @@ class Reservacion extends Model
     {
         return $this->belongsTo(Alojamiento::class, 'idAlojamiento_fk');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'idReservacion';
+    }
+
 }
