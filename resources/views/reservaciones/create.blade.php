@@ -6,8 +6,6 @@
 
         <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
 
             <div class="form-group">
                 <label for="nombreUsuarioReservacion">Nombre del Usuario:</label>
@@ -23,7 +21,6 @@
                 <label for="telefonoUsuarioReservacion">Teléfono:</label>
                 <input type="text" name="telefonoUsuarioReservacion" class="form-control">
             </div>
-
             <div class="col-md-6">
                 <label for="idComercio_fk" class="form-label">Comercio</label>
                 <select class="form-select" id="idComercio_fk" name="idComercio_fk" required>

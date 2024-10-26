@@ -1,14 +1,7 @@
 @extends('layout.administracion')
 
 @section('content')
-    <div class="flags" id="flags">
-        <div class="flags__item" data-language="es" onclick="selectLanguage('es')">
-            <img src="/assets/icons/cr.svg" alt="Español">
-        </div>
-        <div class="flags__item" data-language="en" onclick="selectLanguage('en')">
-            <img src="/assets/icons/us.svg" alt="English">
-        </div>
-    </div>
+ 
 
     <h1 class="card-title" id="title">Información del Comercio</h1>
 
@@ -63,15 +56,21 @@
                 </div>
 
                 <!-- Dirección URL -->
-                <div class="col-md-6">
-                    <label for="direccion_url" class="form-label" id="label-direccion_url">Dirección URL</label>
-                    <p>
-                        @if ($comercio->direccion_url)
-                            <a href="{{ $comercio->direccion_url }}" target="_blank">{{ $comercio->direccion_url }}</a>
-                        @else
-                            No disponible
-                        @endif
-                    </p>
+
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    @if ($comercio->direccion_url)
+                        <label for="mapa" class="form-label">Mapa de Ubicación</label>
+                        <iframe
+                            width="100%"
+                            height="250"
+                            style="border:0; border-radius: 8px;"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed?pb={{ $comercio->direccion_url }}">
+                        </iframe>
+                    @else
+                        <p>No hay información de ubicación disponible para este comercio.</p>
+                    @endif
                 </div>
 
                 <!-- Dirección en Texto -->

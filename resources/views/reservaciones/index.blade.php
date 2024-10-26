@@ -37,20 +37,20 @@
                                                 <div class="d-flex">
                                                     <!-- Botón Ver -->
                                                     @can('ver-reservacion')
-                                                        <a href="{{ route('reservaciones.show', $reservacion->idReservacion) }}"
+                                                        <a href="{{ route('reservaciones.show', ['reservacione' => $reservacion->id]) }}"
                                                             class="btn btn-info btn-sm me-1 w-80" title="Ver">
                                                             <i class="bi bi-eye"></i> Ver
                                                         </a>
                                                     @endcan
                                                     @can('editar-reservacion')
-                                                        <a href="{{ route('reservaciones.edit', $reservacion->idReservacion) }}"
+                                                        <a href="{{ route('reservaciones.edit', ['reservacione' => $reservacion->id]) }}"
                                                             class="btn btn-warning btn-sm me-1 w-80" title="Editar">
                                                             <i class="bi bi-pencil"></i> Editar
                                                         </a>
                                                     @endcan
                                                     @can('borrar-reservacion')
                                                         <form
-                                                            action="{{ route('reservaciones.destroy', $reservacion->idReservacion) }}"
+                                                            action="{{ route('reservaciones.destroy', ['reservacione' => $reservacion->id]) }}"
                                                             method="POST" class="form-eliminar" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
@@ -98,7 +98,6 @@
                     });
                 });
             }
-
             setDeleteEventListeners();
         });
     </script>

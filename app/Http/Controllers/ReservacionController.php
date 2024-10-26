@@ -70,7 +70,6 @@ class ReservacionController extends Controller
     }
     
 
-
     // Método para mostrar los detalles de una reservación específica
     public function show($id)
     {
@@ -111,7 +110,7 @@ class ReservacionController extends Controller
             'idComercio_fk' => 'required|exists:comercios,idComercio',
             'idEvento_fk' => 'nullable|exists:eventos,idEvento',
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-            'idAlojamiento_fk' => 'nullable|exists:alojamientos,idAlojamiento',
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento',
         ]);
 
         // Actualiza la reservación con los datos del formulario

@@ -3,7 +3,7 @@
 @section('title', 'Productos')
 
 @section('content')
-<main class="main">
+    <main class="main">
 
 <!-- Productos Section -->
 <section class="products section py-5" id="products">
@@ -35,6 +35,7 @@
     </div>
 </div><!-- End Search Container -->
 
+    </main>
 
 
 
@@ -103,48 +104,31 @@
     </div>
 </section><!-- /Productos Section -->
 
-</main>
+            // Función para inicializar modales después de la actualización AJAX
+            function initializeModals() {
+                const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
+                modalTriggerList.forEach(function(modalTriggerEl) {
+                    new bootstrap.Modal(modalTriggerEl);
+                });
+            }
 
-<!-- Script para la búsqueda en tiempo real, botón de limpiar y paginación AJAX -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('search');
-    const clearButton = document.getElementById('clear-search');
+            // Función para realizar la búsqueda AJAX y manejar la paginación
+            function fetchProducts(query, page = 1) {
+                // Deshabilitar los botones "Ver más" antes de hacer la búsqueda
+                const verMasButtons = document.querySelectorAll('.btn-primary');
+                verMasButtons.forEach(button => {
+                    button.setAttribute('disabled', 'true');
+                });
 
-    // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
-    function debounce(func, delay) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
+                fetch(`/buscar-productos-informativo?q=${query}&page=${page}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const productWrap = document.querySelector('.product-wrap .row');
+                        productWrap.innerHTML = '';
 
-    // Función para inicializar modales después de la actualización AJAX
-    function initializeModals() {
-        const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
-        modalTriggerList.forEach(function (modalTriggerEl) {
-            new bootstrap.Modal(modalTriggerEl);
-        });
-    }
-
-    // Función para realizar la búsqueda AJAX y manejar la paginación
-    function fetchProducts(query, page = 1) {
-        // Deshabilitar los botones "Ver más" antes de hacer la búsqueda
-        const verMasButtons = document.querySelectorAll('.btn-primary');
-        verMasButtons.forEach(button => {
-            button.setAttribute('disabled', 'true');
-        });
-
-        fetch(`/buscar-productos-informativo?q=${query}&page=${page}`)
-            .then(response => response.json())
-            .then(data => {
-                const productWrap = document.querySelector('.product-wrap .row');
-                productWrap.innerHTML = '';
-
-                if (data.productos.length > 0) {
-                    data.productos.forEach(producto => {
-                        const productHTML = `
+                        if (data.productos.length > 0) {
+                            data.productos.forEach(producto => {
+                                const productHTML = `
                             <div class="col-lg-3 col-md-4 mb-4">
                                 <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
                                     <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="card-img-top" style="height: 150px; object-fit: cover;">
@@ -186,48 +170,49 @@
                                 </div>
                             </div>
                         `;
-                        productWrap.insertAdjacentHTML('beforeend', productHTML);
+                                productWrap.insertAdjacentHTML('beforeend', productHTML);
+                            });
+                        } else {
+                            productWrap.innerHTML =
+                                '<div class="col-12 text-center"><p>No hay productos que coincidan con tu búsqueda.</p></div>';
+                        }
+
+                        // Actualizar paginación
+                        const pagination = document.querySelector('.pagination');
+                        pagination.innerHTML = data.pagination;
+
+                        // Habilitar los botones inmediatamente después de cargar los productos
+                        const newVerMasButtons = document.querySelectorAll('.btn-primary');
+                        newVerMasButtons.forEach(button => {
+                            button.removeAttribute('disabled');
+                        });
+
+                        // Reinicializar modales
+                        initializeModals();
                     });
-                } else {
-                    productWrap.innerHTML = '<div class="col-12 text-center"><p>No hay productos que coincidan con tu búsqueda.</p></div>';
-                }
+            }
 
-                // Actualizar paginación
-                const pagination = document.querySelector('.pagination');
-                pagination.innerHTML = data.pagination;
+            // Búsqueda en tiempo real con debounce
+            searchInput.addEventListener('input', debounce(function() {
+                fetchProducts(this.value);
+            }, 300)); // 300ms de espera antes de ejecutar la búsqueda
 
-                // Habilitar los botones inmediatamente después de cargar los productos
-                const newVerMasButtons = document.querySelectorAll('.btn-primary');
-                newVerMasButtons.forEach(button => {
-                    button.removeAttribute('disabled');
-                });
-
-                // Reinicializar modales
-                initializeModals();
+            // Limpiar el campo de búsqueda
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                fetchProducts(''); // Limpiar la búsqueda
             });
-    }
 
-    // Búsqueda en tiempo real con debounce
-    searchInput.addEventListener('input', debounce(function () {
-        fetchProducts(this.value);
-    }, 300));  // 300ms de espera antes de ejecutar la búsqueda
-
-    // Limpiar el campo de búsqueda
-    clearButton.addEventListener('click', function () {
-        searchInput.value = '';
-        fetchProducts('');  // Limpiar la búsqueda
-    });
-
-    // Manejar la paginación
-    document.addEventListener('click', function (event) {
-        if (event.target.closest('.pagination a')) {
-            event.preventDefault();
-            const page = event.target.getAttribute('href').split('page=')[1];
-            fetchProducts(searchInput.value, page);
-        }
-    });
-});
-</script>
+            // Manejar la paginación
+            document.addEventListener('click', function(event) {
+                if (event.target.closest('.pagination a')) {
+                    event.preventDefault();
+                    const page = event.target.getAttribute('href').split('page=')[1];
+                    fetchProducts(searchInput.value, page);
+                }
+            });
+        });
+    </script>
 
 
 @endsection
