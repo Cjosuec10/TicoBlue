@@ -113,56 +113,79 @@
     @yield('content') <!-- Sección donde se incluirá el contenido de cada vista -->
   </main>
 
-  <footer id="footer" class="footer">
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-about">
-          <a href="/" class="logo d-flex align-items-center">
-      <img src="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" alt="" style="width: 100px; height: auto;">
-      </a>
-            <div class="footer-contact pt-3">
-              <p>Nicoya</p>
-              <p>Costa Rica, Guanacaste</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-              <p><strong>Email:</strong> <span>info@ticoblue.com</span></p>
-            </div>
+  <footer class="text-center text-lg-start text-white" style="background-color: #0159AA;">
+    <!-- Grid container -->
+    <div class="container p-4 footer-text-white">
+      <!-- Grid row -->
+      <div class="row my-4">
+        
+        <!-- Logo y Contacto -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <div class="rounded-circle bg-white shadow-1-strong d-flex align-items-center justify-content-center mb-4 mx-auto" style="width: 150px; height: 150px;">
+            <img src="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" height="70" alt="Logo TICOBLUE" loading="lazy" />
           </div>
+          <p class="text-center footer-text-white">Nicoya, Costa Rica, Guanacaste</p>
+          <p class="text-center footer-text-white"><strong>Phone:</strong> +1 5589 55488 55</p>
+          <p class="text-center footer-text-white"><strong>Email:</strong> info@ticoblue.com</p>
 
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Enlaces útiles</h4>
-            <ul>
-              <li><a href="/">Inicio</a></li>
-              <li><a href="/sobre-nosotros">Sobre Nosotros</a></li>
-              <li><a href="/productos">Productos</a></li>
-              <li><a href="#">Términos de servicio</a></li>
-              <li><a href="#">Política de privacidad</a></li>
-            </ul>
-          </div>
+          <ul class="list-unstyled d-flex flex-row justify-content-center mt-3">
+            <li><a class="text-white px-2" href="#"><i class="bi bi-facebook"></i></a></li>
+            <li><a class="text-white px-2" href="#"><i class="bi bi-instagram"></i></a></li>
+            <li><a class="text-white px-2" href="#"><i class="bi bi-twitter"></i></a></li>
+            <li><a class="text-white px-2" href="#"><i class="bi bi-linkedin"></i></a></li>
+          </ul>
+        </div>
+        
+        <!-- Enlaces Útiles -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <br>
+          <h5 class="text-uppercase mb-4 footer-text-white">Enlaces útiles</h5>
+          <br><br>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="/" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Inicio</a></li>
+            <li class="mb-2"><a href="/Comercios" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Comercios</a></li>
+            <li class="mb-2"><a href="/Eventos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Eventos</a></li>
+            <li class="mb-2"><a href="/Productos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Productos</a></li>
+            <li class="mb-2"><a href="/Alojamientos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Alojamientos</a></li>
+            <li class="mb-2"><a href="/#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Servicios</a></li>
+          </ul>
+        </div>
+
+        <!-- Información Adicional -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase mb-4">  <br><br><br><br></h5>
+          <ul class="list-unstyled">
+          <li class="mb-2"><a href="/Sobre-nosotros" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Sobre Nosotros</a></li>
+            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Nuestra misión</a></li>
+            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Visión</a></li>
+            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Valores</a></li>
+            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Contacto</a></li>
+            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Login</a></li>
+          </ul>
+        </div>
+
+        <!-- Dirección y Horarios -->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0 footer-text-white">
+        <br>
+          <h5 class="text-uppercase mb-4 footer-text-white">Dirección y Horarios</h5>
+          <br>
+          <ul class="list-unstyled footer-text-white">
+            <li><p class="footer-text-white"><i class="bi bi-geo-alt-fill pe-2 footer-text-white"></i>Nicoya, Guanacaste, Costa Rica</p></li><br>
+            <li><p class="footer-text-white"><i class="bi bi-clock-fill pe-2 footer-text-white"></i>Lunes - Viernes: 8:00 am - 5:00 pm</p></li><br>
+            <li><p class="footer-text-white"><i class="bi bi-envelope-fill pe-2 mb-0 footer-text-white"></i>info@ticoblue.com</p></li>
+          </ul>
         </div>
       </div>
+      <!-- Grid row -->
     </div>
+    <!-- Grid container -->
 
-    <div class="copyright text-center">
-      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
-
-        <div class="d-flex flex-column align-items-center align-items-lg-start">
-          <div>
-            © Copyright <strong><span style="color: #107acc;" >TICOBLUE</span></strong>. Todos los derechos reservados
-          </div>
-        </div>
-
-        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-          <a href="#"><i class="bi bi-twitter"></i></a>
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-        </div>
-
-      </div>
+    <!-- Copyright -->
+    <div class="text-center p-3 footer-text-white"  style="background-color: #01489C">
+      © 2024 Copyright:
+      <a class="text-white" href="#">TICOBLUE</a>. Todos los derechos reservados.
     </div>
-
+    <!-- Copyright -->
   </footer>
 
   <!-- Scroll Top -->

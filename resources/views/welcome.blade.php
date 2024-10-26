@@ -5,188 +5,196 @@
 @section('content')
 <main class="main">
 
-<div class="container-fluid text-container">
-    <div class="row align-items-center">
-        <div class="col-md-6 offset-md-3 text-center text-box">
-        <h1>Bienvenido a <span style="color:#107acc;">Ticoblue</span></h1>
-            <p>Descubre la esencia de TicoBlue, una aplicación donde podrás encontrar todo lo que necesitas para disfrutar de la Zona Azul de Nicoya, un lugar reconocido por su bienestar y longevidad. Aquí te ofrecemos una plataforma completa que te permitirá explorar alojamientos acogedores, restaurantes locales con gastronomía auténtica, y una variedad de eventos culturales y recreativos.
-            </p>
-            <p>Además, en TicoBlue encontrarás una guía detallada de comercios locales, así como productos y servicios ofrecidos por emprendedores que reflejan la identidad y tradición de esta maravillosa región. Nuestro objetivo es conectar a visitantes y locales con lo mejor que Nicoya tiene para ofrecer, en un solo lugar.
-</p>
-            <p>Navega por nuestra aplicación para conocer más sobre los maravillosos destinos y servicios que ofrecemos, y descubre cómo puedes realizar tus reservaciones en alojamientos o eventos de manera rápida y sencilla. ¡Explora lo mejor de Nicoya y planifica tu visita con nosotros!</p>
+ <!-- Header Section -->
+<section class="header-body header-section d-flex align-items-center" style="height: 100vh;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 text-center">
+                <div class="content-box">
+                    <h1>BIENVENIDO A TICOBLUE</h1>
+                    <p class="subtitle">
+                        Descubre la esencia de TicoBlue, una aplicación<br> 
+                        donde podrás encontrar todo lo que necesitas 
+                        para disfrutar de la Zona Azul de la Península de Nicoya.
+                    </p>
+                    <div class="button-group mt-3">
+                        <a href="/Contacto" class="btn btn-primary me-2">Contacto</a>
+                        <a href="Sobre-nosotros" class="btn btn-info">Sobre nosotros</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<section id="hero" class="hero section dark-background">
-
-  <div id="hero-carousel" class="carousel slide carousel-fade carousel-container-small" data-bs-ride="carousel" data-bs-interval="5000">
-
-    <div class="carousel-item active">
-      <img src="assets/img/montanias.jpg" class="d-block w-100" alt="">
-      <div class="carousel-container text-center">
-        <h2>Belleza natural</h2>
-        <div class="overlay-text-container">
-          <p class="custom-text">Nicoya ofrece un entorno natural único, con playas de arena blanca, reservas biológicas y parques nacionales como Barra Honda y Palo Verde, que destacan por su biodiversidad y belleza escénica.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="assets/img/nicoya.jpg" class="d-block w-100" alt="">
-      <div class="carousel-container text-center">
-        <h2>Destino Turístico de Bienestar</h2>
-        <div class="overlay-text-container">
-          <p class="custom-text">Nicoya no solo es famosa por su longevidad, sino también por sus aventuras y experiencias culturales. Desde cabalgatas por sus paisajes rurales, hasta explorar pueblos auténticos donde la vida tradicional sigue intacta, los visitantes pueden disfrutar de actividades al aire libre, como senderismo en parques nacionales, y aprender sobre la rica historia y cultura de la península.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="carousel-item">
-      <img src="assets/img/adultomayor.jpg" class="d-block w-100" alt="">
-      <div class="carousel-container text-center">
-        <h2>Longevidad Excepcional</h2>
-        <div class="overlay-text-container">
-          <p class="custom-text">La península de Nicoya en Costa Rica es una de las cinco Zonas Azules del mundo, regiones reconocidas por albergar a una gran cantidad de personas que superan los 100 años de edad. Esta longevidad excepcional ha sido objeto de interés debido a la alta concentración de centenarios en esta región</p>
-        </div>
-      </div>
-    </div>
-
-    <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </a>
-
-    <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </a>
-
-  </div>
-
 </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services section">
-    <div class="section-title text-center">
-    <h2>Explora la Zona Azul!</h2>
-    <p>Encuentra servicios locales y oportunidades en la Península de Nicoya</p>
-  </div>
-      <!-- Section Title -->
-      
-      <div class="content">
-        <div class="container">
-          <div class="row g-0">
-          <div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">01</span>
-    <div class="service-item-content">
-      <h3 class="service-heading">Comercios locales</h3>
-      <p>
-        Explora los mercados locales y apoya a los emprendedores de la Zona Azul de la Península de Nicoya.
-      </p>
-    </div>
-  </div>
-</div>
 
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">02</span>
-    
-    <div class="service-item-content">
-      <h3 class="service-heading">Ubicaciones y guías</h3>
-      <p>
-        Encuentra fácilmente las ubicaciones de los mejores lugares en la Zona Azul de la Península Nicoya, y utiliza nuestra plataforma para guiarte en tu recorrido.
-      </p>
-    </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">03</span>
-    <div class="service-item-content">
-      <h3 class="service-heading">Productos locales</h3>
-      <p>
-        Descubre productos de la zona vendidos por los talentosos artesanos locales en la Península de Nicoya.
-      </p>
-    </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">04</span>
-    <div class="service-item-content">
-      <h3 class="service-heading">Alojamientos</h3>
-      <p>
-        Encuentra cómodos alojamientos en la una de las Zonas Azules del planeta y disfruta de una estancia inolvidable en un entorno único.
-      </p>
-    </div>
-  </div>
-</div>
+<!-- Contenedor con fondo blanco -->
+<section class="bg-white py-3 py-5 text-center text-md-start">
+  <h2 class="display-6 fw-bold mb-4 mb-md-5 text-center">Descubre la Esencia de la Zona Azul</h2>
 
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">05</span>
-   
-    <div class="service-item-content">
-      <h3 class="service-heading">Reservaciones</h3>
-      <p>
-        Permite a los usuarios hacer reservaciones en los alojamientos y restaurantes locales directamente desde la plataforma.
-      </p>
+  <!-- Espacio para la primera imagen -->
+  <div class="container mb-3 mb-md-4">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-10 col-md-6 mb-3 mb-md-0">
+        <img src="assets/img/montanias.jpg" alt="Imagen 1" class="img-fluid rounded mx-auto d-block">
+      </div>
+      <div class="col-12 col-md-6">
+        <h3 class="fw-bold mt-3 mt-md-0">BELLEZA NATURAL</h3>
+        <p class="descripcion-imagen">
+          Nicoya ofrece un entorno natural único, con playas de arena blanca, reservas biológicas y parques nacionales como Barra Honda y Palo Verde, que destacan por su biodiversidad y belleza escénica.
+        </p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">06</span>
-    
-    <div class="service-item-content">
-      <h3 class="service-heading">Contacto con comercios</h3>
-      <p>
-        Facilita el contacto directo con comercios locales para consultas y compras personalizadas.
-      </p>
+  <!-- segunda imágenen -->
+  <div class="container mb-3 mb-md-4">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-10 col-md-6 mb-3 mb-md-0 order-md-2">
+        <img src="assets/img/Nicoya.jpg" alt="Imagen 2" class="img-fluid rounded mx-auto d-block">
+      </div>
+      <div class="col-12 col-md-6 order-md-1">
+        <h3 class="fw-bold mt-3 mt-md-0">DESTINO TURÍSTICO DE BIENESTAR</h3>
+        <p class="descripcion-imagen">
+          Nicoya no solo es famosa por su longevidad, sino también por sus aventuras y experiencias culturales...
+        </p>
+      </div>
     </div>
   </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">07</span>
-    
-    <div class="service-item-content">
-      <h3 class="service-heading">Eventos locales</h3>
-      <p>
-        Encuentra información actualizada sobre actividades de la región para disfrutar de experiencias auténticas.
-      </p>
-    </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="service-item">
-    <span class="number">08</span>
-    
-    <div class="service-item-content">
-      <h3 class="service-heading">Oportunidades para emprendedores</h3>
-      <p>
-        Los emprendedores locales pueden ofrecer sus productos, servicios y alojamiento a través de nuestra plataforma.
-      </p>
-    </div>
-  </div>
-</div>
 
+ <!-- tercera imágenen -->
+  <div class="container mb-3 mb-md-4">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-10 col-md-6 mb-3 mb-md-0">
+        <img src="assets/img/adultomayor.jpg" alt="Imagen 3" class="img-fluid rounded mx-auto d-block">
+      </div>
+      <div class="col-12 col-md-6">
+        <h3 class="fw-bold mt-3 mt-md-0">LONGEVIDAD EXCEPCIONAL</h3>
+        <p class="descripcion-imagen">
+          La península de Nicoya en Costa Rica es una de las cinco Zonas Azules del mundo, regiones reconocidas por albergar a una gran cantidad de personas que superan los 100 años de edad...
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services section bg-light py-5">
+  <div class="section-title text-center mt-5 mb-4">
+    <h2 class="display-6 fw-bold">EXPLORA LA ZONA AZUL</h2>
+    <p class="lead text-secondary">Encuentra servicios locales y oportunidades en la Península de Nicoya</p>
+  </div>
+  
+  <div class="content">
+    <div class="container">
+      <div class="row g-4">
+        
+        <!-- Service Item -->
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+            
+              <h3 class="mt-3">Comercios locales</h3>
+              <p class="card-text">
+                Explora los mercados locales y apoya a los emprendedores de la Zona Azul de la Península de Nicoya.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section><!-- /Services Section -->
 
+        <!-- Service Item -->
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+              
+              <h3 class="mt-3">Ubicaciones</h3>
+              <p class="card-text">
+                Encuentra fácilmente las ubicaciones de los mejores lugares en la Zona Azul de la Península Nicoya, y utiliza nuestra plataforma para guiarte en tu recorrido.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Continúa con los otros cuadros en el mismo formato -->
+        
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+              
+              <h3 class="mt-3">Productos locales</h3>
+              <p class="card-text">
+                Descubre productos de la zona vendidos por los talentosos artesanos locales en la Península de Nicoya.
+              </p>
+            </div>
+          </div>
+        </div>
 
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+             
+              <h3 class="mt-3">Alojamientos</h3>
+              <p class="card-text">
+                Encuentra cómodos alojamientos en una de las Zonas Azules del planeta y disfruta de una estancia inolvidable en un entorno único.
+              </p>
+            </div>
+          </div>
+        </div>
 
+        <!-- Repetir el mismo formato para los demás servicios -->
+        
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+          
+              <h3 class="mt-3">Reservaciones</h3>
+              <p class="card-text">
+                Permite a los usuarios hacer reservaciones en los alojamientos y restaurantes locales directamente desde la plataforma.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+           
+              <h3 class="mt-3">Contacto</h3>
+              <p class="card-text">
+                Facilita el contacto directo con comercios locales para consultas y compras personalizadas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+              
+              <h3 class="mt-3">Eventos locales</h3>
+              <p class="card-text">
+                Encuentra información actualizada sobre actividades de la región para disfrutar de experiencias auténticas.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body text-center">
+              <h3 class="mt-3">Emprendedores</h3>
+              <p class="card-text">
+                Los emprendedores locales pueden ofrecer sus productos, servicios y alojamiento a través de nuestra plataforma.
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
+    </div>
+  </div>
+</section>
 
-    </section><!-- /Recent Posts Section -->
-
-
-  </main>
+</main>
 @endsection
