@@ -99,10 +99,24 @@
             {{ $productos->links('pagination::bootstrap-4') }}
         </div>
        
-
+        
         </div>
     </div>
 </section><!-- /Productos Section -->
+<!-- Script para la búsqueda en tiempo real, botón de limpiar y paginación AJAX -->
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const clearButton = document.getElementById('clear-search');
+
+            // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
+            function debounce(func, delay) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
 
             // Función para inicializar modales después de la actualización AJAX
             function initializeModals() {
@@ -213,6 +227,5 @@
             });
         });
     </script>
-
 
 @endsection
