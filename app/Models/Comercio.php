@@ -18,6 +18,8 @@ class Comercio extends Model
         'correoComercio',
         'telefonoComercio',
         'descripcionComercio',
+        'direccion_url',
+        'direccion_texto',
         'imagen',
         'idUsuario_fk',
     ];

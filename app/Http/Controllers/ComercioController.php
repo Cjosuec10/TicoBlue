@@ -39,35 +39,25 @@ class ComercioController extends Controller
             'correoComercio' => 'required|email|unique:comercios,correoComercio',
             'telefonoComercio' => 'nullable|max:20',
             'descripcionComercio' => 'nullable',
-            'imagen' => 'nullable|image|max:2048', // Validar que sea una imagen y el tamaño máximo
-            'direccion_url' => 'nullable|string', // Validar que sea una URL válida
-            'direccion_texto' => 'nullable|string|max:255', // Validar que sea una cadena de texto
+            'imagen' => 'nullable|image|max:2048',
+            'direccion_url' => 'required|string|max:500',
+            'direccion_texto' => 'nullable|string|max:255',
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-            // dd($request->direccion_url)
+        ], [
+            'direccion_url.max' => 'Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres.',
         ]);
 
-
         // Crear una nueva instancia de Comercio
-        $newcomercio = new Comercio();
+        $newcomercio = new Comercio($request->all());
 
         // Manejo de subida de imagen
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $destinationPath = 'img/imagen/';
             $fileName = time() . '-' . $file->getClientOriginalName();
-            $file->move($destinationPath, $fileName); // Subir el archivo
-            $newcomercio->imagen = $destinationPath . $fileName; // Guardar la ruta
+            $file->move($destinationPath, $fileName);
+            $newcomercio->imagen = $destinationPath . $fileName;
         }
-
-        // Asignar los demás datos del formulario
-        $newcomercio->nombreComercio = $request->nombreComercio;
-        $newcomercio->tipoNegocio = $request->tipoNegocio;
-        $newcomercio->correoComercio = $request->correoComercio;
-        $newcomercio->telefonoComercio = $request->telefonoComercio;
-        $newcomercio->descripcionComercio = $request->descripcionComercio;
-        $newcomercio->direccion_url = $request->direccion_url;
-        $newcomercio->direccion_texto = $request->direccion_texto;
-        $newcomercio->idUsuario_fk = $request->idUsuario_fk;
 
         // Guardar el nuevo comercio en la base de datos
         $newcomercio->save();
@@ -75,6 +65,10 @@ class ComercioController extends Controller
         // Redirigir a la lista de comercios con un mensaje de éxito
         return redirect()->route('comercios.index')->with('success', 'Comercio creado exitosamente.');
     }
+
+
+
+
 
     // Mostrar los detalles de un comercio
     public function show(Comercio $comercio)
@@ -100,9 +94,11 @@ class ComercioController extends Controller
             'telefonoComercio' => 'nullable|max:20',
             'descripcionComercio' => 'nullable',
             'imagen' => 'nullable|image|max:2048', // Validar que sea una imagen
-            'direccion_url' => 'nullable|string', // Validar que sea una URL válida
+            'direccion_url' => 'required|string|max:500', // Validar que sea una URL válida
             'direccion_texto' => 'nullable|string|max:255', // Validar que sea una cadena de texto
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+
+            'direccion_url.max' => 'Asegúrese de que su ID tenga menos de 500 caracteres y sea valido.',
         ]);
         // Actualizar los datos del comercio, incluyendo direccion_url
         $comercio->nombreComercio = $request->nombreComercio;
@@ -137,7 +133,7 @@ class ComercioController extends Controller
 {
     // Obtener todos los comercios
     $comercios = Comercio::all();
-    
+
     // Pasar los comercios a la vista
     return view('frontend.comercios', compact('comercios'));
 }
@@ -149,5 +145,5 @@ class ComercioController extends Controller
         return redirect()->route('comercios.index')->with('success', 'Comercio eliminado exitosamente.');
     }
 
-    
+
 }
