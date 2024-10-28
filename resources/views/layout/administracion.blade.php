@@ -80,7 +80,8 @@
 
         
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+          <i class="fas fa-user rounded-circle" style="font-size: 30px; color: #2196F3; transition: color 0.3s; cursor: pointer;"></i>
+
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
             
           </a><!-- End Profile Image Icon -->
@@ -91,16 +92,7 @@
             </li>
             
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ url('users-profile') }}">
-                <i class="bi bi-person"></i>
-                <span data-translate="profile">Perfil</span> <!-- Marcado para traducción -->
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
+  
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
@@ -173,14 +165,6 @@
     </li><!-- End Módulo de Reservas Nav -->
     @endcan
 
-    @can('ver-imagen')
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-image"></i><span data-translate="images">Imagenes(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i> <!-- Usé un ícono de imagen -->
-      </a>
-    </li><!-- End Módulo de Imágenes Nav -->
-    @endcan
-
     @can('ver-usuario')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/usuarios">
@@ -196,6 +180,12 @@
       </a>
     </li><!-- End Módulo de Roles Nav -->
     @endcan
+
+<!-- Botones de Acción -->
+<div class="col-12 d-flex justify-content-end gap-3 mt-4">
+                
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver</button>
+                    </div>
 
   </ul>
   @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->

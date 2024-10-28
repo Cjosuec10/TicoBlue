@@ -95,35 +95,34 @@ class ReservacionController extends Controller
     {
         // Encuentra la reservación por su ID
         $reservacion = Reservacion::findOrFail($id);
-
+    
         // Validar los campos del formulario
         $request->validate([
             'nombreUsuarioReservacion' => 'required|string|max:255',
             'correoUsuarioReservacion' => 'required|email|max:255',
             'telefonoUsuarioReservacion' => 'nullable|string|max:20',
             'idComercio_fk' => 'required|exists:comercios,idComercio',
-            'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
+            'idEvento_fk' => 'nullable|exists:eventos,idEvento',
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento',
         ]);
-
-        // Asignar valores de los campos opcionales si están presentes
-        $reservacion->idEvento_fk = $request->idEvento_fk ?? null;
-        $reservacion->idAlojamiento_fk = $request->idAlojamiento_fk ?? null;
-
-        // Actualiza los demás campos
+    
+        // Asignar valores de los campos
         $reservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
         $reservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
         $reservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
         $reservacion->idComercio_fk = $request->idComercio_fk;
         $reservacion->idUsuario_fk = $request->idUsuario_fk;
-
+        $reservacion->idEvento_fk = $request->idEvento_fk ?? null;
+        $reservacion->idAlojamiento_fk = $request->idAlojamiento_fk ?? null;
+    
         // Guardar los cambios en la base de datos
         $reservacion->save();
-
+    
         // Redirige de vuelta al índice con un mensaje de éxito
         return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada exitosamente.');
     }
+    
 
 
 
