@@ -72,7 +72,7 @@ class ComercioController extends Controller
         if ($comercio->idUsuario_fk !== auth()->id()) {
             abort(403, 'No tienes permiso para acceder a este comercio.');
         }
-    
+
         return view('Comercio.show', compact('comercio'));
     }
 

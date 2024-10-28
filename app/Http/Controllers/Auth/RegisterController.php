@@ -42,6 +42,8 @@ class RegisterController extends Controller
         // Autenticar al usuario automáticamente después del registro
         Auth::login($usuario);
 
-        return redirect()->route('admin')->with('success', 'Registro exitoso y usuario autenticado.');
+        return view('welcome')->with('success', 'Registro exitoso y usuario autenticado.');
+
+        // return redirect()->route('admin')->with('success', 'Registro exitoso y usuario autenticado.');
     }
 }

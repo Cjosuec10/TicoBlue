@@ -8,7 +8,7 @@
 <!-- Productos Section -->
 <section class="products section py-5 bg-light" id="products">
     <!-- Contenedor del Título -->
-    <div class="container title-container mb-0"> 
+    <div class="container title-container mb-0">
         <div class="row">
             <!-- Título principal centrado en pantallas pequeñas y alineado a la izquierda en pantallas medianas en adelante -->
             <div class="col-12 text-center">
@@ -18,7 +18,7 @@
     </div><!-- End Title Container -->
 
     <!-- Contenedor de la Barra de Búsqueda -->
-<div class="container search-container mb-4"> 
+<div class="container search-container mb-4">
     <div class="row">
         <!-- Barra de búsqueda alineada a la derecha en todas las pantallas -->
         <div class="col-12 d-flex justify-content-end">
@@ -34,9 +34,6 @@
         </div>
     </div>
 </div><!-- End Search Container -->
-
-
-
 
 
     <!-- Productos -->
@@ -102,6 +99,10 @@
 </section><!-- /Productos Section -->
 
 <script>
+    </main>
+
+    <!-- Script para la búsqueda en tiempo real, botón de limpiar y paginación AJAX -->
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search');
             const clearButton = document.getElementById('clear-search');

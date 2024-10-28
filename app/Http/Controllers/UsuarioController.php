@@ -49,7 +49,7 @@ class UsuarioController extends Controller
             'telefono' => 'nullable|string|max:20',
             'roles' => 'required|array', // Asegúrate de que se seleccione al menos un rol
         ]);
-    
+
         try {
             // Crear un nuevo usuario
             $usuario = Usuario::create([
@@ -58,10 +58,10 @@ class UsuarioController extends Controller
                 'contrasena' => Hash::make($request->contrasena),
                 'telefono' => $request->telefono,
             ]);
-    
+
             // Asignar roles al usuario
             $usuario->assignRole($request->input('roles'));
-    
+
             return redirect()->route('usuarios.index')->with('success', 'Usuario creado con éxito.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear el usuario: ' . $e->getMessage());

@@ -5,13 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Login</title>
+  <title>Iniciar Sesión</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <link href="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -42,7 +42,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-1">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <a href="/" class="logo d-flex align-items-center w-auto">
                 <img src="{{ asset('assets/img/ProyectoTICOBLUE.png') }}" alt="" style="width: 200px; height: auto;">
                 </a>
               </div><!-- End Logo -->
@@ -59,7 +59,7 @@
                   <!-- Formulario de login -->
                   <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}" novalidate>
                     @csrf <!-- Token de seguridad obligatorio en Laravel -->
-                    
+
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Correo Electrónico</label>
                       <div class="input-group has-validation">
@@ -74,17 +74,17 @@
                       <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
                     </div>
 
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Recuérdame</label>
                       </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Iniciar Sesión</button>
                     </div>
-                    
+
                     <div class="col-12">
                       <p class="small mb-0">¿No tienes una cuenta? <a href="{{ route('register.form') }}">Crea una cuenta</a></p>
                     </div>
