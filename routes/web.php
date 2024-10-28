@@ -11,6 +11,8 @@ use App\Http\Controllers\AlojamientoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\NotificationController;
+
 
 // Rutas públicas (accesibles sin autenticación)
 Route::view('/Alojamientos', 'frontend.alojamientos')->name('alojamientos');
@@ -23,6 +25,11 @@ Route::get('/Eventos', [EventoController::class, 'mostrarInformacionEventos'])->
 Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarAlojamientos'])->name('alojamientos');
 Route::get('/Comercios', [ComercioController::class, 'mostrarInformacionComercios'])->name('comercios');
 
+
+//Rutas notificación
+Route::post('notifications/store', [NotificationController::class, 'store'])->name('notifications.store');
+Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::patch('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 
 

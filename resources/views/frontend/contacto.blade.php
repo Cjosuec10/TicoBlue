@@ -17,12 +17,11 @@
 
 
    
-
 <!-- Contenedor del formulario de contacto -->
 <div class="container contact-container mt-5">
     <h3 class="contact-title">Envíanos un mensaje</h3>
     <p class="contact-description">Por favor, completa el formulario a continuación para contactarnos.</p>
-    <form action="#" method="POST" class="contact-form">
+    <form action="{{ route('notifications.store') }}" method="POST" class="contact-form">
         @csrf
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -56,6 +55,7 @@
         </div>
         <button type="submit" class="submit-btn">Enviar Mensaje</button>
     </form>
+</div>
     <div class="container row justify-content-center align-items-center vh-100">
     <div class="col-md-4 text-center">
         <h3>Información General</h3>
