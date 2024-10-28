@@ -70,7 +70,6 @@ class ReservacionController extends Controller
     }
     
 
-
     // Método para mostrar los detalles de una reservación específica
     public function show($id)
     {
@@ -78,12 +77,6 @@ class ReservacionController extends Controller
         return view('reservaciones.show', compact('reservacion'));
     }
 
-    // public function edit($id)
-    // {
-    //     $reservacion = Reservacion::findOrFail($id); // Busca la reservación por su ID
-    //     return view('reservaciones.edit', compact('reservacion')); // Carga la vista de edición
-    // }
-    // // Método para mostrar el formulario de edición de una reservación existente
     public function edit($id)
     {
 
@@ -109,17 +102,29 @@ class ReservacionController extends Controller
             'correoUsuarioReservacion' => 'required|email|max:255',
             'telefonoUsuarioReservacion' => 'nullable|string|max:20',
             'idComercio_fk' => 'required|exists:comercios,idComercio',
-            'idEvento_fk' => 'nullable|exists:eventos,idEvento',
+            'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-            'idAlojamiento_fk' => 'nullable|exists:alojamientos,idAlojamiento',
+            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
         ]);
 
-        // Actualiza la reservación con los datos del formulario
-        $reservacion->update($request->all());
+        // Asignar valores de los campos opcionales si están presentes
+        $reservacion->idEvento_fk = $request->idEvento_fk ?? null;
+        $reservacion->idAlojamiento_fk = $request->idAlojamiento_fk ?? null;
+
+        // Actualiza los demás campos
+        $reservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
+        $reservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
+        $reservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
+        $reservacion->idComercio_fk = $request->idComercio_fk;
+        $reservacion->idUsuario_fk = $request->idUsuario_fk;
+
+        // Guardar los cambios en la base de datos
+        $reservacion->save();
 
         // Redirige de vuelta al índice con un mensaje de éxito
         return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada exitosamente.');
     }
+
 
 
 
@@ -132,10 +137,6 @@ class ReservacionController extends Controller
             return redirect()->route('reservaciones.index')->with('error', 'Reservación no encontrada.');
         }
 
-        // Verificar que el objeto se ha cargado correctamente
-       // dd($reservacion); // Depuración: Aquí deberías ver los datos de la reservación
-
-        // Eliminar la reservación
         $reservacion->delete();
 
         return redirect()->route('reservaciones.index')->with('success', 'Reservación eliminada exitosamente.');

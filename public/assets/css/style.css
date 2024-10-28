@@ -410,8 +410,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
-  margin-right: 6px;
+  max-height: 100%;
+  height: auto;
 }
 
 .logo span {
@@ -1276,3 +1276,4 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+

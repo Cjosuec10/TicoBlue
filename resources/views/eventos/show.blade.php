@@ -18,7 +18,6 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('eventos.index') }}" class="btn btn-primary">Volver</a>
-                <a href="{{ route('eventos.edit', $evento->idEvento) }}" class="btn btn-warning">Editar</a>
             </div>
         </div>
     </div>

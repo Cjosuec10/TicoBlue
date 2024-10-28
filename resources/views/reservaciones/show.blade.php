@@ -16,7 +16,6 @@
 
             <div class="d-flex justify-content-between mt-3">
                 <a href="{{ route('reservaciones.index') }}" class="btn btn-primary">Volver</a>
-                <a href="{{ route('reservaciones.edit', $reservacion->idReservacion) }}" class="btn btn-warning">Editar</a>
             </div>
         </div>
     </div>

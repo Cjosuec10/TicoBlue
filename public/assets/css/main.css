@@ -21,20 +21,20 @@
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #212529; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #2d465e; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #116530; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --heading-color: #107acc; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #107acc; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: #212529;  /* The default color of the main navmenu links */
-  --nav-hover-color: #116530; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-color: #090909;  /* The default color of the main navmenu links */
+  --nav-hover-color: #107acc; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #116530; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-color: #090909; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #107acc; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -42,93 +42,6 @@
 .light-background {
   --background-color: #f9f9f9;
   --surface-color: #ffffff;
-}
-
-
-
-
-/*Notificacones*/
-
-
-.list-group {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list-group-item {
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;
-  transition: all 0.3s ease-in-out;
-}
-
-.list-group-item:hover {
-  background-color: #f1f1f1;
-}
-
-.notification-content p {
-  margin: 0.5rem 0;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.modal-content {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-}
-
-.modal-body {
-  max-height: 400px; /* Limita el tamaño para hacerlo pequeño */
-  overflow-y: auto; /* Añade scroll si las notificaciones exceden el tamaño */
-}
-
-.list-group-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease-in-out;
-}
-
-.list-group-item:hover {
-  background-color: #f1f1f1;
-}
-
-.btn-success {
-  background-color: #28a745;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-
-
-.modal-content {
-  border-radius: 10px; /* Esquinas redondeadas en el modal */
-}
-
-.list-group-item {
-  transition: background-color 0.3s; /* Transición suave en el fondo */
-}
-
-.list-group-item:hover {
-  background-color: #f8f9fa; /* Color de fondo al pasar el mouse */
 }
 
 
@@ -361,11 +274,7 @@ body {
   padding: 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px; /* Ajusta si es necesario */
-}
+
 
 /* Títulos y textos */
 .contact-title {
@@ -436,6 +345,11 @@ footer {
   margin-top: 0;
   padding-top: 0;
 }
+
+.footer-text-white {
+  color: #ffffff !important; /* Forza el color blanco en el texto del footer */
+}
+
 
 
 html, body {
@@ -519,7 +433,7 @@ html, body {
   --background-color: #060606;
   --default-color: #ffffff;
   --heading-color: #ffffff;
-  --accent-color: #2ea359;
+  --accent-color: #5887FF;
   --surface-color: #252525;
   --contrast-color: #ffffff;
 }
@@ -555,7 +469,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--heading-color);
+  color: var(--accent-color);
   font-family: var(--heading-font);
 }
 
@@ -574,7 +488,7 @@ h6 {
 .php-email-form .sent-message {
   display: none;
   color: #ffffff;
-  background: #059652;
+  background: #5887FF;
   text-align: center;
   padding: 15px;
   margin-bottom: 24px;
@@ -706,9 +620,15 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 32px;
-  margin-right: 8px;
+  max-height: 100px;
+  margin-left: 6px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añade la transición */
 }
+
+.header .logo img:hover {
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+}
+
 
 .header .logo h1 {
   font-size: 30px;
@@ -716,6 +636,7 @@ h6 {
   font-weight: 700;
   color: var(--heading-color);
 }
+
 
 .scrolled .header {
   box-shadow: 0px 0 18px color-mix(in srgb, var(--default-color), transparent 85%);
@@ -957,30 +878,48 @@ h6 {
   }
 }
 
+
+
 /*--------------------------------------------------------------
 # Global Footer
 --------------------------------------------------------------*/
 .footer {
   color: var(--default-color);
-  background-color: var(--background-color);
+  background-color: #090909;
   font-size: 14px;
   position: relative;
 }
 
 .footer .footer-top {
-  background-color: color-mix(in srgb, var(--background-color), white 5%);
-  padding-top: 50px;
+  background-color: color-mix(in srgb, var(--default-color));
+  padding-top: 10px;
 }
 
-.footer .footer-about .logo {
-  line-height: 1;
-  margin-bottom: 25px;
+.footer-about .logo {
+  display: flex;
+  align-items: flex-start; /* Alinea el logo a la izquierda */
+  justify-content: flex-start; /* Asegura que todo el contenido esté alineado a la izquierda */
+  text-decoration: none; /* Elimina el subrayado en el logo */
 }
 
-.footer .footer-about .logo img {
-  max-height: 40px;
-  margin-right: 6px;
+.footer-about .logo img {
+  width: 100px; /* Ajusta el ancho del logo */
+  height: auto; /* Mantiene la relación de aspecto */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.footer-about .logo img:hover {
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+}
+
+.footer-about {
+  
+  margin-bottom: 10px; /* Espacio inferior para separar del contenido siguiente */
+
+}
+
+
+
 
 .footer .footer-about .logo span {
   color: var(--heading-color);
@@ -1041,7 +980,7 @@ h6 {
 }
 
 .footer .footer-links ul a {
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: color-mix(in srgb, var(--surface-color), transparent 0%);
   display: inline-block;
   line-height: 1;
 }
@@ -1050,12 +989,15 @@ h6 {
   color: var(--accent-color);
 }
 
+
 .footer .footer-contact p {
   margin-bottom: 5px;
+  color: #ffffff;
 }
 
 .footer .copyright {
   padding: 30px 0;
+  color: #ffffff;
 }
 
 .footer .copyright p {
@@ -1133,7 +1075,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background-color: var(--accent-color);
+  background-color: #0dcaf0;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -1237,38 +1179,34 @@ section,
 /*--------------------------------------------------------------
 # Global Section Titles
 --------------------------------------------------------------*/
-.section-title {
-  text-align: center;
-  padding-bottom: 60px;
-  position: relative;
-}
-
 .section-title h2 {
+  color: var(--heading-color);
   font-size: 28px;
-  font-weight: 500;
-  margin-bottom: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .section-title p {
-  margin-bottom: 0;
-  font-family: var(--heading-font);
-  font-size: 32px;
+  font-size: 16px;
+  color: var(--default-color);
+  margin-bottom: 20px;
 }
+
 
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
+  max-width: 80%; /* Ancho máximo del 80% del viewport */
+  margin: 0 auto; /* Centra el contenedor del carrusel */
   padding: 0;
+  background-color: var(--background-color);
+  position: relative;
 }
 
 .hero .carousel {
-  width: 100%;
+  width: 100%; /* Mantiene el ancho completo del carrusel dentro de .hero */
   min-height: calc(100vh - 100px);
-  padding: 0;
-  margin: 0;
-  background-color: var(--background-color);
-  position: relative;
 }
 
 .hero img {
@@ -1281,32 +1219,6 @@ section,
   z-index: 1;
 }
 
-.hero .carousel-item {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.hero .carousel-item:before {
-  content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 60%);
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-
-.hero .carousel-container {
-  position: absolute;
-  inset: 90px 64px 64px 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 3;
-}
 
 .hero h2 {
   margin-bottom: 30px;
@@ -1376,6 +1288,43 @@ section,
     width: 5%;
   }
 }
+.custom-text {
+  font-size: 1.5rem; /* Ajusta el tamaño del texto según prefieras */
+  color: white; /* Color blanco para el texto */
+  line-height: 1.8; /* Aumenta la altura de línea para mejor legibilidad */
+  text-align: justify; /* Opcional: Justifica el texto */
+}
+
+.service-item {
+  min-height: 215px; /* Ajusta este valor según sea necesario */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#video-section {
+  background-color: #f8f9fa;
+  border-radius: 15px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p.lead {
+  font-size: 1.2rem;
+}
+
+.embed-responsive-item {
+  border-radius: 10px;
+}
+
+
+.custom-text {
+  font-size: 1.2rem; /* Ajusta el tamaño del texto */
+  line-height: 1.5; /* Espaciado entre líneas */
+}
+
 
 .hero .carousel-control-next-icon,
 .hero .carousel-control-prev-icon {
@@ -1417,6 +1366,35 @@ section,
 }
 
 /*--------------------------------------------------------------
+# welcome Section
+--------------------------------------------------------------*/
+
+.text-container {
+  background-image: url('/assets/img/Nicoyapeninsula.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 500px; /* Ajusta la altura según tu diseño */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-box {
+  background-color: rgba(255, 255, 255, 0.7); /* Fondo semitransparente */
+  padding: 30px;
+  border-radius: 10px;
+}
+
+h1, p {
+  color: #333;
+}
+
+
+/*--------------------------------------------------------------
+# end welcome Section
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/
 .services .section-title h2 {
@@ -1437,7 +1415,7 @@ section,
   right: 10px;
   top: 10px;
   font-weight: 400;
-  color: color-mix(in srgb, var(--default-color), transparent 80%);
+  color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
 .services .content .service-item .service-item-icon {
@@ -1461,6 +1439,7 @@ section,
   border-right: 40px solid var(--accent-color);
   display: none;
 }
+
 
 .services .content .service-item .service-item-icon>span {
   color: var(--default-color);
@@ -2738,3 +2717,86 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+/* Estilos específicos para la sección header-section */
+.header-section {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  min-height: 100vh;
+  background-image: url('/assets/img/Nicoyapeninsula.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(16, 122, 204, 0.3);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.header-section .container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.header-section .content-box {
+  max-width: 100%;
+  text-align: center;
+  color: white;
+  padding-top: 50px; /* Ajuste para mover el texto ligeramente hacia abajo */
+  z-index: 2;
+}
+
+.header-section h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.header-section .subtitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.header-section .button-group {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.header-section .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+}
+
+
+
