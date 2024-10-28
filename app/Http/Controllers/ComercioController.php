@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ComercioController extends Controller
 {
-    use AuthorizesRequests;
 
     public function __construct()
     {
