@@ -29,7 +29,7 @@
                                 <tbody>
                                     @foreach ($reservaciones as $reservacion)
                                         <tr>
-                                            <td>{{ $reservacion->idReservacion }}</td>
+                                            <td>{{ $reservacion->id}}</td>
                                             <td>{{ $reservacion->comercio->nombreComercio ?? 'N/A' }}</td>
                                             <td>{{ $reservacion->evento->nombreEvento ?? 'N/A' }}</td>
                                             <td>{{ $reservacion->alojamiento->nombreAlojamiento ?? 'N/A' }}</td>
