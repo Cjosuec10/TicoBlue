@@ -25,7 +25,7 @@
                 <!-- Descripción del Producto -->
                 <div class="col-md-6">
                     <h5 class="card-title"></h5>
-                    <label for="descripcionProducto" class="form-label">Descripción del Producto</label>
+                    <label for="descripcionProducto" class="form-label">Descripción del Producto (opcional)</label>
                     <textarea class="form-control" id="descripcionProducto" name="descripcionProducto"></textarea>
                     <div class="invalid-feedback">
                         Por favor, ingrese una descripción.
@@ -99,9 +99,16 @@
 
                    <!-- Imagen del Producto -->
                    <div class="col-md-6">
-                    <label for="imagenProducto" class="form-label">Imagen</label>
-                    <input type="file" id="imagenProducto" name="imagenProducto">
-                </div>
+    <label for="imagenProducto" class="form-label">Imagen (opcional)</label>
+    <input type="file" class="form-control" id="imagenProducto" name="imagenProducto">
+    
+    @if(isset($producto) && $producto->imagenProducto)
+        <div class="mt-2">
+            <img src="{{ asset($producto->imagenProducto) }}" alt="Imagen del producto" width="150px">
+        </div>
+    @endif
+</div>
+
 
                 <!-- Botones de acción -->
                 <div class="col-12 d-flex justify-content-center gap-2">

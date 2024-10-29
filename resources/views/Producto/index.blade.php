@@ -35,12 +35,12 @@
                                 <td>{{ $producto->precioProducto }}</td>
                                 <td>{{ $producto->comercio->nombreComercio }}</td> <!-- Relación con comercio -->
                                 <td>
-                                    @if ($producto->imagen)
-                                        <img src="{{asset($producto->imagen)}}" alt="{{$producto->nombreComercio}}" class="img-fluid" width="120px">
-                                    @else
-                                        <span>No disponible</span>
-                                    @endif
-                                </td>
+                                @if ($producto->imagenProducto)
+        <img src="{{ asset($producto->imagenProducto) }}" alt="{{ $producto->nombreProducto }}" class="img-fluid" width="120px">
+    @else
+        <span>No disponible</span>
+    @endif
+                                    </td>
                                 <td>
                                     <div class="d-flex">
                                          <!-- Botón Ver -->
