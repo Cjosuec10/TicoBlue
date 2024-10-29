@@ -25,14 +25,15 @@ class ProductoController extends Controller
         // Filtrar los productos que pertenecen a esos comercios
     $productos = Producto::whereIn('idComercio_fk', $comercios)->get();
         
+    
         // Pasamos los productos a la vista
         return view('Producto.index', compact('productos'));
     }
     
     public function mostrarInformacionProductos(Request $request)
     {
-        // Obtener los productos paginados (por ejemplo, 8 productos por página)
-        $productos = Producto::paginate(8);
+       // Obtener solo productos activos, paginados
+    $productos = Producto::where('activo', true)->paginate(8);
     
         // Verificar si es una solicitud AJAX para búsqueda
         if ($request->ajax()) {
@@ -43,6 +44,15 @@ class ProductoController extends Controller
         return view('frontend.productos', compact('productos'));
     }
     
+    public function toggleActivation(Request $request, $id)
+{
+    $producto = Producto::findOrFail($id);
+    $producto->activo = $request->input('activo');
+    $producto->save();
+
+    return response()->json(['success' => true]);
+}
+
 
     public function buscar(Request $request)
     {
@@ -71,10 +81,13 @@ class ProductoController extends Controller
     {
         $query = $request->input('q');
         
-        // Obtener todos los productos de la base de datos sin filtrar por usuario
+        // Obtener solo los productos activos que coincidan con el criterio de búsqueda
         $productos = Producto::with('comercio')
-                             ->where('nombreProducto', 'LIKE', "%{$query}%")
-                             ->orWhere('descripcionProducto', 'LIKE', "%{$query}%")
+                             ->where('activo', true) // Filtrar productos activos
+                             ->where(function ($q) use ($query) {
+                                 $q->where('nombreProducto', 'LIKE', "%{$query}%")
+                                   ->orWhere('descripcionProducto', 'LIKE', "%{$query}%");
+                             })
                              ->paginate(8);
         
         // Retornar productos con paginación en la respuesta JSON
@@ -83,6 +96,7 @@ class ProductoController extends Controller
             'pagination' => (string) $productos->links('pagination::bootstrap-4'),
         ]);
     }
+    
 
 
     public function create()
@@ -180,4 +194,23 @@ class ProductoController extends Controller
         // Redirigir a la lista de productos con un mensaje de éxito
         return redirect()->route('productos.index')->with('success', 'Producto eliminado exitosamente.');
     }
+
+    public function activar($id)
+{
+    $producto = Producto::findOrFail($id);
+    $producto->activo = true;
+    $producto->save();
+
+    return redirect()->route('productos.index')->with('success', 'Producto activado exitosamente.');
+}
+
+public function desactivar($id)
+{
+    $producto = Producto::findOrFail($id);
+    $producto->activo = false;
+    $producto->save();
+
+    return redirect()->route('productos.index')->with('success', 'Producto desactivado exitosamente.');
+}
+
 }
