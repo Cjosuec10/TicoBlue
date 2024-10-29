@@ -88,7 +88,9 @@
                     <textarea class="form-control @error('direccion_url') is-invalid @enderror" id="direccion_url" name="direccion_url"
                         rows="3" placeholder="Ingrese ID de Mapa de Google">{{ old('direccion_url') }}</textarea>
                     <div class="invalid-feedback">
-                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres.
+                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres,
+                        EJEMPLO:
+                        !1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
                     </div>
                 </div>
 
@@ -168,9 +170,11 @@
 
             // Aplicar el formato XXXX-XXXX mientras se escribe
             inputPhone.addEventListener("input", function() {
-                let value = inputPhone.value.replace(/[^\d]/g, ""); // Remover cualquier carácter no numérico excepto el '+'
+                let value = inputPhone.value.replace(/[^\d]/g,
+                ""); // Remover cualquier carácter no numérico excepto el '+'
                 if (value.startsWith(selectCountry.value)) {
-                    value = value.slice(selectCountry.value.length); // Remover código de país duplicado si existe
+                    value = value.slice(selectCountry.value
+                    .length); // Remover código de país duplicado si existe
                 }
                 if (value.length > 4) {
                     value = value.slice(0, 4) + '-' + value.slice(4, 8);
@@ -181,7 +185,8 @@
             // Antes de enviar el formulario, guarda el número completo con el código de país
             form.addEventListener("submit", function(event) {
                 const countryCode = selectCountry.value;
-                let value = inputPhone.value.replace(/[^\d]/g, ""); // Remover cualquier carácter que no sea número
+                let value = inputPhone.value.replace(/[^\d]/g,
+                ""); // Remover cualquier carácter que no sea número
                 if (value.startsWith(countryCode)) {
                     value = value.slice(countryCode.length); // Remover código de país duplicado si existe
                 }
