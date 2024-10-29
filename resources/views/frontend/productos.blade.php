@@ -99,10 +99,6 @@
 </section><!-- /Productos Section -->
 
 <script>
-    </main>
-
-    <!-- Script para la búsqueda en tiempo real, botón de limpiar y paginación AJAX -->
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search');
             const clearButton = document.getElementById('clear-search');
