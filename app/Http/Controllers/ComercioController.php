@@ -45,7 +45,7 @@ class ComercioController extends Controller
             'pais' => 'required', // Asegúrate de tener este campo en el formulario
             'descripcionComercio' => 'nullable',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'direccion_url' => 'required|string|max:500',
+            'direccion_url' => 'nullable|string|max:500',
             'direccion_texto' => 'nullable|string|max:255',
         ], [
             'direccion_url.max' => 'Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres.',
