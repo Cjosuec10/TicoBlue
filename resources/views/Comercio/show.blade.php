@@ -3,7 +3,8 @@
 @section('content')
  
 
-    <h1 class="card-title" id="title">Información del Comercio</h1>
+<h1 class="card-title text-center" id="title">Información del Comercio</h1>
+
 
     <div class="card mx-auto" style="max-width: 800px;">
         <div class="card-body">
@@ -73,11 +74,12 @@
                     @endif
                 </div>
 
-                <!-- Dirección en Texto -->
-                <div class="col-md-6">
-                    <label for="direccion_texto" class="form-label" id="label-direccion_texto">Dirección (Texto)</label>
-                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto" value="{{ $comercio->direccion_texto }}" disabled>
-                </div>
+             <!-- Dirección en Texto -->
+<div class="col-md-6">
+    <label for="direccion_texto" class="form-label" id="label-direccion_texto">Dirección (Texto)</label>
+    <textarea class="form-control" id="direccion_texto" name="direccion_texto" rows="4" disabled>{{ $comercio->direccion_texto }}</textarea>
+</div>
+
 
                 <!-- Botón para volver -->
                 <div class="col-12 d-flex justify-content-center gap-2">

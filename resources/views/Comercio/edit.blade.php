@@ -133,15 +133,15 @@
                 </div>
 
 
-                <!-- Dirección en Texto -->
-                <div class="col-md-6">
-                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
-                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto"
-                        value="{{ $comercio->direccion_texto }}">
-                    <div class="invalid-feedback">
-                        Por favor, ingrese una dirección válida.
-                    </div>
-                </div>
+              <!-- Dirección en Texto -->
+<div class="col-md-6">
+    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
+    <textarea class="form-control" id="direccion_texto" name="direccion_texto" rows="4">{{ $comercio->direccion_texto }}</textarea>
+    <div class="invalid-feedback">
+        Por favor, ingrese una dirección válida.
+    </div>
+</div>
+
 
                 <!-- Imagen del Comercio -->
                 <div class="col-md-6">

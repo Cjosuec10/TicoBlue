@@ -36,35 +36,23 @@ class ComercioController extends Controller
     // Guardar un nuevo comercio vinculado al usuario autenticado
     public function store(Request $request)
     {
+        // Validar los datos del formulario
         $request->validate([
             'nombreComercio' => 'required|max:100',
             'tipoNegocio' => 'required|max:100',
             'correoComercio' => 'required|email|unique:comercios,correoComercio',
-            'telefonoComercio' => 'nullable|max:20',
+            'telefonoComercio' => 'nullable|regex:/^\+\d{3} \d{4}-\d{4}$/', // Asegurar el formato
+            'pais' => 'required', // Asegúrate de tener este campo en el formulario
             'descripcionComercio' => 'nullable',
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'direccion_url' => 'required|string|max:500',
             'direccion_texto' => 'nullable|string|max:255',
         ], [
             'direccion_url.max' => 'Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres.',
         ]);
-
-        $newcomercio = new Comercio($request->all());
-        $newcomercio->idUsuario_fk = Auth::id(); // Asociar el comercio al usuario autenticado
-
-        if ($request->hasFile('imagen')) {
-            $file = $request->file('imagen');
-            $destinationPath = 'img/imagen/';
-            $fileName = time() . '-' . $file->getClientOriginalName();
-            $file->move($destinationPath, $fileName);
-            $newcomercio->imagen = $destinationPath . $fileName;
-        }
-
-        $newcomercio->save();
-
-        return redirect()->route('comercios.index')->with('success', 'Comercio creado exitosamente.');
+    
+        // Resto de la lógica para almacenar el comercio...
     }
-
     // Mostrar detalles de un comercio solo si pertenece al usuario autenticado
     public function show(Comercio $comercio)
     {

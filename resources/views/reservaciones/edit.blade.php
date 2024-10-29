@@ -95,51 +95,52 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        function actualizarComercio() {
-            const eventoSelect = document.getElementById('idEvento_fk');
-            const alojamientoSelect = document.getElementById('idAlojamiento_fk');
-            const comercioInput = document.getElementById('comercio');
-            const idComercioInput = document.getElementById('idComercio_fk');
-    
-            const eventoComercio = eventoSelect.selectedOptions[0]?.getAttribute('data-comercio');
-            const eventoComercioId = eventoSelect.selectedOptions[0]?.getAttribute('data-comercio-id');
-            const alojamientoComercio = alojamientoSelect.selectedOptions[0]?.getAttribute('data-comercio');
-            const alojamientoComercioId = alojamientoSelect.selectedOptions[0]?.getAttribute('data-comercio-id');
-    
-            if (eventoSelect.value) {
-                comercioInput.value = eventoComercio;
-                idComercioInput.value = eventoComercioId;
-            } else if (alojamientoSelect.value) {
-                comercioInput.value = alojamientoComercio;
-                idComercioInput.value = alojamientoComercioId;
-            } else {
-                comercioInput.value = '';
-                idComercioInput.value = '';
-            }
+    function actualizarComercio() {
+        const eventoSelect = document.getElementById('idEvento_fk');
+        const alojamientoSelect = document.getElementById('idAlojamiento_fk');
+        const comercioInput = document.getElementById('comercio');
+        const idComercioInput = document.getElementById('idComercio_fk');
+
+        const eventoComercio = eventoSelect.selectedOptions[0]?.getAttribute('data-comercio');
+        const eventoComercioId = eventoSelect.selectedOptions[0]?.getAttribute('data-comercio-id');
+        const alojamientoComercio = alojamientoSelect.selectedOptions[0]?.getAttribute('data-comercio');
+        const alojamientoComercioId = alojamientoSelect.selectedOptions[0]?.getAttribute('data-comercio-id');
+
+        if (eventoSelect.value) {
+            comercioInput.value = eventoComercio;
+            idComercioInput.value = eventoComercioId;
+        } else if (alojamientoSelect.value) {
+            comercioInput.value = alojamientoComercio;
+            idComercioInput.value = alojamientoComercioId;
+        } else {
+            comercioInput.value = '';
+            idComercioInput.value = '';
         }
+    }
+
+    // Manejar el envío del formulario con SweetAlert
+    document.getElementById('editarReservacionForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        if (this.checkValidity()) {
+            // Mostrar SweetAlert y luego enviar el formulario
+            Swal.fire({
+                icon: "success",
+                title: "Reservación actualizada exitosamente",
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                this.submit(); // Enviar formulario
+            });
+        } else {
+            event.stopPropagation();
+            this.classList.add('was-validated');
+        }
+    }); 
+
     
-        document.getElementById('editarReservacionForm').addEventListener('submit', function(event) {
-            if (!this.checkValidity()) {
-                event.preventDefault();  // Solo evitar si no es válido
-                event.stopPropagation();
-                this.classList.add('was-validated');
-            } else {
-                // Evitar el envío inmediato del formulario
-                event.preventDefault();
-    
-                // Mostrar SweetAlert y enviar el formulario tras cerrar la alerta
-                Swal.fire({
-                    icon: "success",
-                    title: "Reservación actualizada exitosamente",
-                    showConfirmButton: false,
-                    timer: 2000
-                }).then(() => {
-                    // Envía el formulario después de que el SweetAlert desaparezca
-                    this.submit();
-                });
-            }
-        });
-    </script>
+</script>
+
     
     
 @endsection

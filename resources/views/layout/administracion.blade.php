@@ -25,6 +25,11 @@
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1XsbG/b6y/z+3+5" crossorigin="anonymous">
+
+<!-- Bootstrap JS (requerido para el modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12WXT6Bf6wr7mZgftIURF1rRXuozcuOzj6STZ1QnQsEJQG4g" crossorigin="anonymous"></script>
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -50,13 +55,33 @@
     <img src="/assets/icons/us.svg" alt="English">
   </div>
 </div>
+
+<?php
+    // Contar las notificaciones no leídas
+    $unreadNotificationsCount = \App\Models\Notification::where('is_read', false)->count();
+?>
+<div>
+
+    <a href="{{ route('notifications.index') }}" class="nav-link">
+        Notificaciones <span class="badge badge-pill badge-danger">{{ $unreadNotificationsCount }}</span>
+    </a>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+
+
+
+
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
 
         
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+          <i class="fas fa-user rounded-circle" style="font-size: 30px; color: #2196F3; transition: color 0.3s; cursor: pointer;"></i>
+
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
             
           </a><!-- End Profile Image Icon -->
@@ -67,15 +92,7 @@
             </li>
             
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ url('users-profile') }}">
-                <i class="bi bi-person"></i>
-                <span data-translate="profile">Perfil</span> <!-- Marcado para traducción -->
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+  
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
@@ -148,14 +165,6 @@
     </li><!-- End Módulo de Reservas Nav -->
     @endcan
 
-    @can('ver-imagen')
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-image"></i><span data-translate="images">Imagenes(pendiente)</span><i class="bi bi-chevron-down ms-auto"></i> <!-- Usé un ícono de imagen -->
-      </a>
-    </li><!-- End Módulo de Imágenes Nav -->
-    @endcan
-
     @can('ver-usuario')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/usuarios">
@@ -171,6 +180,12 @@
       </a>
     </li><!-- End Módulo de Roles Nav -->
     @endcan
+
+<!-- Botones de Acción -->
+<div class="col-12 d-flex justify-content-end gap-3 mt-4">
+                
+                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Volver</button>
+                    </div>
 
   </ul>
   @yield('sidebar') <!-- Aquí se puede personalizar el sidebar en cada vista -->

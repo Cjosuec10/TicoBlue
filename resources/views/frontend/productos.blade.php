@@ -36,9 +36,6 @@
 </div><!-- End Search Container -->
 
 
-
-
-
     <!-- Productos -->
     <div class="product-wrap mt-2">
         <div class="container">
