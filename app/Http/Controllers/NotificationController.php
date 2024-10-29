@@ -40,6 +40,16 @@ class NotificationController extends Controller
         return view('notifications.index', compact('notifications'));
     }
 
+        //Mostrar el listado de notificaciones 
+
+    public function allNotifications()
+    {
+    // Obtiene todas las notificaciones, sin importar si están leídas o no
+        $allNotifications = Notification::all();
+    
+        return view('notifications.all', compact('allNotifications'));
+    }
+
     public function markAsRead($id)
     {
         // Marcar la notificación como leída
