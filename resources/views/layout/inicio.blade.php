@@ -25,6 +25,10 @@
   <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
 
+<!-- animacion pantallas -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+
   <!-- Main CSS File -->
   <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
   
@@ -200,6 +204,33 @@
   <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
   <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+
+ <!-- animacion pantallas-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    // Inicializar AOS por primera vez
+    AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true
+    });
+
+    // Detectar el scroll para reinicializar AOS
+    let scrollTimeout;
+
+    window.addEventListener('scroll', function () {
+        // Reinicializar AOS si el usuario está en la parte superior de la página
+        if (window.scrollY === 0) {
+            clearTimeout(scrollTimeout);
+
+            // Retrasar un poco para evitar múltiples reinicios
+            scrollTimeout = setTimeout(() => {
+                AOS.refresh();  // Reinicia AOS para que las animaciones se vuelvan a activar
+            }, 200); 
+        }
+    });
+</script>
+
 
   <!-- Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
