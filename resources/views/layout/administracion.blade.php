@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@include('notifications.index')
 <html lang="en">
 
 <head>

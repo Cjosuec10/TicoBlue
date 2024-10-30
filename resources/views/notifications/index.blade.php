@@ -1,10 +1,3 @@
-
-@extends('layout.administracion')
-
-@section('content')
-<h1>Lista de notificaciones</h1>
-
-
 <!-- Modal de Notificaciones -->
 <div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-md">
@@ -44,5 +37,3 @@
         </div>
     </div>
 </div>
-
-@endsection
