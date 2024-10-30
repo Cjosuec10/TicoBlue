@@ -41,7 +41,7 @@ const translations = {
   }
 };
 
-// Función para cambiar el idioma en la página principal
+// Función para cambiar el idioma en la página principal y simbolo moneda 
 function switchLanguage(language) {
   const elements = document.querySelectorAll("[data-translate]");
   elements.forEach(element => {
@@ -50,7 +50,16 @@ function switchLanguage(language) {
       element.innerText = translations[language][key];
     }
   });
+
+// Actualizar el símbolo de moneda
+const currencySymbol = language === 'es' ? '₡' : '$';
+const currencyElement = document.getElementById("currency-symbol");
+if (currencyElement) {
+  currencyElement.textContent = currencySymbol;
 }
+}
+
+
 
 // Eventos para los botones de cambio de idioma
 document.querySelectorAll('.flags__item').forEach(flag => {

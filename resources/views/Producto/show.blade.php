@@ -41,7 +41,10 @@
                     <div class="row mb-2 align-items-center">
                         <div class="col-12">
                             <strong>Precio:</strong>
-                            <p class="mb-1">${{ number_format($producto->precioProducto, 2) }}</p>
+                            <p class="mb-1">
+    <span id="currency-symbol">₡</span>{{ number_format($producto->precioProducto, 2) }}
+</p>
+
                         </div>
                     </div>
 
@@ -64,7 +67,7 @@
             <!-- Botón Volver -->
             <div class="col-12 d-flex justify-content-center mt-3">
                 <a href="{{ route('productos.index') }}" class="btn btn-primary">
-                    <i class="bi bi-arrow-left-circle"></i> Volver a la Lista
+                    <i></i> Volver
                 </a>
             </div>
         </div>

@@ -1,4 +1,5 @@
 @extends('layout.administracion')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
     <h1 class="card-title">Lista de Productos</h1>
@@ -35,12 +36,12 @@
                                 <td>{{ $producto->precioProducto }}</td>
                                 <td>{{ $producto->comercio->nombreComercio }}</td> <!-- Relación con comercio -->
                                 <td>
-                                    @if ($producto->imagen)
-                                        <img src="{{asset($producto->imagen)}}" alt="{{$producto->nombreComercio}}" class="img-fluid" width="120px">
-                                    @else
-                                        <span>No disponible</span>
-                                    @endif
-                                </td>
+                                @if ($producto->imagenProducto)
+        <img src="{{ asset($producto->imagenProducto) }}" alt="{{ $producto->nombreProducto }}" class="img-fluid" width="120px">
+    @else
+        <span>No disponible</span>
+    @endif
+                                    </td>
                                 <td>
                                     <div class="d-flex">
                                          <!-- Botón Ver -->
@@ -55,19 +56,23 @@
                                             <i class="bi bi-exclamation-triangle"></i> Editar
                                         </a>
                                         @endcan
-                                
-                                        <!-- Botón Eliminar -->
-                                        @can('borrar-producto')
-                                        <form action="{{ route('productos.destroy', $producto->idProducto) }}" method="POST" class="form-eliminar w-80" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
-                                                <i class="bi bi-exclamation-octagon"></i> Eliminar
-                                            </button>
-                                        </form>
-                                        @endcan
-                                    </div>
-                                </td>                     
+                    
+                                        <!-- Switch para activar/desactivar -->
+                                        <div class="d-flex align-items-center form-check form-switch custom-switch-size ms-2">
+                                            <input 
+                                                class="form-check-input toggle-activation" 
+                                                type="checkbox" 
+                                                role="switch" 
+                                                data-id="{{ $producto->idProducto }}" 
+                                                id="switch-{{ $producto->idProducto }}"
+                                                {{ $producto->activo ? 'checked' : '' }}
+                                            />
+                                            <label class="form-check-label" for="switch-{{ $producto->idProducto }}">
+                                                {{ $producto->activo ? 'Activo' : 'Inactivo' }}
+                                            </label>
+                                        </div>
+                                        </div>
+                                    </td>                     
                             </tr>
                         @endforeach
                         </tbody>
@@ -79,6 +84,21 @@
         </div> 
     </section> 
       
+    <style>
+    .custom-switch-size .form-check-input {
+        width: 40px;
+        height: 20px;
+        transform: scale(1.2); /* Cambia el valor si deseas hacerlo aún más grande */
+    }
+
+    .custom-switch-size .form-check-label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+</style>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
     <!-- Script para el SweetAlert en la eliminación -->
@@ -116,5 +136,34 @@
             // Si estás haciendo algún tipo de actualización dinámica de la tabla, deberías
             // llamar a setDeleteEventListeners() nuevamente después de actualizar la tabla
         });
+        document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona todos los switches de activación
+    document.querySelectorAll('.toggle-activation').forEach(switchElement => {
+        switchElement.addEventListener('change', function () {
+            const productId = this.getAttribute('data-id');
+            const isActive = this.checked;
+
+            fetch(`/productos/${productId}/toggle-activation`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ activo: isActive })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.nextElementSibling.textContent = isActive ? 'Activo' : 'Inactivo';
+                } else {
+                    alert('Error al cambiar el estado del producto.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+
+
     </script>
 @endsection

@@ -32,6 +32,11 @@ Route::get('notifications', [NotificationController::class, 'index'])->name('not
 Route::patch('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 Route::get('notifications/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
 
+//rutas activar-desactivar producto
+Route::post('/productos/{id}/activar', [ProductoController::class, 'activar'])->name('productos.activar');
+Route::post('/productos/{id}/desactivar', [ProductoController::class, 'desactivar'])->name('productos.desactivar');
+//toggleActivation
+Route::post('/productos/{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('productos.toggleActivation');
 
 
 // Rutas de autenticación
