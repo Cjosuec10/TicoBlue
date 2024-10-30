@@ -103,17 +103,14 @@
                     </div>
                 </div>
 
-                <!-- Selección de Usuario -->
+                <!-- Mostrar Usuario Actual -->
                 <div class="col-md-6">
                     <label for="idUsuario_fk" class="form-label">Usuario</label>
-                    <select class="form-select" id="idUsuario_fk" name="idUsuario_fk" required>
-                        <option selected disabled value="">Seleccione un usuario</option>
-                        <option value="{{ $usuario->idUsuario }}">{{ $usuario->nombre }}</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Por favor, seleccione un usuario.
-                    </div>
+                    <input type="text" class="form-control" id="nombre"
+                        value="{{ auth()->user()->nombre ?? 'Nombre no disponible' }}" readonly>
+                    <input type="hidden" name="idUsuario_fk" value="{{ auth()->user()->id }}">
                 </div>
+
 
                 <!-- Botón para Enviar -->
                 <div class="col-12 d-flex justify-content-center gap-2">
@@ -171,10 +168,10 @@
             // Aplicar el formato XXXX-XXXX mientras se escribe
             inputPhone.addEventListener("input", function() {
                 let value = inputPhone.value.replace(/[^\d]/g,
-                ""); // Remover cualquier carácter no numérico excepto el '+'
+                    ""); // Remover cualquier carácter no numérico excepto el '+'
                 if (value.startsWith(selectCountry.value)) {
                     value = value.slice(selectCountry.value
-                    .length); // Remover código de país duplicado si existe
+                        .length); // Remover código de país duplicado si existe
                 }
                 if (value.length > 4) {
                     value = value.slice(0, 4) + '-' + value.slice(4, 8);
@@ -186,7 +183,7 @@
             form.addEventListener("submit", function(event) {
                 const countryCode = selectCountry.value;
                 let value = inputPhone.value.replace(/[^\d]/g,
-                ""); // Remover cualquier carácter que no sea número
+                    ""); // Remover cualquier carácter que no sea número
                 if (value.startsWith(countryCode)) {
                     value = value.slice(countryCode.length); // Remover código de país duplicado si existe
                 }

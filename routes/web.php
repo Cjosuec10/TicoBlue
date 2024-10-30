@@ -38,6 +38,14 @@ Route::post('/productos/{id}/desactivar', [ProductoController::class, 'desactiva
 //toggleActivation
 Route::post('/productos/{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('productos.toggleActivation');
 
+///COMERCIO
+Route::post('/comercios/{id}/toggle-activation', [ComercioController::class, 'toggleActivation'])->name('comercios.toggleActivation');
+
+//rutas activar-desactivar comercios
+// Route::post('/comercios/{id}/activar', [ProductoController::class, 'activar'])->name('comercios.activar');
+// Route::post('/comercios/{id}/desactivar', [ProductoController::class, 'desactivar'])->name('comercios.desactivar');
+// //toggleActivation
+// Route::post('/comercios/{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('comercios.toggleActivation');
 
 // Rutas de autenticación
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
