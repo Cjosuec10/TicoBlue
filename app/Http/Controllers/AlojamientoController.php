@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Alojamiento;
-use App\Models\Usuario;
 use App\Models\Comercio;
-use App\Models\Evento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,10 +18,7 @@ class AlojamientoController extends Controller
 
     public function index()
     {
-        // Obtener los comercios del usuario autenticado
         $comercios = auth()->user()->comercios->pluck('idComercio');
-
-        // Filtrar los alojamientos que pertenecen a esos comercios
         $alojamientos = Alojamiento::whereIn('idComercio_fk', $comercios)->get();
         return view('alojamiento.index', compact('alojamientos'));
     }
@@ -33,7 +27,6 @@ class AlojamientoController extends Controller
     {
         $comercios = auth()->user()->comercios;
         return view('alojamiento.create', compact('comercios'));
-    
     }
 
     public function store(Request $request)
@@ -49,10 +42,8 @@ class AlojamientoController extends Controller
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
 
-        // Forzar el ID del usuario autenticado
         $validatedData['idUsuario_fk'] = auth()->id();
 
-        // Manejo de la imagen si se carga
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $destinationPath = 'img/alojamientos/';
@@ -74,13 +65,10 @@ class AlojamientoController extends Controller
 
     public function edit($id)
     {
-        // Buscar el alojamiento por su ID
         $alojamiento = Alojamiento::findOrFail($id);
-
-        // Retornar la vista del show con el alojamiento encontrado
-        return view('alojamiento.show', compact('alojamiento'));
+        $comercios = auth()->user()->comercios;
+        return view('alojamiento.edit', compact('alojamiento', 'comercios'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -94,43 +82,45 @@ class AlojamientoController extends Controller
             'fechaInicio' => 'required|date',
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
-    
-        // Buscar el alojamiento por su ID
+
         $alojamiento = Alojamiento::findOrFail($id);
-    
-        // Forzar el ID del usuario autenticado
         $validatedData['idUsuario_fk'] = auth()->id();
-    
-        // Manejo de la imagen si se carga una nueva
+
         if ($request->hasFile('imagen')) {
+            if ($alojamiento->imagen && file_exists(public_path($alojamiento->imagen))) {
+                unlink(public_path($alojamiento->imagen));
+            }
             $file = $request->file('imagen');
             $destinationPath = 'img/alojamientos/';
             $fileName = time() . '-' . $file->getClientOriginalName();
             $file->move($destinationPath, $fileName);
             $validatedData['imagen'] = $destinationPath . $fileName;
         }
-    
+
         $alojamiento->update($validatedData);
-    
+
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento actualizado con éxito.');
     }
-
 
     public function destroy($id)
     {
         $alojamiento = Alojamiento::findOrFail($id);
+        if ($alojamiento->imagen && file_exists(public_path($alojamiento->imagen))) {
+            unlink(public_path($alojamiento->imagen));
+        }
         $alojamiento->delete();
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
 
     public function mostrarAlojamientos()
-{
-    $alojamientos = Alojamiento::with('comercio')->get(); // Cargar la relación comercio
-    $comercios = Comercio::all(); // Asegurarse de obtener todos los comercios
-    $usuarioLogueado = Auth::user(); // Obtener el usuario actualmente autenticado
+    {
+        $comercios = auth()->user()->comercios->pluck('idComercio');
+        $alojamientos = Alojamiento::with('comercio')
+                       ->whereIn('idComercio_fk', $comercios)
+                       ->get();
+        $usuarioLogueado = Auth::user();
 
-    return view('frontend.alojamientos', compact('alojamientos', 'comercios', 'usuarioLogueado'));
-}
-
+        return view('frontend.alojamientos', compact('alojamientos', 'comercios', 'usuarioLogueado'));
+    }
 }
