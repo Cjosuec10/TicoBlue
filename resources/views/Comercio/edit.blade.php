@@ -27,8 +27,8 @@
                 <!-- Tipo de Negocio -->
                 <div class="col-md-6">
                     <label for="tipoNegocio" class="form-label">Tipo de Negocio</label>
-                    <select class="form-select" id="tipoNegocio" name="tipoNegocio" required <option disabled
-                        value="">Seleccione el tipo de negocio</option>
+                    <select class="form-select" id="tipoNegocio" name="tipoNegocio" required>
+                        <option disabled value="">Seleccione el tipo de negocio</option>
                         <option value="Alimentación y Bebidas"
                             {{ $comercio->tipoNegocio == 'Alimentación y Bebidas' ? 'selected' : '' }}>Alimentación y
                             Bebidas</option>
@@ -87,10 +87,24 @@
                     </div>
                 </div>
 
+                <!-- Selección del País -->
+                <div class="col-md-6">
+                    <label for="country" class="form-label">País</label>
+                    <select id="country" class="form-select" name="codigoPais">
+                        <option value="506" data-country="Costa Rica"
+                            {{ $comercio->codigoPais == '506' ? 'selected' : '' }}>Costa Rica (+506)</option>
+                        <option value="1" data-country="Estados Unidos"
+                            {{ $comercio->codigoPais == '1' ? 'selected' : '' }}>Estados Unidos (+1)</option>
+                        <option value="44" data-country="Reino Unido"
+                            {{ $comercio->codigoPais == '44' ? 'selected' : '' }}>Reino Unido (+44)</option>
+                        <!-- Agrega más opciones de país aquí -->
+                    </select>
+                </div>
+
                 <!-- Teléfono del Comercio -->
                 <div class="col-md-6">
                     <label for="telefonoComercio" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="telefonoComercio" name="telefonoComercio"
+                    <input type="tel" class="form-control" id="telefonoComercio" name="telefonoComercio"
                         value="{{ $comercio->telefonoComercio }}" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese un teléfono válido.
@@ -103,8 +117,7 @@
                 <!-- Descripción del Comercio -->
                 <div class="col-md-12">
                     <label for="descripcionComercio" class="form-label">Descripción</label>
-                    <input class="form-control" id="descripcionComercio" name="descripcionComercio"
-                        value="{{ $comercio->descripcionComercio }}" required>
+                    <textarea class="form-control" id="descripcionComercio" name="descripcionComercio" rows="4" required>{{ $comercio->descripcionComercio }}</textarea>
                     <div class="invalid-feedback">
                         Por favor, ingrese una descripción.
                     </div>
@@ -112,6 +125,7 @@
                         ¡Correcto!
                     </div>
                 </div>
+
                 <div class="col-md-4 d-flex flex-column align-items-center">
                     @if ($comercio->direccion_url)
                         <label for="mapa" class="form-label">Mapa de Ubicación</label>
@@ -122,26 +136,26 @@
                         <p>No hay información de ubicación disponible para este comercio.</p>
                     @endif
                 </div>
+
                 <!-- Dirección URL -->
                 <div class="col-md-8">
                     <label for="direccion_url" class="form-label">ID de Mapa de Google</label>
                     <textarea class="form-control" id="direccion_url" name="direccion_url" rows="3"
-                        placeholder="Ingrese el ID de Mapa de Google">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
+                        placeholder="Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres,
+                        EJEMPLO:!1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
                     <div class="invalid-feedback">
-                        Por favor, ingrese el ID de Mapa de Google
+                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres,EJEMPLO:!1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
                     </div>
                 </div>
 
-
-              <!-- Dirección en Texto -->
-<div class="col-md-6">
-    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
-    <textarea class="form-control" id="direccion_texto" name="direccion_texto" rows="4">{{ $comercio->direccion_texto }}</textarea>
-    <div class="invalid-feedback">
-        Por favor, ingrese una dirección válida.
-    </div>
-</div>
-
+                <!-- Dirección en Texto -->
+                <div class="col-md-6">
+                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
+                    <textarea class="form-control" id="direccion_texto" name="direccion_texto" rows="4">{{ $comercio->direccion_texto }}</textarea>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese una dirección válida.
+                    </div>
+                </div>
 
                 <!-- Imagen del Comercio -->
                 <div class="col-md-6">
@@ -153,7 +167,7 @@
                         </div>
                     @endif
                 </div>
-                
+
                 <!-- Botón para Actualizar -->
                 <div class="col-12 d-flex justify-content-center gap-2">
                     <!-- Botón Actualizar -->
@@ -194,6 +208,44 @@
                     this.submit();
                 }, 1600); // Espera 1.6 segundos para que el SweetAlert desaparezca
             }
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputPhone = document.querySelector("#telefonoComercio");
+            const selectCountry = document.querySelector("#country");
+            const form = document.querySelector("#editarComercioForm");
+
+            // Actualiza el valor del campo de teléfono al cambiar el país seleccionado
+            selectCountry.addEventListener("change", function() {
+                const countryCode = selectCountry.value;
+                inputPhone.value = "+" + countryCode + " "; // Añadir el nuevo código de país
+            });
+
+            // Aplicar el formato XXXX-XXXX mientras se escribe
+            inputPhone.addEventListener("input", function() {
+                let value = inputPhone.value.replace(/[^\d]/g,
+                ""); // Remover cualquier carácter no numérico excepto el '+'
+                if (value.startsWith(selectCountry.value)) {
+                    value = value.slice(selectCountry.value
+                    .length); // Remover código de país duplicado si existe
+                }
+                if (value.length > 4) {
+                    value = value.slice(0, 4) + '-' + value.slice(4, 8);
+                }
+                inputPhone.value = "+" + selectCountry.value + " " + value;
+            });
+
+            // Antes de enviar el formulario, guarda el número completo con el código de país
+            form.addEventListener("submit", function(event) {
+                const countryCode = selectCountry.value;
+                let value = inputPhone.value.replace(/[^\d]/g,
+                ""); // Remover cualquier carácter que no sea número
+                if (value.startsWith(countryCode)) {
+                    value = value.slice(countryCode.length); // Remover código de país duplicado si existe
+                }
+                value = "+" + countryCode + value;
+                inputPhone.value = value; // Asignar el valor actualizado al campo input
+            });
         });
     </script>
 @endsection
