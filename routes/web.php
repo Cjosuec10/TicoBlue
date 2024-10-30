@@ -30,6 +30,7 @@ Route::get('/Comercios', [ComercioController::class, 'mostrarInformacionComercio
 Route::post('notifications/store', [NotificationController::class, 'store'])->name('notifications.store');
 Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
 Route::patch('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+Route::get('notifications/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
 
 //rutas activar-desactivar producto
 Route::post('/productos/{id}/activar', [ProductoController::class, 'activar'])->name('productos.activar');

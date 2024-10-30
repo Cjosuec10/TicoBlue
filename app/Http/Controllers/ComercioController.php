@@ -43,7 +43,7 @@ class ComercioController extends Controller
             'correoComercio' => 'required|email|unique:comercios,correoComercio',
             'telefonoComercio' => 'nullable|max:20',
             'descripcionComercio' => 'nullable',
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'direccion_url' => 'nullable|string|max:500',
             'direccion_texto' => 'nullable|string|max:255',
         ], [
