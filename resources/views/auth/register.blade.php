@@ -86,6 +86,21 @@
                                                 <div class="text-danger">{{ $errors->first('correo') }}</div>
                                             @endif
                                         </div>
+                                        <!-- Selección de Rol -->
+                                        <div class="col-12">
+                                            <label for="rol" class="form-label">Selecciona un Rol</label>
+                                            <select id="rol" name="rol" class="form-select" required>
+                                                <option value="" selected disabled>Seleccione un rol</option>
+                                                @foreach ($roles as $rol)
+                                                    <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Por favor, seleccione un rol.</div>
+                                            @if ($errors->has('rol'))
+                                                <div class="text-danger">{{ $errors->first('rol') }}</div>
+                                            @endif
+                                        </div>
+
 
                                         <div class="col-12">
                                             <label for="country" class="form-label">País</label>
