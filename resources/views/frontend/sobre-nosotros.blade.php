@@ -130,7 +130,7 @@
 
         <!-- Sección de Equipo -->
         <section class="mb-5 animated-card row align-items-center mb-5 bg-white p-4 rounded shadow-sm" data-aos="fade-up">
-            <h2 class="fw-semibold mb-3 text-center">Meet Our Team</h2>
+            <h2 class="fw-semibold mb-3 text-center">Nuestro equipo</h2>
             
             <div class="row text-center mt-4">
                 <!-- Miembro del equipo en un card uniforme -->
@@ -173,7 +173,17 @@
             </div>
         </section>
     </div>
+    <style>
+        /* Estilo para el efecto hover en las tarjetas de la sección de Valores */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
+        .card:hover {
+            transform: translateY(-10px); /* Movimiento hacia arriba */
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
+        }
+    </style>
 </main>
 
 @endsection

@@ -9,7 +9,7 @@
 <section class="header-body header-section d-flex align-items-center" style="height: 100vh;">
     <div class="overlay"></div>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" data-aos="zoom-in">
             <div class="col-12 col-md-9 text-center">
                 <div class="content-box">
                     <h1>BIENVENIDO A TICOBLUE</h1>
@@ -31,10 +31,10 @@
 
 <!-- Contenedor con fondo blanco -->
 <section class="bg-white py-3 py-5 text-center text-md-start">
-  <h2 class="display-6 fw-bold mb-4 mb-md-5 text-center">Descubre la Esencia de la Zona Azul</h2>
+  <h2 class="display-6 fw-bold mb-4 mb-md-5 text-center"data-aos="fade-down">Descubre la Esencia de la Zona Azul</h2>
 
   <!-- Espacio para la primera imagen -->
-  <div class="container mb-3 mb-md-4">
+  <div class="container mb-3 mb-md-4" data-aos="fade-up-right">
     <div class="row justify-content-center align-items-center">
       <div class="col-10 col-md-6 mb-3 mb-md-0">
         <img src="assets/img/montanias.jpg" alt="Imagen 1" class="img-fluid rounded mx-auto d-block">
@@ -50,7 +50,7 @@
 
   <!-- segunda imágenen -->
   <div class="container mb-3 mb-md-4">
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center" data-aos="fade-up-left">
       <div class="col-10 col-md-6 mb-3 mb-md-0 order-md-2">
         <img src="assets/img/Nicoya.jpg" alt="Imagen 2" class="img-fluid rounded mx-auto d-block">
       </div>
@@ -65,7 +65,7 @@
 
  <!-- tercera imágenen -->
   <div class="container mb-3 mb-md-4">
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center"  data-aos="fade-up-right">
       <div class="col-10 col-md-6 mb-3 mb-md-0">
         <img src="assets/img/adultomayor.jpg" alt="Imagen 3" class="img-fluid rounded mx-auto d-block">
       </div>
@@ -81,13 +81,13 @@
 
 <!-- Services Section -->
 <section id="services" class="services section bg-light py-5">
-  <div class="section-title text-center mt-5 mb-4">
+  <div class="section-title text-center mt-5 mb-4" data-aos="fade-down">
     <h2 class="display-6 fw-bold">EXPLORA LA ZONA AZUL</h2>
     <p class="lead text-secondary">Encuentra servicios locales y oportunidades en la Península de Nicoya</p>
   </div>
   
   <div class="content">
-    <div class="container">
+    <div class="container" data-aos="zoom-in-up">
       <div class="row g-4">
         
         <!-- Service Item -->
@@ -195,6 +195,18 @@
     </div>
   </div>
 </section>
+
+<style>
+    /* Efecto de hover en cards */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px); /* Movimiento hacia arriba */
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
+    }
+  </style>
 
 </main>
 @endsection
