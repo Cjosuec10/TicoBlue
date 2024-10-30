@@ -1,3 +1,8 @@
+
+
+
+@extends('layout.administracion')
+
 <!-- Contenedor de todas las notificaciones -->
 <div class="container mt-5">
     <h3 class="mb-4">Todas las Notificaciones</h3>

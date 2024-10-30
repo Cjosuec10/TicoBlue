@@ -56,22 +56,16 @@
   </div>
 </div>
 
-<?php
-    // Contar las notificaciones no leídas
-    $unreadNotificationsCount = \App\Models\Notification::where('is_read', false)->count();
-?>
-<br>
-<br>
+
+
 <div class="d-flex align-items-center gap-2 ms-auto">
     <!-- Ícono de notificación con campanita -->
-    <a href="{{ route('notifications.index') }}" class="btn btn-sm btn-primary position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#notificationsModal">
         <i class="fas fa-bell"></i> <!-- Ícono de campana -->
         <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge-pill">
-            {{ $unreadNotificationsCount }}
+            {{ $notifications->count() }} <!-- Contador de notificaciones -->
         </span>
-    </a>
-
-  
+    </button>
 </div>
 
 <!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
