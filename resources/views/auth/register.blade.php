@@ -105,13 +105,7 @@
                                         <div class="col-12">
                                             <label for="country" class="form-label">País</label>
                                             <select id="country" class="form-select">
-                                                <option value="506" data-country="Costa Rica">Costa Rica (+506)
-                                                </option>
-                                                <option value="1" data-country="Estados Unidos">Estados Unidos (+1)
-                                                </option>
-                                                <option value="44" data-country="Reino Unido">Reino Unido (+44)
-                                                </option>
-                                                <!-- Agrega más opciones de país aquí -->
+                                                <option value="506" data-country="Costa Rica" selected>Costa Rica (+506)</option>
                                             </select>
                                         </div>
 

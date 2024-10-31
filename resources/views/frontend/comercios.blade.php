@@ -75,7 +75,21 @@
                                     <div class="comercio-details">
                                         <p><strong>Descripción:</strong> {{ $comercio->descripcionComercio }}</p>
                                         <p><strong>Correo:</strong> {{ $comercio->correoComercio }}</p>
-                                        <p><strong>Teléfono:</strong> {{ $comercio->telefonoComercio }}</p>
+                                        <p><strong>Teléfono:</strong>
+                                            @if ($comercio->codigoPais == '506' && strlen($comercio->telefonoComercio) == 8)
+                                                {{-- Formato para Costa Rica: +506 3242-3432 sin guion después de +506 --}}
+                                                {{ '+506 ' . substr($comercio->telefonoComercio, 0, 4) . '-' . substr($comercio->telefonoComercio, 4) }}
+                                            @elseif ($comercio->codigoPais != '506')
+                                                {{-- Para otros países, muestra el código de país seguido del número en bloques de 4 dígitos --}}
+                                                {{ '' . $comercio->codigoPais . ' ' . implode('-', str_split($comercio->telefonoComercio, 4)) }}
+                                            @else
+                                                {{-- Muestra el número sin formato si no cumple las condiciones anteriores --}}
+                                                {{ $comercio->telefonoComercio }}
+                                            @endif
+                                        </p>
+
+
+
                                         <p><strong>Tipo de Negocio:</strong> {{ $comercio->tipoNegocio }}</p>
                                     </div>
                                 </div>

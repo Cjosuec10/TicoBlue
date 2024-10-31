@@ -87,17 +87,10 @@
                     </div>
                 </div>
 
-                <!-- Selección del País -->
-                <div class="col-md-6">
+                <div class="col-6">
                     <label for="country" class="form-label">País</label>
-                    <select id="country" class="form-select" name="codigoPais">
-                        <option value="506" data-country="Costa Rica"
-                            {{ $comercio->codigoPais == '506' ? 'selected' : '' }}>Costa Rica (+506)</option>
-                        <option value="1" data-country="Estados Unidos"
-                            {{ $comercio->codigoPais == '1' ? 'selected' : '' }}>Estados Unidos (+1)</option>
-                        <option value="44" data-country="Reino Unido"
-                            {{ $comercio->codigoPais == '44' ? 'selected' : '' }}>Reino Unido (+44)</option>
-                        <!-- Agrega más opciones de país aquí -->
+                    <select id="country" class="form-select">
+                        <option value="506" data-country="Costa Rica" selected>Costa Rica (+506)</option>
                     </select>
                 </div>
 
@@ -105,7 +98,8 @@
                 <div class="col-md-6">
                     <label for="telefonoComercio" class="form-label">Teléfono</label>
                     <input type="tel" class="form-control" id="telefonoComercio" name="telefonoComercio"
-                        value="{{ $comercio->telefonoComercio }}" required>
+                        value=" {{ substr($comercio->telefonoComercio, 0, 4) }} {{ substr($comercio->telefonoComercio, 4) }}" required>
+
                     <div class="invalid-feedback">
                         Por favor, ingrese un teléfono válido.
                     </div>
@@ -113,6 +107,9 @@
                         ¡Correcto!
                     </div>
                 </div>
+
+
+
 
                 <!-- Descripción del Comercio -->
                 <div class="col-md-12">
@@ -144,7 +141,8 @@
                         placeholder="Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres,
                         EJEMPLO:!1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr">{{ old('direccion_url', $comercio->direccion_url ?? '') }}</textarea>
                     <div class="invalid-feedback">
-                        Asegúrese de que el ID del Mapa de Google tenga menos de 500 caracteres,EJEMPLO:!1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
+                        Asegúrese de que el ID del Mapa de Google tenga menos de 500
+                        caracteres,EJEMPLO:!1m14!1m8!1m3!1d1413.9851815063669!2d-85.4482709!3d10.134871!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f9fb11a28532a23%3A0x3a2a875002c1f8c0!2sGimnasio%20Universidad%20Nacional!5e1!3m2!1ses!2scr!4v1729878403294!5m2!1ses!2scr
                     </div>
                 </div>
 
@@ -211,41 +209,36 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            const inputPhone = document.querySelector("#telefonoComercio");
-            const selectCountry = document.querySelector("#country");
-            const form = document.querySelector("#editarComercioForm");
+        const telefonoInput = document.getElementById("telefonoComercio");
 
-            // Actualiza el valor del campo de teléfono al cambiar el país seleccionado
-            selectCountry.addEventListener("change", function() {
-                const countryCode = selectCountry.value;
-                inputPhone.value = "+" + countryCode + " "; // Añadir el nuevo código de país
-            });
+        // Función para aplicar el formato
+        function aplicarFormatoTelefono() {
+            let value = telefonoInput.value.replace(/\D/g, ""); // Remueve caracteres no numéricos
 
-            // Aplicar el formato XXXX-XXXX mientras se escribe
-            inputPhone.addEventListener("input", function() {
-                let value = inputPhone.value.replace(/[^\d]/g,
-                ""); // Remover cualquier carácter no numérico excepto el '+'
-                if (value.startsWith(selectCountry.value)) {
-                    value = value.slice(selectCountry.value
-                    .length); // Remover código de país duplicado si existe
-                }
-                if (value.length > 4) {
-                    value = value.slice(0, 4) + '-' + value.slice(4, 8);
-                }
-                inputPhone.value = "+" + selectCountry.value + " " + value;
-            });
+            // Remueve el código de país si ya está presente en el valor
+            if (value.startsWith("506")) {
+                value = value.slice(3); // Quita el prefijo 506 si está duplicado
+            }
 
-            // Antes de enviar el formulario, guarda el número completo con el código de país
-            form.addEventListener("submit", function(event) {
-                const countryCode = selectCountry.value;
-                let value = inputPhone.value.replace(/[^\d]/g,
-                ""); // Remover cualquier carácter que no sea número
-                if (value.startsWith(countryCode)) {
-                    value = value.slice(countryCode.length); // Remover código de país duplicado si existe
-                }
-                value = "+" + countryCode + value;
-                inputPhone.value = value; // Asignar el valor actualizado al campo input
-            });
+            // Limita a 8 dígitos después del código de país y aplica el formato XXXX-XXXX
+            if (value.length > 4) {
+                value = value.slice(0, 4) + '-' + value.slice(4, 8);
+            } else {
+                value = value.slice(0, 4);
+            }
+
+            telefonoInput.value = "+506 " + value;
+        }
+
+        // Llama a la función de formato cuando el usuario escribe en el campo de teléfono
+        telefonoInput.addEventListener("input", aplicarFormatoTelefono);
+
+        // Llama a la función de formato al hacer clic en el campo de teléfono si está vacío
+        telefonoInput.addEventListener("focus", function() {
+            if (!telefonoInput.value.startsWith("+506")) {
+                telefonoInput.value = "+506 ";
+            }
         });
+    });
     </script>
 @endsection
