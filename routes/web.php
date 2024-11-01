@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/Productos', [ProductoController::class, 'mostrarInformacionProductos'])->name('productos');
 Route::get('/Eventos', [EventoController::class, 'mostrarInformacionEventos'])->name('eventos');
-Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarAlojamientos'])->name('alojamientos');
+Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarInformacionAlojamientos'])->name('alojamientos');
 Route::get('/Comercios', [ComercioController::class, 'mostrarInformacionComercios'])->name('comercios');
 Route::view('/Contacto', 'frontend.contacto')->name('contacto');
 Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');

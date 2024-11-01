@@ -111,12 +111,9 @@
                                                             {{ $aloja->precioAlojamiento }} CRC</p>
                                                         <p><strong>Capacidad:</strong> {{ $aloja->capacidad }} personas</p>
                                                         <p><strong>Comercio:</strong>
-                                                            @foreach ($comercios as $comercio)
-                                                                @if (isset($aloja) && $aloja->idComercio_fk == $comercio->idComercio)
-                                                                    {{ $comercio->nombreComercio }}
-                                                                @endif
-                                                            @endforeach
-                                                        </p>
+    {{ $aloja->comercio->nombreComercio ?? 'No especificado' }}
+</p>
+
                                                         <p><strong>Fecha de Inicio:</strong>
                                                             {{ \Carbon\Carbon::parse($aloja->fechaInicio)->format('d/m/Y') }}
                                                         </p>
