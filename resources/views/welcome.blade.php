@@ -80,7 +80,7 @@
 </section>
 
 <!-- Services Section -->
-<section id="services" class="services section bg-light py-5">
+<section id="services" class="services section custom-gray py-5">
   <div class="section-title text-center mt-5 mb-4" data-aos="fade-down">
     <h2 class="display-6 fw-bold">EXPLORA LA ZONA AZUL</h2>
     <p class="lead text-secondary">Encuentra servicios locales y oportunidades en la Península de Nicoya</p>
@@ -89,7 +89,7 @@
   <div class="content">
     <div class="container" data-aos="zoom-in-up">
       <div class="row g-4">
-        
+       
         <!-- Service Item -->
         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
           <div class="card shadow-sm border-0 h-100">

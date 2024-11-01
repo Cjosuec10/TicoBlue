@@ -75,7 +75,7 @@
                                 <img src="{{ asset($producto->imagenProducto) }}" alt="{{ $producto->nombreProducto }}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
                                 <div class="product-details">
                                     <p><strong>Descripción:</strong> {{ $producto->descripcionProducto }}</p>
-                                    <p class="text-success"><strong>Precio:</strong> ${{ $producto->precioProducto }}</p>
+                                    <p class="text-dark"><strong>Precio:</strong> ₡{{ $producto->precioProducto }}</p>
                                     <p><strong>Categoría:</strong> {{ $producto->categoria }}</p>
                                     <p><strong>Vendido por:</strong> <span class="text-primary">{{ $producto->comercio->nombreComercio }}</span></p>
                                 </div>
@@ -166,7 +166,7 @@
                                             <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
                                             <div class="product-details">
                                                 <p><strong>Descripción:</strong> ${producto.descripcionProducto}</p>
-                                                <p class="text-success"><strong>Precio:</strong> $${producto.precioProducto}</p>
+                                                <p class="text-dark"><strong>Precio:</strong> ₡${producto.precioProducto}</p>
                                                 <p><strong>Categoría:</strong> ${producto.categoria}</p>
                                                 <p><strong>Vendido por:</strong> <span class="text-primary">${producto.comercio.nombreComercio || 'Comercio desconocido'}</span></p>
                                             </div>
