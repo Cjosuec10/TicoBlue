@@ -31,7 +31,7 @@
 
 <!-- Contenedor con fondo blanco -->
 <section class="bg-white py-3 py-5 text-center text-md-start">
-  <h2 class="display-6 fw-bold mb-4 mb-md-5 text-center"data-aos="fade-down">Descubre la Esencia de la Zona Azul</h2>
+  <h2 class="display-6 fw-bold mb-4 mb-md-5 text-center"data-aos="fade-down">DESCUBRE LA ESENCIA DE LA ZONA AZUL</h2>
 
   <!-- Espacio para la primera imagen -->
   <div class="container mb-3 mb-md-4" data-aos="fade-up-right">
@@ -82,7 +82,7 @@
 <!-- Services Section -->
 <section id="services" class="services section custom-gray py-5">
   <div class="section-title text-center mt-5 mb-4" data-aos="fade-down">
-    <h2 class="display-6 fw-bold">EXPLORA LA ZONA AZUL</h2>
+    <h3 class="display-6 fw-bold mb-4 mb-md-5 text-center">EXPLORA LA ZONA AZUL</h3>
     <p class="lead text-secondary">Encuentra servicios locales y oportunidades en la Península de Nicoya</p>
   </div>
   
