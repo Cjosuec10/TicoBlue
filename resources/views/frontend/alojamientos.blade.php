@@ -7,34 +7,33 @@
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
         <!-- Sección de Título y Barra de Búsqueda -->
-        <section class="alojamientos section py-5 bg-light" id="alojamientos">
+        <section class="alojamientos section py-5 custom-gray" id="alojamientos">
             <div class="container section-title mb-3">
-                <!-- Título principal -->
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h2 class="fw-bold">Catálogo de Alojamientos</h2>
-                    </div>
-                </div>
-                <!-- Fila con texto descriptivo y barra de búsqueda -->
-                <div class="row align-items-center mt-2">
-                    <div class="col-md-8 text-md-start text-center">
-                        <p class="text-muted">Descubre los alojamientos disponibles a continuación.</p>
-                    </div>
-                    <!-- Barra de búsqueda con icono de lupa y botón de limpiar -->
-                    <div class="col-md-4 d-flex justify-content-md-end justify-content-center mt-2 mt-md-0">
-                        <div class="input-group w-75">
-                            <span class="input-group-text bg-white">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" id="search" class="form-control" placeholder="Buscar alojamientos..."
-                                aria-label="Buscar alojamientos">
-                            <span class="input-group-text bg-white">
-                                <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
-                            </span>
-                        </div>
-                    </div>
+                <!-- Contenedor del Título -->
+    <div class="container title-container mb-0">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold">Catálogo de Alojamientos</h2>
+            </div>
+        </div>
+    </div><!-- End Title Container -->
+
+    <!-- Contenedor de la Barra de Búsqueda -->
+    <div class="container search-container mb-4">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="input-group" style="width: 100%; max-width: 300px;">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="search" class="form-control" placeholder="Buscar alojamientos..." aria-label="Buscar alojamientos">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
+                    </span>
                 </div>
             </div>
+        </div>
+    </div><!-- End Search Container -->
 
             <!-- Lista de Alojamientos -->
             <div class="alojamiento-wrap mt-2">

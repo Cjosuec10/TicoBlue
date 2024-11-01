@@ -6,34 +6,32 @@
 <main class="main">
 
     <!-- Comercios Section -->
-    <section class="comercios section py-5 bg-light" id="comercios">
-        <!-- Contenedor del Título -->
-        <div class="container title-container mb-0">
-            <div class="row">
-                <!-- Título principal centrado -->
-                <div class="col-12 text-center">
-                    <h2 class="fw-bold">Catálogo de Comercios</h2>
-                </div>
+    <section class="comercios section py-5 custom-gray" id="comercios">
+       <!-- Contenedor del Título -->
+    <div class="container title-container mb-0">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold">Catálogo de Comercios</h2>
             </div>
-        </div><!-- End Title Container -->
+        </div>
+    </div><!-- End Title Container -->
 
-        <!-- Contenedor de la Barra de Búsqueda -->
-        <div class="container search-container mb-4">
-            <div class="row">
-                <!-- Barra de búsqueda alineada a la derecha en todas las pantallas -->
-                <div class="col-12 d-flex justify-content-end">
-                    <div class="input-group" style="width: 100%; max-width: 300px;">
-                        <span class="input-group-text bg-white">
-                            <i class="fas fa-search"></i>
-                        </span>
-                        <input type="text" id="search" class="form-control" placeholder="Buscar comercios..." aria-label="Buscar comercios">
-                        <span class="input-group-text bg-white">
-                            <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
-                        </span>
-                    </div>
+    <!-- Contenedor de la Barra de Búsqueda -->
+    <div class="container search-container mb-4">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="input-group" style="width: 100%; max-width: 300px;">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="search" class="form-control" placeholder="Buscar comercios..." aria-label="Buscar comercios">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
+                    </span>
                 </div>
             </div>
-        </div><!-- End Search Container -->
+        </div>
+    </div><!-- End Search Container -->
 
         <!-- Comercios -->
         <div class="comercio-wrap mt-2">
