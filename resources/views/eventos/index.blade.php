@@ -1,4 +1,5 @@
 @extends('layout.administracion')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
     <h1 class="card-title">Lista de Eventos</h1>
@@ -50,15 +51,20 @@
                                                         <i class="bi bi-pencil"></i> Editar
                                                     </a>
                                                     @endcan
-                                                    @can('borrar-evento')
-                                                    <form action="{{ route('eventos.destroy', $evento->idEvento) }}" method="POST" class="form-eliminar" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger" title="Eliminar">
-                                                            <i class="bi bi-trash"></i> Eliminar
-                                                        </button>
-                                                    </form>
-                                                    @endcan
+                                                    <div class="d-flex align-items-center form-check form-switch custom-switch-size ms-2">
+    <input 
+        class="form-check-input toggle-activation" 
+        type="checkbox" 
+        role="switch" 
+        data-id="{{ $evento->idEvento }}" 
+        id="switch-{{ $evento->idEvento }}"
+        {{ $evento->activo ? 'checked' : '' }}
+    />
+    <label class="form-check-label" for="switch-{{ $evento->idEvento }}">
+        {{ $evento->activo ? 'Activo' : 'Inactivo' }}
+    </label>
+</div>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -71,7 +77,19 @@
             </div>
         </div>
     </section>
+    <style>
+    .custom-switch-size .form-check-input {
+        width: 40px;
+        height: 20px;
+        transform: scale(1.2); /* Cambia el valor si deseas hacerlo aún más grande */
+    }
 
+    .custom-switch-size .form-check-label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+</style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
@@ -96,5 +114,37 @@
                 });
             });
         });
+        document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.toggle-activation').forEach(switchElement => {
+        switchElement.addEventListener('change', function () {
+            const eventId = this.getAttribute('data-id');
+            const isActive = this.checked;
+
+            fetch(`/eventos/${eventId}/toggle-activation`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ activo: isActive })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.nextElementSibling.textContent = isActive ? 'Activo' : 'Inactivo';
+                } else {
+                    alert('Error al cambiar el estado del evento.');
+                    this.checked = !isActive;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al procesar la solicitud');
+                this.checked = !isActive;
+            });
+        });
+    });
+});
+
     </script>
 @endsection

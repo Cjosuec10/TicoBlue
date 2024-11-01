@@ -55,6 +55,8 @@ Route::prefix('productos')->name('productos.')->group(function () {
 });
 //alojamiento
 Route::post('/alojamientos/{id}/toggle-activation', [AlojamientoController::class, 'toggleActivation'])->name('alojamientos.toggleActivation');
+//evento
+Route::post('/eventos/{id}/toggle-activation', [EventoController::class, 'toggleActivation'])->name('eventos.toggleActivation');
 
 
 
