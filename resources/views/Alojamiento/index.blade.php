@@ -46,19 +46,20 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <!-- Botón Ver -->
-                                                @can('ver-alojamiento')
-                                                <a href="{{ route('alojamiento.show',  $alojamiento->idAlojamiento) }}" class="btn btn-info me-1 w-80" title="Ver">
-                                                    <i class="bi bi-eye"></i> Ver
-                                                </a>
-                                                @endcan
-                                                <!-- Botón Editar -->
-                                                @can('editar-alojamiento')
-                                                @method('PUT')
-                                                    <a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
-                                                        <i class="bi bi-exclamation-triangle"></i> Editar
-                                                    </a>
-                                                @endcan
+                                               <!-- Botón Ver -->
+@can('ver-alojamiento')
+<a href="{{ route('alojamiento.show',  $alojamiento->idAlojamiento) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
+    <i class="bi bi-eye"></i> Ver
+</a>
+@endcan
+
+<!-- Botón Editar -->
+@can('editar-alojamiento')
+<a href="{{ route('alojamiento.edit', $alojamiento->idAlojamiento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
+    <i class="bi bi-exclamation-triangle"></i> Editar
+</a>
+@endcan
+
                                                 <!-- Switch para activar/desactivar -->
             <div class="d-flex align-items-center form-check form-switch custom-switch-size ms-2">
                 <input 
@@ -97,6 +98,13 @@
         font-weight: bold;
         margin-left: 10px;
     }
+    .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
 </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

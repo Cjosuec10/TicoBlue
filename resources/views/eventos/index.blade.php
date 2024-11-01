@@ -40,17 +40,20 @@
 
                                             <td>
                                                 <div class="d-flex">
-                                                    <!-- Botón Ver -->
-                                                    @can('ver-evento')
-                                                    <a href="{{ route('eventos.show', $evento->idEvento) }}" class="btn btn-info me-1 w-80" title="Ver">
-                                                        <i class="bi bi-eye"></i> Ver
-                                                    </a>
-                                                    @endcan
-                                                    @can('editar-evento')
-                                                    <a href="{{ route('eventos.edit', $evento->idEvento) }}" class="btn btn-warning me-1" title="Editar">
-                                                        <i class="bi bi-pencil"></i> Editar
-                                                    </a>
-                                                    @endcan
+                                                   <!-- Botón Ver -->
+@can('ver-evento')
+<a href="{{ route('eventos.show', $evento->idEvento) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
+    <i class="bi bi-eye"></i> Ver
+</a>
+@endcan
+
+<!-- Botón Editar -->
+@can('editar-evento')
+<a href="{{ route('eventos.edit', $evento->idEvento) }}" class="btn btn-warning btn-sm me-1 w-80" title="Editar">
+    <i class="bi bi-exclamation-triangle"></i> Editar
+</a>
+@endcan
+
                                                     <div class="d-flex align-items-center form-check form-switch custom-switch-size ms-2">
     <input 
         class="form-check-input toggle-activation" 
