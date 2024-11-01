@@ -48,7 +48,10 @@
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-    <div class="flags" id="flags">
+
+  <nav class="header-nav ms-auto d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center">
+  <div class="flags d-flex align-items-center gap-2" id="flags">
   <div class="flags__item" data-language="es" onclick="selectLanguage(this)">
     <img src="/assets/icons/cr.svg" alt="Español">
   </div>
@@ -56,10 +59,9 @@
     <img src="/assets/icons/us.svg" alt="English">
   </div>
 </div>
+</div>
 
-
-
-<div class="d-flex align-items-center gap-2 ms-auto">
+<div class="d-flex align-items-center">
     <!-- Ícono de notificación con campanita -->
     <button type="button" class="btn btn-sm btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#notificationsModal">
         <i class="fas fa-bell"></i> <!-- Ícono de campana -->
@@ -68,12 +70,19 @@
         </span>
     </button>
 </div>
+<!-- Separador -->
+<div class="vertical-separator mx-3"></div>
 
 <!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <!-- CSS Adicional -->
 <style>
+  .vertical-separator {
+        width: 1px;
+        height: 30px;
+        background-color: #ccc;
+    }
     .navbar .d-flex {
         align-items: center;
         height: 100%;
