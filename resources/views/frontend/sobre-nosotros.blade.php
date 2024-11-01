@@ -4,7 +4,7 @@
 
 @section('content')
 
-<main class="main bg-light" >
+<main class="main custom-gray">
 
     <div class="container my-5 p-4">
         <!-- Encabezado principal -->
