@@ -52,10 +52,17 @@ class AlojamientoController extends Controller
             $validatedData['imagen'] = $destinationPath . $fileName;
         }
 
-        Alojamiento::create($validatedData);
+        Reservacion::create($validatedData);
 
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento creado con éxito.');
+       // Redireccionar según el valor de redirect_to
+        if ($request->redirect_to === 'alojamientos') {
+            return redirect()->route('alojamientos')->with('success', '¡Reservación creada exitosamente!');
+        }
+
+        return redirect()->route('reservaciones.index')->with('success', '¡Reservación creada exitosamente!');
     }
+
+
 
     public function show($id)
     {
@@ -115,12 +122,17 @@ class AlojamientoController extends Controller
 
     public function mostrarAlojamientos()
     {
-        $comercios = auth()->user()->comercios->pluck('idComercio');
+        // Obtener los comercios completos del usuario logueado
+        $comercios = auth()->user()->comercios;
+
+        // Obtener los alojamientos relacionados con los comercios del usuario, incluyendo la relación 'comercio'
         $alojamientos = Alojamiento::with('comercio')
-                       ->whereIn('idComercio_fk', $comercios)
-                       ->get();
+                    ->whereIn('idComercio_fk', $comercios->pluck('idComercio'))
+                    ->get();
+
         $usuarioLogueado = Auth::user();
 
         return view('frontend.alojamientos', compact('alojamientos', 'comercios', 'usuarioLogueado'));
     }
+
 }

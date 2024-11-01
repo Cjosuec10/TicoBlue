@@ -6,6 +6,23 @@
     <main class="main">
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
+        <!-- Incluir SweetAlert2 desde un CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- SweetAlert para mostrar el mensaje de éxito -->
+        @if (session('success'))
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: "{{ session('success') }}",
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });
+                });
+            </script>
+        @endif
+
         <!-- Sección de Título y Barra de Búsqueda -->
         <section class="alojamientos section py-5 bg-light" id="alojamientos">
             <div class="container section-title mb-3">
@@ -198,6 +215,10 @@
                                                                 <input type="hidden" name="idComercio_fk"
                                                                     value="{{ $aloja->idComercio_fk }}">
                                                             </div>
+
+                                                            <!-- Campo oculto para indicar la vista de origen -->
+                                                            <input type="hidden" name="redirect_to"
+                                                                value="{{ request()->routeIs('alojamientos') ? 'alojamientos' : 'reservaciones.index' }}">
 
                                                             <!-- Botón para Crear Reservación -->
                                                             <button type="submit" class="btn btn-primary w-100">Crear
