@@ -25,7 +25,8 @@
                     <p><strong>Tipo de consulta:</strong> {{ $notification->tipo_consulta }}</p>
                     
                     <!-- Contenedor del mensaje con límites de tamaño -->
-                    <p class="message-content"><strong>Mensaje:</strong> {{ $notification->mensaje }}</p>
+                    <p class="message-content" style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;"><strong>Mensaje:</strong> {{ $notification->mensaje }}</p>
+
 
                     <p class="mt-2">
                         <span class="badge {{ $notification->leido ? 'bg-success' : 'bg-primary' }}">
