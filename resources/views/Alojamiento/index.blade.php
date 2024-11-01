@@ -1,4 +1,5 @@
 @extends('layout.administracion')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
     <h1 class="card-title">Lista de Alojamientos</h1>
@@ -58,16 +59,20 @@
                                                         <i class="bi bi-exclamation-triangle"></i> Editar
                                                     </a>
                                                 @endcan
-                                                <!-- Botón Eliminar -->
-                                                @can('borrar-alojamiento')
-                                                <form action="{{ route('alojamiento.destroy', $alojamiento->idAlojamiento) }}" method="POST" class="form-eliminar btn-sm me-1 w-80" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm w-100" title="Eliminar">
-                                                        <i class="bi bi-exclamation-octagon"></i> Eliminar
-                                                    </button>
-                                                </form>
-                                                @endcan
+                                                <!-- Switch para activar/desactivar -->
+            <div class="d-flex align-items-center form-check form-switch custom-switch-size ms-2">
+                <input 
+                    class="form-check-input toggle-activation" 
+                    type="checkbox" 
+                    role="switch" 
+                    data-id="{{ $alojamiento->idAlojamiento }}" 
+                    id="switch-{{ $alojamiento->idAlojamiento }}"
+                    {{ $alojamiento->activo ? 'checked' : '' }}
+                />
+                <label class="form-check-label" for="switch-{{ $alojamiento->idAlojamiento }}">
+                    {{ $alojamiento->activo ? 'Activo' : 'Inactivo' }}
+                </label>
+            </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -80,7 +85,19 @@
             </div>
         </div>
     </section>
+    <style>
+    .custom-switch-size .form-check-input {
+        width: 40px;
+        height: 20px;
+        transform: scale(1.2); /* Cambia el valor si deseas hacerlo aún más grande */
+    }
 
+    .custom-switch-size .form-check-label {
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+</style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Script para el SweetAlert en la eliminación -->
@@ -111,5 +128,36 @@
 
             setDeleteEventListeners();
         });
+        document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.toggle-activation').forEach(switchElement => {
+        switchElement.addEventListener('change', function () {
+            const alojamientoId = this.getAttribute('data-id');
+            const isActive = this.checked;
+
+            fetch(`/alojamientos/${alojamientoId}/toggle-activation`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ activo: isActive })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.nextElementSibling.textContent = isActive ? 'Activo' : 'Inactivo';
+                } else {
+                    alert('Error al cambiar el estado');
+                    this.checked = !isActive;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al procesar la solicitud');
+                this.checked = !isActive;
+            });
+        });
+    });
+});
     </script>
 @endsection

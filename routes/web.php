@@ -46,12 +46,17 @@ Route::prefix('notifications')->group(function () {
     Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
 });
 
-// Rutas para activar/desactivar producto
+// Rutas para activar/desactivar 
+//product
 Route::prefix('productos')->name('productos.')->group(function () {
     Route::post('{id}/activar', [ProductoController::class, 'activar'])->name('activar');
     Route::post('{id}/desactivar', [ProductoController::class, 'desactivar'])->name('desactivar');
     Route::post('{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('toggleActivation');
 });
+//alojamiento
+Route::post('/alojamientos/{id}/toggle-activation', [AlojamientoController::class, 'toggleActivation'])->name('alojamientos.toggleActivation');
+
+
 
 // Ruta para cambiar el idioma
 Route::get('/set-language/{lang}', [LanguageController::class, 'setLanguage'])->name('set.language');

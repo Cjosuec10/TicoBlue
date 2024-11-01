@@ -115,9 +115,10 @@ class AlojamientoController extends Controller
 
     public function mostrarInformacionAlojamientos()
     {
-        $alojamientos = Alojamiento::with('comercio')->get();
-    
-        return view('frontend.alojamientos', compact('alojamientos'));
+       // Obtener solo los alojamientos activos
+    $alojamientos = Alojamiento::with('comercio')->where('activo', true)->get();
+
+    return view('frontend.alojamientos', compact('alojamientos'));
     }
     public function buscarAlojamientos(Request $request)
 {
@@ -133,5 +134,16 @@ class AlojamientoController extends Controller
     ]);
 }
 
-    
+public function toggleActivation(Request $request, $id)
+{
+    $alojamiento = Alojamiento::findOrFail($id);
+    $activo = $request->input('activo');  // Obtén el estado activo/inactivo
+
+    // Actualizar el estado de activación
+    $alojamiento->activo = $activo;
+    $alojamiento->save();
+
+    return response()->json(['success' => true]);
+}
+
 }
