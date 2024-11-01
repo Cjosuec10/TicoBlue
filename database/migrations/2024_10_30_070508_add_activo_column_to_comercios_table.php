@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('comercios', function (Blueprint $table) {
-
-            $table->string('direccion_url', 500)->nullable(false)->change();
-
+            $table->boolean('activo')->default(true);
         });
     }
 
@@ -24,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('comercios', function (Blueprint $table) {
-           // Revertir el cambio y permitir valores nulos en el campo direccion_url
-            $table->string('direccion_url', 500)->nullable()->change();
+            $table->dropColumn('activo');
         });
     }
 };

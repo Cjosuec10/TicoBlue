@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Usuario; // Asegúrate de que el modelo Usuario esté importado
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+
 
 class RegisterController extends Controller
 {
@@ -15,7 +18,8 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('auth.register'); // Asegúrate de que esta vista exista
+        $roles = Role::where('id', '!=', 1)->get();
+        return view('auth.register', compact('roles')); // Pasa los roles a la vista
     }
 
     /**
@@ -29,6 +33,8 @@ class RegisterController extends Controller
             'correo' => 'required|string|email|max:100|unique:usuarios,correo',
             'contrasena' => 'required|string|min:8|confirmed',
             'telefono' => 'nullable|string|max:20',
+            'rol' => 'required|exists:roles,id',
+
         ]);
 
         // Crear el usuario
@@ -38,6 +44,10 @@ class RegisterController extends Controller
             'contrasena' => Hash::make($request->contrasena),
             'telefono' => $request->telefono,
         ]);
+        // Asignar rol
+     // Obtener el rol por ID y asignar el nombre del rol
+    $role = Role::findById($request->input('rol'));
+    $usuario->assignRole($role->name);
 
         // Autenticar al usuario automáticamente después del registro
         Auth::login($usuario);

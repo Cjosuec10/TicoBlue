@@ -86,17 +86,26 @@
                                                 <div class="text-danger">{{ $errors->first('correo') }}</div>
                                             @endif
                                         </div>
+                                        <!-- Selección de Rol -->
+                                        <div class="col-12">
+                                            <label for="rol" class="form-label">Selecciona un Rol</label>
+                                            <select id="rol" name="rol" class="form-select" required>
+                                                <option value="" selected disabled>Seleccione un rol</option>
+                                                @foreach ($roles as $rol)
+                                                    <option value="{{ $rol->id }}">{{ $rol->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Por favor, seleccione un rol.</div>
+                                            @if ($errors->has('rol'))
+                                                <div class="text-danger">{{ $errors->first('rol') }}</div>
+                                            @endif
+                                        </div>
+
 
                                         <div class="col-12">
                                             <label for="country" class="form-label">País</label>
                                             <select id="country" class="form-select">
-                                                <option value="506" data-country="Costa Rica">Costa Rica (+506)
-                                                </option>
-                                                <option value="1" data-country="Estados Unidos">Estados Unidos (+1)
-                                                </option>
-                                                <option value="44" data-country="Reino Unido">Reino Unido (+44)
-                                                </option>
-                                                <!-- Agrega más opciones de país aquí -->
+                                                <option value="506" data-country="Costa Rica" selected>Costa Rica (+506)</option>
                                             </select>
                                         </div>
 

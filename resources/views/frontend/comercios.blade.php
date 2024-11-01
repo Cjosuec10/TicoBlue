@@ -1,278 +1,226 @@
+@extends('layout.inicio')
 
+@section('title', 'Comercios')
 
-  @extends('layout.inicio')
+@section('content')
+<main class="main">
 
-  @section('title', 'comercios')
-  
-  @section('content')
-  <main class="main">
-  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-<!-- Page Title -->
-<h1 style="text-align:center;">Lista de Comercios</h1>
+    <!-- Comercios Section -->
+    <section class="comercios section py-5 bg-light" id="comercios">
+        <!-- Contenedor del Título -->
+        <div class="container title-container mb-0">
+            <div class="row">
+                <!-- Título principal centrado -->
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold">Catálogo de Comercios</h2>
+                </div>
+            </div>
+        </div><!-- End Title Container -->
 
-@if($comercios->isEmpty())
-    <p>No hay comercios disponibles.</p>
-@else
-    <div class="comercios-container">
-        @foreach($comercios as $comercio)
-            <div class="comercio-card">
-                <!-- Mostrar la imagen si está disponible -->
-                @if($comercio->imagen)
-                    <img src="{{ asset($comercio->imagen) }}" alt="{{ $comercio->nombreComercio }}">
+        <!-- Contenedor de la Barra de Búsqueda -->
+        <div class="container search-container mb-4">
+            <div class="row">
+                <!-- Barra de búsqueda alineada a la derecha en todas las pantallas -->
+                <div class="col-12 d-flex justify-content-end">
+                    <div class="input-group" style="width: 100%; max-width: 300px;">
+                        <span class="input-group-text bg-white">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="search" class="form-control" placeholder="Buscar comercios..." aria-label="Buscar comercios">
+                        <span class="input-group-text bg-white">
+                            <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Search Container -->
+
+        <!-- Comercios -->
+        <div class="comercio-wrap mt-2">
+            <div class="container">
+                @if($comercios->isEmpty())
+                    <div class="text-center">
+                        <p>No hay comercios disponibles en este momento.</p>
+                    </div>
                 @else
-                    <p>No hay imagen disponible.</p>
+                <div class="row">
+                    @foreach($comercios as $comercio)
+                    <!-- Clases responsivas para diferentes tamaños de pantalla -->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
+                            <img src="{{ asset($comercio->imagen) }}" alt="{{ $comercio->nombreComercio }}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <h5 class="card-title text-center">{{ $comercio->nombreComercio }}</h5>
+                                <p class="text-center">{{ $comercio->descripcionComercio }}</p>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comercioModal{{ $comercio->idComercio }}">
+                                        Ver más
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="comercioModal{{ $comercio->idComercio }}" tabindex="-1" aria-labelledby="comercioModalLabel{{ $comercio->idComercio }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content border-0 shadow-lg rounded-4">
+                                <div class="modal-header bg-light text-dark justify-content-center">
+                                    <h5 class="modal-title text-center fw-bold" id="comercioModalLabel{{ $comercio->idComercio }}" style="font-size: 1.75rem;">
+                                        {{ $comercio->nombreComercio }}
+                                    </h5>
+                                    <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="{{ asset($comercio->imagen) }}" alt="{{ $comercio->nombreComercio }}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
+                                    <div class="comercio-details">
+                                        <p><strong>Descripción:</strong> {{ $comercio->descripcionComercio }}</p>
+                                        <p><strong>Correo:</strong> {{ $comercio->correoComercio }}</p>
+                                        <p><strong>Teléfono:</strong>
+                                            @if ($comercio->codigoPais == '506' && strlen($comercio->telefonoComercio) == 8)
+                                                {{-- Formato para Costa Rica: +506 3242-3432 sin guion después de +506 --}}
+                                                {{ '+506 ' . substr($comercio->telefonoComercio, 0, 4) . '-' . substr($comercio->telefonoComercio, 4) }}
+                                            @elseif ($comercio->codigoPais != '506')
+                                                {{-- Para otros países, muestra el código de país seguido del número en bloques de 4 dígitos --}}
+                                                {{ '' . $comercio->codigoPais . ' ' . implode('-', str_split($comercio->telefonoComercio, 4)) }}
+                                            @else
+                                                {{-- Muestra el número sin formato si no cumple las condiciones anteriores --}}
+                                                {{ $comercio->telefonoComercio }}
+                                            @endif
+                                        </p>
+
+
+
+                                        <p><strong>Tipo de Negocio:</strong> {{ $comercio->tipoNegocio }}</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-light">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin del Modal -->
+                    @endforeach
+                </div>
                 @endif
-
-                <h3>{{ $comercio->nombreComercio }}</h3>
-                <p>{{ $comercio->descripcionComercio }}</p>
-                <p><strong>Correo:</strong> {{ $comercio->correoComercio }}</p>
-                <p><strong>Teléfono:</strong> {{ $comercio->telefonoComercio }}</p>
-
-                <!-- Botón de Ver -->
-                <a href="#S" class="btn-ver">Ver</a>
+                <!-- Paginación -->
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $comercios->links('pagination::bootstrap-4') }}
+                </div>
             </div>
-        @endforeach
-    </div>
-@endif
-
-    <!-- Page Title -->
-    <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/page-title-bg.webp);">
-      <div class="container position-relative">
-        <h1>Blog</h1>
-        <p>
-          Home
-          /
-          Blog</p>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Blog</li>
-          </ol>
-        </nav>
-      </div>
-    </div><!-- End Page Title -->
-
-    <!-- Blog Posts 2 Section -->
-    <section id="blog-posts-2" class="blog-posts-2 section">
-
-      <div class="container">
-        <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-1.jpg" class="img-fluid" alt="">
-              </div>
-
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>12</span>December</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">John Doe</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Dolorum optio tempore voluptas dignissimos</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-2.jpg" class="img-fluid" alt="">
-              </div>
-
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>19</span>March</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-                <h3 class="post-title">Nisi magni odit consequatur autem nulla dolorem</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>24</span>June</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">Maria Doe</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Sports</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-                <h3 class="post-title">Possimus soluta ut id suscipit ea ut. In quo quia et soluta libero sit sint.</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-4.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>05</span>August</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">Maria Doe</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Sports</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-                <h3 class="post-title">Non rem rerum nam cum quo minus explicabo eius exercitationem.</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-5.jpg" class="img-fluid" alt="">
-              </div>
-
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>17</span>September</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">John Parker</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Politics</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Accusamus quaerat aliquam qui debitis facilis consequatur</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-lg-4">
-            <article class="position-relative h-100">
-
-              <div class="post-img position-relative overflow-hidden">
-                <img src="assets/img/blog/blog-6.jpg" class="img-fluid" alt="">
-              </div>
-
-              <div class="meta d-flex align-items-end">
-                <span class="post-date"><span>07</span>December</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-person"></i> <span class="ps-2">Julia White</span>
-                </div>
-                <span class="px-3 text-black-50">/</span>
-                <div class="d-flex align-items-center">
-                  <i class="bi bi-folder2"></i> <span class="ps-2">Economics</span>
-                </div>
-              </div>
-
-              <div class="post-content d-flex flex-column">
-
-                <h3 class="post-title">Distinctio provident quibusdam numquam aperiam aut</h3>
-                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
         </div>
-      </div>
+    </section><!-- /Comercios Section -->
 
-    </section><!-- /Blog Posts 2 Section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const clearButton = document.getElementById('clear-search');
 
-    <!-- Blog Pagination Section -->
-    <section id="blog-pagination" class="blog-pagination section">
+            // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
+            function debounce(func, delay) {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
 
-      <div class="container">
-        <div class="d-flex justify-content-center">
-          <ul>
-            <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#" class="active">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li>...</li>
-            <li><a href="#">10</a></li>
-            <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-          </ul>
-        </div>
-      </div>
+            // Función para inicializar modales después de la actualización AJAX
+            function initializeModals() {
+                const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
+                modalTriggerList.forEach(function(modalTriggerEl) {
+                    new bootstrap.Modal(modalTriggerEl);
+                });
+            }
 
-    </section><!-- /Blog Pagination Section -->
+            // Función para realizar la búsqueda AJAX y manejar la paginación
+            function fetchComercios(query, page = 1) {
+                fetch(`/buscar-comercios?q=${query}&page=${page}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const comercioWrap = document.querySelector('.comercio-wrap .row');
+                        comercioWrap.innerHTML = '';
 
-    <!-- Call To Action Section -->
-    <section id="call-to-action" class="call-to-action section light-background">
+                        if (data.comercios.length > 0) {
+                            data.comercios.forEach(comercio => {
+                                const comercioHTML = `
+                            <div class="col-lg-3 col-md-4 mb-4">
+                                <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                                    <img src="${comercio.imagen}" alt="${comercio.nombreComercio}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <h5 class="card-title text-center">${comercio.nombreComercio}</h5>
+                                        <p class="text-center">${comercio.descripcionComercio}</p>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#comercioModal${comercio.idComercio}">
+                                                Ver más
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-      <div class="content">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6">
-              <h3>Subscribe To Our Newsletter</h3>
-              <p class="opacity-50">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nesciunt, reprehenderit!
-              </p>
-            </div>
-            <div class="col-lg-6">
-              <form action="forms/newsletter.php" class="form-subscribe php-email-form">
-                <div class="form-group d-flex align-items-stretch">
-                  <input type="email" name="email" class="form-control h-100" placeholder="Enter your e-mail">
-                  <input type="submit" class="btn btn-secondary px-4" value="Subcribe">
-                </div>
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">
-                  Your subscription request has been sent. Thank you!
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- /Call To Action Section -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="comercioModal${comercio.idComercio}" tabindex="-1" aria-labelledby="comercioModalLabel${comercio.idComercio}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content border-0 shadow-lg rounded-4">
+                                        <div class="modal-header bg-light text-dark justify-content-center">
+                                            <h5 class="modal-title text-center fw-bold" id="comercioModalLabel${comercio.idComercio}" style="font-size: 1.75rem;">
+                                                ${comercio.nombreComercio}
+                                            </h5>
+                                            <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="${comercio.imagen}" alt="${comercio.nombreComercio}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
+                                            <div class="comercio-details">
+                                                <p><strong>Descripción:</strong> ${comercio.descripcionComercio}</p>
+                                                <p><strong>Correo:</strong> ${comercio.correoComercio}</p>
+                                                <p><strong>Teléfono:</strong> ${comercio.telefonoComercio}</p>
+                                                <p><strong>Tipo de Negocio:</strong> ${comercio.tipoNegocio}</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-light">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                                comercioWrap.insertAdjacentHTML('beforeend', comercioHTML);
+                            });
+                        } else {
+                            comercioWrap.innerHTML =
+                                '<div class="col-12 text-center"><p>No hay comercios que coincidan con tu búsqueda.</p></div>';
+                        }
 
-  </main>
-  @endsection
+                        // Actualizar paginación
+                        const pagination = document.querySelector('.pagination');
+                        pagination.innerHTML = data.pagination;
+
+                        // Reinicializar modales
+                        initializeModals();
+                    });
+            }
+
+            // Búsqueda en tiempo real con debounce
+            searchInput.addEventListener('input', debounce(function() {
+                fetchComercios(this.value);
+            }, 300)); // 300ms de espera antes de ejecutar la búsqueda
+
+            // Limpiar el campo de búsqueda
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                fetchComercios(''); // Limpiar la búsqueda
+            });
+
+            // Manejar la paginación
+            document.addEventListener('click', function(event) {
+                if (event.target.closest('.pagination a')) {
+                    event.preventDefault();
+                    const page = event.target.getAttribute('href').split('page=')[1];
+                    fetchComercios(searchInput.value, page);
+                }
+            });
+        });
+    </script>
+
+@endsection

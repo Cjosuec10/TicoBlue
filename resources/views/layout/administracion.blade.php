@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@include('notifications.index')
 <html lang="en">
 
 <head>
@@ -56,16 +57,38 @@
   </div>
 </div>
 
-<?php
-    // Contar las notificaciones no leídas
-    $unreadNotificationsCount = \App\Models\Notification::where('is_read', false)->count();
-?>
-<div>
 
-    <a href="{{ route('notifications.index') }}" class="nav-link">
-        Notificaciones <span class="badge badge-pill badge-danger">{{ $unreadNotificationsCount }}</span>
-    </a>
+
+<div class="d-flex align-items-center gap-2 ms-auto">
+    <!-- Ícono de notificación con campanita -->
+    <button type="button" class="btn btn-sm btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+        <i class="fas fa-bell"></i> <!-- Ícono de campana -->
+        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge-pill">
+            {{ $notifications->count() }} <!-- Contador de notificaciones -->
+        </span>
+    </button>
 </div>
+
+<!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- CSS Adicional -->
+<style>
+    .navbar .d-flex {
+        align-items: center;
+        height: 100%;
+    }
+    .btn-sm {
+        font-size: 0.875rem;
+        padding: 0.3rem 0.6rem;
+    }
+    .btn-sm .badge-pill {
+        font-size: 0.7rem;
+        padding: 0.2em 0.4em;
+    }
+</style>
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
@@ -124,6 +147,19 @@
         <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
       </a>
     </li><!-- End Dashboard Nav -->
+    
+    
+    @can('ver-comercio')
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('notifications.all') }}">
+            <i class="bi bi-clock-history"></i> <!-- Ícono de historial -->
+            <span data-translate="viewAllNotifications">Historial de notificaciones</span>
+        </a>
+    </li><!-- End Ver todas las notificaciones Nav -->
+@endcan
+
+
+
 
     @can('ver-comercio')
     <li class="nav-item">

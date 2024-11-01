@@ -13,48 +13,51 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
 
-
 // Rutas públicas (accesibles sin autenticación)
-Route::view('/Alojamientos', 'frontend.alojamientos')->name('alojamientos');
-Route::view('/Comercios', 'frontend.comercios')->name('comercios');
-Route::view('/Contacto', 'frontend.contacto')->name('contacto');
-Route::view('/Eventos', 'frontend.eventos')->name('eventos');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
 Route::get('/Productos', [ProductoController::class, 'mostrarInformacionProductos'])->name('productos');
-Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
 Route::get('/Eventos', [EventoController::class, 'mostrarInformacionEventos'])->name('eventos');
 Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarAlojamientos'])->name('alojamientos');
 Route::get('/Comercios', [ComercioController::class, 'mostrarInformacionComercios'])->name('comercios');
+Route::view('/Contacto', 'frontend.contacto')->name('contacto');
+Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
 
-
-//Rutas notificación
-Route::post('notifications/store', [NotificationController::class, 'store'])->name('notifications.store');
-Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
-Route::patch('notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-
-//rutas activar-desactivar producto
-Route::post('/productos/{id}/activar', [ProductoController::class, 'activar'])->name('productos.activar');
-Route::post('/productos/{id}/desactivar', [ProductoController::class, 'desactivar'])->name('productos.desactivar');
-//toggleActivation
-Route::post('/productos/{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('productos.toggleActivation');
-
+// Rutas de activación/desactivación para comercio
+Route::post('/comercios/{id}/toggle-activation', [ComercioController::class, 'toggleActivation'])->name('comercios.toggleActivation');
 
 // Rutas de autenticación
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::prefix('auth')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
+    Route::post('register', [RegisterController::class, 'register'])->name('register');
+});
 
-// Rutas de registro
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
-Route::post('register', [RegisterController::class, 'register'])->name('register');
+// Rutas de notificación
+Route::prefix('notifications')->group(function () {
+    Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store');
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
+});
 
+// Rutas para activar/desactivar producto
+Route::prefix('productos')->name('productos.')->group(function () {
+    Route::post('{id}/activar', [ProductoController::class, 'activar'])->name('activar');
+    Route::post('{id}/desactivar', [ProductoController::class, 'desactivar'])->name('desactivar');
+    Route::post('{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('toggleActivation');
+});
 
-//rutas busqueda
-Route::get('/buscar-productos-informativo', [ProductoController::class, 'buscarInformativo']);
-
+// Ruta para cambiar el idioma
+Route::get('/set-language/{lang}', [LanguageController::class, 'setLanguage'])->name('set.language');
 
 // Rutas protegidas por autenticación
 Route::middleware('auth')->group(function () {
-    // Recursos CRUD protegidos
     Route::resource('comercios', ComercioController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('eventos', EventoController::class);
@@ -63,24 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('roles', RolController::class);
 
-
-    Route::put('/alojamientos/{alojamiento}', [AlojamientoController::class, 'update'])->name('alojamientos.update');
-    Route::get('/alojamientos', [AlojamientoController::class, 'index'])->name('alojamientos.index');
-
-
-
-    // Ruta para cambiar el idioma
-    Route::get('/set-language/{lang}', function ($lang) {
-        session(['locale' => $lang]); // Guarda el idioma en la sesión
-        return redirect()->back(); // Redirige de vuelta a la página anterior
-    })->name('set.language');
-
     // Vista del panel de administración
     Route::view('/admin', 'admin.admin')->name('admin');
 });
-
-// Ruta principal (home)
-Route::get('/', function () {
-    return view('welcome');
-});// Ruta principal (home)
-
