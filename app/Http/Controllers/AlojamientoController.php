@@ -112,12 +112,26 @@ class AlojamientoController extends Controller
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
-    
+
     public function mostrarInformacionAlojamientos()
     {
         $alojamientos = Alojamiento::with('comercio')->get();
     
         return view('frontend.alojamientos', compact('alojamientos'));
     }
+    public function buscarAlojamientos(Request $request)
+{
+    $query = $request->get('q');
+    $page = $request->get('page', 1);
+    $alojamientos = Alojamiento::with('comercio')
+                     ->where('nombreAlojamiento', 'like', '%' . $query . '%')
+                     ->paginate(8, ['*'], 'page', $page);
+
+    return response()->json([
+        'alojamientos' => $alojamientos->items(),
+        'pagination' => $alojamientos->links('pagination::bootstrap-4')->render(),
+    ]);
+}
+
     
 }

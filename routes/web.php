@@ -69,3 +69,7 @@ Route::middleware('auth')->group(function () {
     // Vista del panel de administración
     Route::view('/admin', 'admin.admin')->name('admin');
 });
+
+//busquedas
+Route::get('/buscar-alojamientos', [AlojamientoController::class, 'buscarAlojamientos'])->name('alojamientos.buscar');
+
