@@ -4,33 +4,62 @@
     <main class="main">
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- JavaScript para manejar el envío del formulario y mostrar SweetAlert -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const forms = document.querySelectorAll('.crearEventoForm');
+
+                forms.forEach(form => {
+                    form.addEventListener('submit', function(event) {
+                        event.preventDefault(); // Evita el envío inmediato del formulario
+
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated');
+                        } else {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Reservación realizada exitosamente",
+                                text: "Gracias por realizar la reservación. ¡Te esperamos pronto!",
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                form.submit();
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+
         <!-- Título y Barra de Búsqueda -->
         <section class="events section py-5 custom-gray" id="events">
             <!-- Contenedor del Título -->
-    <div class="container title-container mb-0">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Catálogo de Eventos</h2>
-            </div>
-        </div>
-    </div><!-- End Title Container -->
-
-    <!-- Contenedor de la Barra de Búsqueda -->
-    <div class="container search-container mb-4">
-        <div class="row">
-            <div class="col-12 d-flex justify-content-end">
-                <div class="input-group" style="width: 100%; max-width: 300px;">
-                    <span class="input-group-text bg-white">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="text" id="search" class="form-control" placeholder="Buscar eventos..." aria-label="Buscar eventos">
-                    <span class="input-group-text bg-white">
-                        <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
-                    </span>
+            <div class="container title-container mb-0">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="fw-bold">Catálogo de Eventos</h2>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div><!-- End Search Container -->
+            </div><!-- End Title Container -->
+
+            <!-- Contenedor de la Barra de Búsqueda -->
+            <div class="container search-container mb-4">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <div class="input-group" style="width: 100%; max-width: 300px;">
+                            <span class="input-group-text bg-white">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" id="search" class="form-control" placeholder="Buscar eventos..."
+                                aria-label="Buscar eventos">
+                            <span class="input-group-text bg-white">
+                                <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Search Container -->
 
             <!-- Eventos -->
             <div class="event-wrap mt-2">
@@ -131,7 +160,7 @@
                                                 <div class="modal-body">
                                                     <!-- Formulario de Reservación -->
                                                     <form action="{{ route('reservaciones.store') }}" method="POST"
-                                                        enctype="multipart/form-data">
+                                                        enctype="multipart/form-data" class="crearEventoForm">
                                                         @csrf
 
                                                         <!-- ID del Evento -->
@@ -177,6 +206,8 @@
                                                                 <input type="hidden" name="idComercio_fk"
                                                                     value="{{ $ev->idComercio_fk }}">
                                                             </div>
+                                                            <input type="hidden" name="redirect_to"
+                                                                value="{{ request()->routeIs('eventos') ? 'eventos' : 'reservaciones.index' }}">
 
                                                             <!-- Botón para Crear Reservación -->
                                                             <button type="submit" class="btn btn-primary w-100">Crear

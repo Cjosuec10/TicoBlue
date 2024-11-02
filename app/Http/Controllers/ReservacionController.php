@@ -48,11 +48,11 @@ class ReservacionController extends Controller
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
             'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
         ]);
-    
+
         // Establecer `idEvento_fk` como `null` si no se proporciona
         $idEventoFk = $request->idEvento_fk ?? null;
         $idAlojamientoFk = $request->idAlojamiento_fk ?? null;
-    
+
         // Crear una nueva instancia de Reservacion
         $newReservacion = new Reservacion();
         $newReservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
@@ -62,12 +62,23 @@ class ReservacionController extends Controller
         $newReservacion->idEvento_fk = $idEventoFk; // Asignar como null si no está presente
         $newReservacion->idUsuario_fk = $request->idUsuario_fk;
         $newReservacion->idAlojamiento_fk = $idAlojamientoFk; // Asignar como null si no está presente
-    
+
         // Guardar la reservación en la base de datos
         $newReservacion->save();
-    
-        return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
+
+        $redirect_to = strtolower($request->redirect_to);
+            if ($redirect_to === 'alojamientos') {
+                return redirect()->route('alojamientos')->with('success', 'Reservación creada exitosamente.');
+            } elseif ($redirect_to === 'eventos') {
+                return redirect()->route('eventos')->with('success', 'Reservación creada exitosamente.');
+            } elseif ($redirect_to === 'formulario_creacion') {
+                return redirect()->route('reservaciones.create')->with('success', 'Reservación creada exitosamente.');
+            }
+
+            return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
+
     }
+
     
 
     // Método para mostrar los detalles de una reservación específica

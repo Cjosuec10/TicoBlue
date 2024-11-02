@@ -119,7 +119,6 @@ class AlojamientoController extends Controller
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
-
     public function mostrarInformacionAlojamientos()
     {
        // Obtener solo los alojamientos activos
