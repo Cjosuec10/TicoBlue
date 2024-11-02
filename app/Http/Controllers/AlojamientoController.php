@@ -31,7 +31,7 @@ class AlojamientoController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'nombreAlojamiento' => 'required|max:100',
             'descripcionAlojamiento' => 'nullable',
             'precioAlojamiento' => 'required|numeric',
@@ -42,25 +42,21 @@ class AlojamientoController extends Controller
             'fechaFin' => 'required|date|after_or_equal:fechaInicio',
         ]);
 
-        $validatedData['idUsuario_fk'] = auth()->id();
+        $newAlojamiento = new Alojamiento($request->except('imagen'));
 
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
-            $destinationPath = 'img/alojamientos/';
+            $destinationPath = 'img/imagen/';
             $fileName = time() . '-' . $file->getClientOriginalName();
             $file->move($destinationPath, $fileName);
-            $validatedData['imagen'] = $destinationPath . $fileName;
+            $newAlojamiento->imagen = $destinationPath . $fileName;
         }
 
-        Reservacion::create($validatedData);
+        $newAlojamiento->save();
 
-       // Redireccionar según el valor de redirect_to
-        if ($request->redirect_to === 'alojamientos') {
-            return redirect()->route('alojamientos')->with('success', '¡Reservación creada exitosamente!');
-        }
-
-        return redirect()->route('reservaciones.index')->with('success', '¡Reservación creada exitosamente!');
+        return redirect()->route('alojamiento.index')->with('success', '¡Reservación creada exitosamente!');
     }
+
 
 
 
@@ -127,29 +123,17 @@ class AlojamientoController extends Controller
     return view('frontend.alojamientos', compact('alojamientos'));
     }
     public function buscarAlojamientos(Request $request)
-{
-    $query = $request->get('q');
-    $page = $request->get('page', 1);
-    $alojamientos = Alojamiento::with('comercio')
-                     ->where('nombreAlojamiento', 'like', '%' . $query . '%')
-                     ->paginate(8, ['*'], 'page', $page);
+    {
+        $query = $request->get('q');
+        $page = $request->get('page', 1);
+        $alojamientos = Alojamiento::with('comercio')
+                        ->where('nombreAlojamiento', 'like', '%' . $query . '%')
+                        ->paginate(8, ['*'], 'page', $page);
 
-    return response()->json([
-        'alojamientos' => $alojamientos->items(),
-        'pagination' => $alojamientos->links('pagination::bootstrap-4')->render(),
-    ]);
-}
-
-public function toggleActivation(Request $request, $id)
-{
-    $alojamiento = Alojamiento::findOrFail($id);
-    $activo = $request->input('activo');  // Obtén el estado activo/inactivo
-
-    // Actualizar el estado de activación
-    $alojamiento->activo = $activo;
-    $alojamiento->save();
-
-    return response()->json(['success' => true]);
-}
+        return response()->json([
+            'alojamientos' => $alojamientos->items(),
+            'pagination' => $alojamientos->links('pagination::bootstrap-4')->render(),
+        ]);
+    }
 
 }

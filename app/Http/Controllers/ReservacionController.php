@@ -130,8 +130,12 @@ class ReservacionController extends Controller
         // Guardar los cambios en la base de datos
         $reservacion->save();
     
-        // Redirige de vuelta al índice con un mensaje de éxito
-        return redirect()->route('reservaciones.index')->with('success', 'Reservación actualizada exitosamente.');
+        // Redireccionar según el valor de redirect_to
+        if ($request->redirect_to === 'Alojamientos') {
+            return redirect()->route('Alojamientos')->with('success', '¡Reservación creada exitosamente!');
+        }
+
+        return redirect()->route('reservaciones')->with('success', '¡Reservación creada exitosamente!');
     }
     
 
