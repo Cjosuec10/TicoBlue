@@ -52,10 +52,17 @@ class AlojamientoController extends Controller
             $validatedData['imagen'] = $destinationPath . $fileName;
         }
 
-        Alojamiento::create($validatedData);
+        Reservacion::create($validatedData);
 
-        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento creado con éxito.');
+       // Redireccionar según el valor de redirect_to
+        if ($request->redirect_to === 'alojamientos') {
+            return redirect()->route('alojamientos')->with('success', '¡Reservación creada exitosamente!');
+        }
+
+        return redirect()->route('reservaciones.index')->with('success', '¡Reservación creada exitosamente!');
     }
+
+
 
     public function show($id)
     {
@@ -112,7 +119,6 @@ class AlojamientoController extends Controller
 
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
-
     public function mostrarInformacionAlojamientos()
     {
        // Obtener solo los alojamientos activos

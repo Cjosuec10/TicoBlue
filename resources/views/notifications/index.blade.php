@@ -15,7 +15,8 @@
                                 <p><strong>Email:</strong> {{ $notification->email }}</p>
                                 <p><strong>Teléfono:</strong> {{ $notification->telefono }}</p>
                                 <p><strong>Tipo de consulta:</strong> {{ $notification->tipo_consulta }}</p>
-                                <p><strong>Mensaje:</strong> {{ $notification->mensaje }}</p>
+                                <p style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;"><strong>Mensaje:</strong> {{ $notification->mensaje }}</p>
+
                             </div>
                             <form action="{{ route('notifications.markAsRead', $notification->id) }}" method="POST" class="mt-2 d-flex justify-content-center">
                                 @csrf
