@@ -81,4 +81,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/buscar-alojamientos', [AlojamientoController::class, 'buscarAlojamientos'])->name('alojamientos.buscar');
 Route::get('/buscar-productos-informativo', [ProductoController::class, 'buscarInformativo'])->name('productos.buscarInformativo');
 Route::get('/buscar-comercios', [ComercioController::class, 'buscar'])->name('comercios.buscar');
+Route::get('/buscar-eventos', [EventoController::class, 'buscar'])->name('eventos.buscar');
 

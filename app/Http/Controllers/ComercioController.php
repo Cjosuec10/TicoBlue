@@ -75,27 +75,26 @@ class ComercioController extends Controller
     }
 
     public function buscar(Request $request)
-    {
-        $query = $request->input('q');
+{
+    $query = $request->get('q');
+    $page = $request->get('page', 1);
 
-        // Obtener los comercios del usuario autenticado
-        $comercios = auth()->user()->comercios;
+    // Realizar la búsqueda sin depender de un usuario autenticado
+    $comercios = Comercio::where('activo', true) // Solo buscar comercios activos
+                    ->where(function ($q) use ($query) {
+                        $q->where('nombreComercio', 'LIKE', '%' . $query . '%')
+                          ->orWhere('tipoNegocio', 'LIKE', '%' . $query . '%')
+                          ->orWhere('telefonoComercio', 'LIKE', '%' . $query . '%');
+                    })
+                    ->paginate(8, ['*'], 'page', $page);
 
-        // Filtrar comercios por nombre, tipo de negocio o teléfono
-        $resultado = Comercio::whereIn('idComercio', $comercios->pluck('idComercio'))
-            ->where(function ($q) use ($query) {
-                $q->where('nombreComercio', 'LIKE', "%{$query}%")
-                    ->orWhere('tipoNegocio', 'LIKE', "%{$query}%")
-                    ->orWhere('telefonoComercio', 'LIKE', "%{$query}%");
-            })
-            ->paginate(8);
+    // Retornar la respuesta en formato JSON
+    return response()->json([
+        'comercios' => $comercios->items(),
+        'pagination' => $comercios->links('pagination::bootstrap-4')->render(),
+    ]);
+}
 
-        // Retornar comercios con paginación en la respuesta JSON
-        return response()->json([
-            'comercios' => $resultado->items(),
-            'pagination' => (string) $resultado->links('pagination::bootstrap-4'),
-        ]);
-    }
 
     public function buscarInformativo(Request $request)
     {

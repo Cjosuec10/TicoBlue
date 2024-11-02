@@ -116,7 +116,7 @@ class AlojamientoController extends Controller
     public function mostrarInformacionAlojamientos()
     {
        // Obtener solo los alojamientos activos
-    $alojamientos = Alojamiento::with('comercio')->where('activo', true)->get();
+       $alojamientos = Alojamiento::with('comercio')->where('activo', true)->paginate(8);
 
     return view('frontend.alojamientos', compact('alojamientos'));
     }

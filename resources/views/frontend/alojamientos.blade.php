@@ -212,43 +212,45 @@
                                     <!-- Fin del Modal de Reservación -->
                                 @endforeach
                             </div>
+                            <!-- Contenedor de la paginación -->
+<div class="d-flex justify-content-center mt-4">
+    {{ $alojamientos->links('pagination::bootstrap-4') }}
+</div>
+
                     @endif
                 </div>
             </div>
         </section>
         <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('search');
-        const clearButton = document.getElementById('clear-search');
+    const searchInput = document.getElementById('search');
+    const clearButton = document.getElementById('clear-search');
 
-        // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
-        function debounce(func, delay) {
-            let timeout;
-            return function(...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), delay);
-            };
-        }
+    function debounce(func, delay) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
 
-        // Función para inicializar modales después de la actualización AJAX
-        function initializeModals() {
-            const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
-            modalTriggerList.forEach(function(modalTriggerEl) {
-                new bootstrap.Modal(modalTriggerEl);
-            });
-        }
+    function initializeModals() {
+        const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
+        modalTriggerList.forEach(function(modalTriggerEl) {
+            new bootstrap.Modal(modalTriggerEl);
+        });
+    }
 
-        // Función para realizar la búsqueda AJAX y manejar la paginación
-        function fetchAlojamientos(query, page = 1) {
-            fetch(`/buscar-alojamientos?q=${query}&page=${page}`)
-                .then(response => response.json())
-                .then(data => {
-                    const alojamientoWrap = document.querySelector('.alojamiento-wrap .row');
-                    alojamientoWrap.innerHTML = '';
+    function fetchAlojamientos(query, page = 1) {
+        fetch(`/buscar-alojamientos?q=${query}&page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                const alojamientoWrap = document.querySelector('.alojamiento-wrap .row');
+                alojamientoWrap.innerHTML = '';
 
-                    if (data.alojamientos.length > 0) {
-                        data.alojamientos.forEach(alojamiento => {
-                            const alojamientoHTML = `
+                if (data.alojamientos.length > 0) {
+                    data.alojamientos.forEach(alojamiento => {
+                        const alojamientoHTML = `
                             <div class="col-lg-3 col-md-4 mb-4">
                                 <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
                                     <img src="${alojamiento.imagen ? `{{ asset('') }}${alojamiento.imagen}` : '{{ asset('assets/img/default-image.jpg') }}'}" 
@@ -297,42 +299,37 @@
                                 </div>
                             </div>
                         `;
-                            alojamientoWrap.insertAdjacentHTML('beforeend', alojamientoHTML);
-                        });
-                    } else {
-                        alojamientoWrap.innerHTML =
-                            '<div class="col-12 text-center"><p>No hay alojamientos que coincidan con tu búsqueda.</p></div>';
-                    }
+                        alojamientoWrap.insertAdjacentHTML('beforeend', alojamientoHTML);
+                    });
+                } else {
+                    alojamientoWrap.innerHTML =
+                        '<div class="col-12 text-center"><p>No hay alojamientos que coincidan con tu búsqueda.</p></div>';
+                }
 
-                    // Actualizar paginación
-                    const pagination = document.querySelector('.pagination');
-                    pagination.innerHTML = data.pagination;
+                const pagination = document.querySelector('.pagination');
+                pagination.innerHTML = data.pagination;
 
-                    // Reinicializar modales
-                    initializeModals();
-                });
-        }
+                initializeModals();
+            });
+    }
 
-        // Búsqueda en tiempo real con debounce
-        searchInput.addEventListener('input', debounce(function() {
-            fetchAlojamientos(this.value);
-        }, 300)); // 300ms de espera antes de ejecutar la búsqueda
+    searchInput.addEventListener('input', debounce(function() {
+        fetchAlojamientos(this.value);
+    }, 300));
 
-        // Limpiar el campo de búsqueda
-        clearButton.addEventListener('click', function() {
-            searchInput.value = '';
-            fetchAlojamientos(''); // Limpiar la búsqueda
-        });
-
-        // Manejar la paginación
-        document.addEventListener('click', function(event) {
-            if (event.target.closest('.pagination a')) {
-                event.preventDefault();
-                const page = event.target.getAttribute('href').split('page=')[1];
-                fetchAlojamientos(searchInput.value, page);
-            }
-        });
+    clearButton.addEventListener('click', function() {
+        searchInput.value = '';
+        fetchAlojamientos('');
     });
+
+    document.addEventListener('click', function(event) {
+        if (event.target.closest('.pagination a')) {
+            event.preventDefault();
+            const page = event.target.getAttribute('href').split('page=')[1];
+            fetchAlojamientos(searchInput.value, page);
+        }
+    });
+});
 </script>
 
     </main>

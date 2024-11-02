@@ -115,16 +115,17 @@ class EventoController extends Controller
         $evento->delete();
         return redirect()->route('eventos.index')->with('success', 'Evento eliminado exitosamente.');
     }
-
     public function mostrarInformacionEventos()
     {
-        $eventos = Evento::where('activo', true)->get();
+        // Cambia get() por paginate(8) para obtener paginación de 8 eventos por página
+        $eventos = Evento::where('activo', true)->paginate(8);
         $comercios = Comercio::all();
         $alojamientos = Alojamiento::all();
         $usuarioLogueado = Auth::user();
-
+    
         return view('frontend.eventos', compact('eventos', 'comercios', 'usuarioLogueado', 'alojamientos'));
     }
+    
     public function toggleActivation(Request $request, $id)
 {
     $evento = Evento::findOrFail($id);
@@ -135,6 +136,24 @@ class EventoController extends Controller
     $evento->save();
 
     return response()->json(['success' => true]);
+}
+public function buscar(Request $request)
+{
+    $query = $request->input('q');
+
+    // Filtrar eventos activos que coincidan con el término de búsqueda
+    $eventos = Evento::where('activo', true)
+        ->where(function ($q) use ($query) {
+            $q->where('nombreEvento', 'LIKE', "%{$query}%")
+              ->orWhere('descripcionEvento', 'LIKE', "%{$query}%");
+        })
+        ->paginate(8);
+
+    // Retornar eventos con paginación en la respuesta JSON
+    return response()->json([
+        'eventos' => $eventos->items(),
+        'pagination' => (string) $eventos->links('pagination::bootstrap-4'),
+    ]);
 }
 
 
