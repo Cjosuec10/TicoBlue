@@ -9,7 +9,7 @@
     <div class="container my-5 p-4">
         <!-- Encabezado principal -->
         <div class="text-center mb-5" data-aos="fade-down">
-            <h1 class="display-4 fw-bold" style="color: #0159AA;">Sobre nosotros</h1>
+            <h1 class="display-4 fw-bold" style="color: #0159AA;">SOBRE NOSOTROS</h1>
             <p class="text-muted mt-2">Conoce más sobre nuestra historia, misión y equipo.</p>
         </div>
 
@@ -54,7 +54,7 @@
 
 
 <!-- Sección de Valores -->
-<section class="animated-card card-container py-5 rounded bg-light" data-aos="flip-right">
+<section class="animated-card row align-items-center mb-5 bg-light p-4 rounded shadow-sm" data-aos="flip-right">
     <h2 class="h4 fw-semibold mb-5 text-center" style="color: #0159AA;">Nuestros Valores</h2>
     <div class="row text-center gx-4 gy-5">
         <!-- Valor 1: Autenticidad -->
@@ -185,5 +185,4 @@
         }
     </style>
 </main>
-
 @endsection

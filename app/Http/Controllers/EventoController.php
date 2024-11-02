@@ -118,12 +118,24 @@ class EventoController extends Controller
 
     public function mostrarInformacionEventos()
     {
-        $eventos = Evento::all();
+        $eventos = Evento::where('activo', true)->get();
         $comercios = Comercio::all();
         $alojamientos = Alojamiento::all();
         $usuarioLogueado = Auth::user();
 
         return view('frontend.eventos', compact('eventos', 'comercios', 'usuarioLogueado', 'alojamientos'));
     }
+    public function toggleActivation(Request $request, $id)
+{
+    $evento = Evento::findOrFail($id);
+    $activo = $request->input('activo');
+
+    // Actualiza el estado de activación
+    $evento->activo = $activo;
+    $evento->save();
+
+    return response()->json(['success' => true]);
+}
+
 
 }

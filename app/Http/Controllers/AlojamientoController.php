@@ -120,19 +120,37 @@ class AlojamientoController extends Controller
         return redirect()->route('alojamiento.index')->with('success', 'Alojamiento eliminado con éxito.');
     }
 
-    public function mostrarAlojamientos()
+    public function mostrarInformacionAlojamientos()
     {
-        // Obtener los comercios completos del usuario logueado
-        $comercios = auth()->user()->comercios;
+       // Obtener solo los alojamientos activos
+    $alojamientos = Alojamiento::with('comercio')->where('activo', true)->get();
 
-        // Obtener los alojamientos relacionados con los comercios del usuario, incluyendo la relación 'comercio'
-        $alojamientos = Alojamiento::with('comercio')
-                    ->whereIn('idComercio_fk', $comercios->pluck('idComercio'))
-                    ->get();
-
-        $usuarioLogueado = Auth::user();
-
-        return view('frontend.alojamientos', compact('alojamientos', 'comercios', 'usuarioLogueado'));
+    return view('frontend.alojamientos', compact('alojamientos'));
     }
+    public function buscarAlojamientos(Request $request)
+{
+    $query = $request->get('q');
+    $page = $request->get('page', 1);
+    $alojamientos = Alojamiento::with('comercio')
+                     ->where('nombreAlojamiento', 'like', '%' . $query . '%')
+                     ->paginate(8, ['*'], 'page', $page);
+
+    return response()->json([
+        'alojamientos' => $alojamientos->items(),
+        'pagination' => $alojamientos->links('pagination::bootstrap-4')->render(),
+    ]);
+}
+
+public function toggleActivation(Request $request, $id)
+{
+    $alojamiento = Alojamiento::findOrFail($id);
+    $activo = $request->input('activo');  // Obtén el estado activo/inactivo
+
+    // Actualizar el estado de activación
+    $alojamiento->activo = $activo;
+    $alojamiento->save();
+
+    return response()->json(['success' => true]);
+}
 
 }

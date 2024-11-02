@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/Productos', [ProductoController::class, 'mostrarInformacionProductos'])->name('productos');
 Route::get('/Eventos', [EventoController::class, 'mostrarInformacionEventos'])->name('eventos');
-Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarAlojamientos'])->name('alojamientos');
+Route::get('/Alojamientos', [AlojamientoController::class, 'mostrarInformacionAlojamientos'])->name('alojamientos');
 Route::get('/Comercios', [ComercioController::class, 'mostrarInformacionComercios'])->name('comercios');
 Route::view('/Contacto', 'frontend.contacto')->name('contacto');
 Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros');
@@ -46,12 +46,19 @@ Route::prefix('notifications')->group(function () {
     Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
 });
 
-// Rutas para activar/desactivar producto
+// Rutas para activar/desactivar 
+//product
 Route::prefix('productos')->name('productos.')->group(function () {
     Route::post('{id}/activar', [ProductoController::class, 'activar'])->name('activar');
     Route::post('{id}/desactivar', [ProductoController::class, 'desactivar'])->name('desactivar');
     Route::post('{id}/toggle-activation', [ProductoController::class, 'toggleActivation'])->name('toggleActivation');
 });
+//alojamiento
+Route::post('/alojamientos/{id}/toggle-activation', [AlojamientoController::class, 'toggleActivation'])->name('alojamientos.toggleActivation');
+//evento
+Route::post('/eventos/{id}/toggle-activation', [EventoController::class, 'toggleActivation'])->name('eventos.toggleActivation');
+
+
 
 // Ruta para cambiar el idioma
 Route::get('/set-language/{lang}', [LanguageController::class, 'setLanguage'])->name('set.language');
@@ -69,3 +76,8 @@ Route::middleware('auth')->group(function () {
     // Vista del panel de administración
     Route::view('/admin', 'admin.admin')->name('admin');
 });
+
+//busquedas
+Route::get('/buscar-alojamientos', [AlojamientoController::class, 'buscarAlojamientos'])->name('alojamientos.buscar');
+Route::get('/buscar-productos-informativo', [ProductoController::class, 'buscarInformativo'])->name('productos.buscarInformativo');
+

@@ -24,34 +24,33 @@
         @endif
 
         <!-- Sección de Título y Barra de Búsqueda -->
-        <section class="alojamientos section py-5 bg-light" id="alojamientos">
+        <section class="alojamientos section py-5 custom-gray" id="alojamientos">
             <div class="container section-title mb-3">
-                <!-- Título principal -->
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h2 class="fw-bold">Catálogo de Alojamientos</h2>
-                    </div>
-                </div>
-                <!-- Fila con texto descriptivo y barra de búsqueda -->
-                <div class="row align-items-center mt-2">
-                    <div class="col-md-8 text-md-start text-center">
-                        <p class="text-muted">Descubre los alojamientos disponibles a continuación.</p>
-                    </div>
-                    <!-- Barra de búsqueda con icono de lupa y botón de limpiar -->
-                    <div class="col-md-4 d-flex justify-content-md-end justify-content-center mt-2 mt-md-0">
-                        <div class="input-group w-75">
-                            <span class="input-group-text bg-white">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" id="search" class="form-control" placeholder="Buscar alojamientos..."
-                                aria-label="Buscar alojamientos">
-                            <span class="input-group-text bg-white">
-                                <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
-                            </span>
-                        </div>
-                    </div>
+                <!-- Contenedor del Título -->
+    <div class="container title-container mb-0">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold">Catálogo de Alojamientos</h2>
+            </div>
+        </div>
+    </div><!-- End Title Container -->
+
+    <!-- Contenedor de la Barra de Búsqueda -->
+    <div class="container search-container mb-4">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="input-group" style="width: 100%; max-width: 300px;">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="search" class="form-control" placeholder="Buscar alojamientos..." aria-label="Buscar alojamientos">
+                    <span class="input-group-text bg-white">
+                        <i class="fas fa-times" id="clear-search" style="cursor: pointer;"></i>
+                    </span>
                 </div>
             </div>
+        </div>
+    </div><!-- End Search Container -->
 
             <!-- Lista de Alojamientos -->
             <div class="alojamiento-wrap mt-2">
@@ -129,12 +128,9 @@
                                                             {{ $aloja->precioAlojamiento }} CRC</p>
                                                         <p><strong>Capacidad:</strong> {{ $aloja->capacidad }} personas</p>
                                                         <p><strong>Comercio:</strong>
-                                                            @foreach ($comercios as $comercio)
-                                                                @if (isset($aloja) && $aloja->idComercio_fk == $comercio->idComercio)
-                                                                    {{ $comercio->nombreComercio }}
-                                                                @endif
-                                                            @endforeach
-                                                        </p>
+    {{ $aloja->comercio->nombreComercio ?? 'No especificado' }}
+</p>
+
                                                         <p><strong>Fecha de Inicio:</strong>
                                                             {{ \Carbon\Carbon::parse($aloja->fechaInicio)->format('d/m/Y') }}
                                                         </p>
@@ -241,5 +237,124 @@
                 </div>
             </div>
         </section>
+        <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search');
+        const clearButton = document.getElementById('clear-search');
+
+        // Función de debounce para evitar múltiples llamadas mientras el usuario escribe
+        function debounce(func, delay) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        // Función para inicializar modales después de la actualización AJAX
+        function initializeModals() {
+            const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'));
+            modalTriggerList.forEach(function(modalTriggerEl) {
+                new bootstrap.Modal(modalTriggerEl);
+            });
+        }
+
+        // Función para realizar la búsqueda AJAX y manejar la paginación
+        function fetchAlojamientos(query, page = 1) {
+            fetch(`/buscar-alojamientos?q=${query}&page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    const alojamientoWrap = document.querySelector('.alojamiento-wrap .row');
+                    alojamientoWrap.innerHTML = '';
+
+                    if (data.alojamientos.length > 0) {
+                        data.alojamientos.forEach(alojamiento => {
+                            const alojamientoHTML = `
+                            <div class="col-lg-3 col-md-4 mb-4">
+                                <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                                    <img src="${alojamiento.imagen ? `{{ asset('') }}${alojamiento.imagen}` : '{{ asset('assets/img/default-image.jpg') }}'}" 
+                                         alt="${alojamiento.nombreAlojamiento}" 
+                                         class="card-img-top" style="height: 150px; object-fit: cover;">
+                                    <div class="card-body d-flex flex-column justify-content-between">
+                                        <h5 class="card-title text-center">${alojamiento.nombreAlojamiento}</h5>
+                                        <p class="text-center">Precio: ${alojamiento.precioAlojamiento} CRC</p>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alojaModal${alojamiento.idAlojamiento}">
+                                                Ver más
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="alojaModal${alojamiento.idAlojamiento}" tabindex="-1" aria-labelledby="alojaModalLabel${alojamiento.idAlojamiento}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content border-0 shadow-lg rounded-4">
+                                        <div class="modal-header bg-light text-dark justify-content-center">
+                                            <h5 class="modal-title text-center fw-bold" id="alojaModalLabel${alojamiento.idAlojamiento}" style="font-size: 1.75rem;">
+                                                ${alojamiento.nombreAlojamiento}
+                                            </h5>
+                                            <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="${alojamiento.imagen ? `{{ asset('') }}${alojamiento.imagen}` : '{{ asset('assets/img/default-image.jpg') }}'}" 
+                                                 alt="${alojamiento.nombreAlojamiento}" 
+                                                 class="img-fluid mb-3 d-block mx-auto rounded-3" 
+                                                 style="max-height: 300px; object-fit: cover;">
+                                            <div class="alojamiento-details">
+                                                <p><strong>Descripción:</strong> ${alojamiento.descripcionAlojamiento}</p>
+                                                <p class="text-success"><strong>Precio:</strong> ${alojamiento.precioAlojamiento} CRC</p>
+                                                <p><strong>Capacidad:</strong> ${alojamiento.capacidad} personas</p>
+                                                <p><strong>Comercio:</strong> ${alojamiento.comercio ? alojamiento.comercio.nombreComercio : 'No especificado'}</p>
+                                                <p><strong>Fecha de Inicio:</strong> ${new Date(alojamiento.fechaInicio).toLocaleDateString()}</p>
+                                                <p><strong>Fecha de Fin:</strong> ${new Date(alojamiento.fechaFin).toLocaleDateString()}</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer bg-light">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                            alojamientoWrap.insertAdjacentHTML('beforeend', alojamientoHTML);
+                        });
+                    } else {
+                        alojamientoWrap.innerHTML =
+                            '<div class="col-12 text-center"><p>No hay alojamientos que coincidan con tu búsqueda.</p></div>';
+                    }
+
+                    // Actualizar paginación
+                    const pagination = document.querySelector('.pagination');
+                    pagination.innerHTML = data.pagination;
+
+                    // Reinicializar modales
+                    initializeModals();
+                });
+        }
+
+        // Búsqueda en tiempo real con debounce
+        searchInput.addEventListener('input', debounce(function() {
+            fetchAlojamientos(this.value);
+        }, 300)); // 300ms de espera antes de ejecutar la búsqueda
+
+        // Limpiar el campo de búsqueda
+        clearButton.addEventListener('click', function() {
+            searchInput.value = '';
+            fetchAlojamientos(''); // Limpiar la búsqueda
+        });
+
+        // Manejar la paginación
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.pagination a')) {
+                event.preventDefault();
+                const page = event.target.getAttribute('href').split('page=')[1];
+                fetchAlojamientos(searchInput.value, page);
+            }
+        });
+    });
+</script>
+
     </main>
 @endsection

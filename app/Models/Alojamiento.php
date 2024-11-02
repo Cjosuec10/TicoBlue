@@ -23,7 +23,8 @@ class Alojamiento extends Model
         'imagen',
         'fechaInicio',
         'fechaFin',
-        'idComercio_fk'
+        'idComercio_fk',
+        'activo'
     ];
     public function comercio()
     {
