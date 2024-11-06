@@ -9,6 +9,25 @@ class NotificationController extends Controller
 {
     public function store(Request $request)
 {
+      // Verificar el token de reCAPTCHA
+      $response = $request->input('g-recaptcha-response');
+      $recaptchaSecret = config('services.recaptcha.secret_key');
+  
+      $client = new \GuzzleHttp\Client();
+      $recaptchaResponse = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+          'form_params' => [
+              'secret' => $recaptchaSecret,
+              'response' => $response,
+              'remoteip' => $request->ip(),
+          ]
+      ]);
+  
+      $recaptchaData = json_decode($recaptchaResponse->getBody());
+  
+      if (!$recaptchaData->success) {
+          return response()->json(['success' => false, 'message' => 'Completa el reCAPTCHA correctamente.'], 422);
+      }
+ 
     // Validar la solicitud
     $request->validate([
         'nombre' => 'required|string|max:255',
