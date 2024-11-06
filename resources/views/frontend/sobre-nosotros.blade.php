@@ -32,7 +32,7 @@
     <div class="w-100 mt-5 mb-5"></div>
 
     <!-- Sección de Misión y Visión -->
-    <div class="row d-flex align-items-stretch" data-aos="fade-up-left">
+    <div id='mision' class="row d-flex align-items-stretch" data-aos="fade-up-left">
     <div class="col-md-6 mb-4">
         <div class="p-4 h-100 rounded shadow-sm d-flex flex-column justify-content-center" style="background-color: #F3F7FA; min-height: 300px;">
             <h2 class="h4 fw-semibold mb-3 text-center" style="color: #0159AA;">Nuestra Misión</h2>
@@ -54,7 +54,7 @@
 
 
 <!-- Sección de Valores -->
-<section class="animated-card row align-items-center mb-5 bg-light p-4 rounded shadow-sm" data-aos="flip-right">
+<section id='valores' class="animated-card row align-items-center mb-5 bg-light p-4 rounded shadow-sm" data-aos="flip-right">
     <h2 class="h4 fw-semibold mb-5 text-center" style="color: #0159AA;">Nuestros Valores</h2>
     <div class="row text-center gx-4 gy-5">
         <!-- Valor 1: Autenticidad -->
