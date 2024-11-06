@@ -68,8 +68,8 @@
             <div class="col-lg-8">
                 <div class="container contact-container">
                     
-                    <form action="{{ route('notifications.store') }}" method="POST" class="contact-form">
-                        @csrf
+                <form id="contact-form" action="{{ route('notifications.store') }}" method="POST" class="contact-form">
+                @csrf
                         <div class="row">
                         <h3 class="mb-4">Envíanos un mensaje</h3>
                         <p class="contact-description mb-4">Por favor, completa el formulario a continuación para contactarnos.</p>
@@ -102,12 +102,27 @@
                             <label for="mensaje" class="form-label">Mensaje</label>
                             <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
                         </div>
-                        
+                
+    <div class="g-recaptcha mb-3" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
                         <button type="submit" class="mt-2 mb-1 btn btn-primary w-100">Enviar Mensaje</button>
                     </form>
+                    <!-- Cargar el script de reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Formulario enviado!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>
+@endif
                 </div>
             </div><!-- Fin Columna del Formulario de Contacto -->
-
         </div>
     </div>
 </section><!-- Fin Sección de Contacto -->
