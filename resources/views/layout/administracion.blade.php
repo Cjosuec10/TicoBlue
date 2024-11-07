@@ -76,80 +76,117 @@
 <!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<!-- Campanita de notificaciones -->
-<div class="notification-bell">
-    <i class="fa fa-bell"></i>
-    <span id="notification-count" class="badge badge-danger"></span>
+<div class="d-flex align-items-center">
+  <!-- Botón de notificación con campanita y contador de notificaciones no leídas -->
+  <button type="button" class="btn btn-sm btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+      <i class="fas fa-bell"></i> <!-- Ícono de campana -->
+      
+      <!-- Contador de notificaciones no leídas -->
+      @if($notifications->count() > 0)
+          <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge-pill">
+              {{ $notifications->count() }}
+          </span>
+      @endif
+  </button>
 </div>
 
-<!-- Modal de notificaciones -->
-<div id="notificationModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Notificaciones</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body" id="notification-list">
-                <!-- Notificaciones se cargarán aquí -->
-            </div>
-        </div>
-    </div>
+<!-- Modal para mostrar las notificaciones -->
+<div id="notificationsModal" class="modal fade" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="notificationsModalLabel">Notificaciones</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Listado de notificaciones -->
+              @foreach($notifications as $notification)
+                  <div class="notification-item border-bottom py-2">
+                      <h6 class="mb-1">{{ $notification->data['title'] }}</h6>
+                      <p class="mb-1">{{ $notification->data['message'] }}</p>
+                      <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                  </div>
+              @endforeach
+
+              @if($notifications->isEmpty())
+                  <p class="text-center">No hay notificaciones nuevas</p>
+              @endif
+          </div>
+      </div>
+  </div>
 </div>
+
+<!-- CSS para el contador y el modal -->
+<style>
+  /* Estilos para el ícono de campana de notificación */
+  .btn-primary.position-relative .fa-bell {
+      font-size: 1.2rem;
+  }
+
+  /* Contador de notificaciones */
+  .badge-pill {
+      font-size: 0.75rem;
+      padding: 0.3em 0.6em;
+  }
+
+  /* Modal de notificaciones */
+  .notification-item {
+      padding: 0.5em;
+  }
+  .notification-item h6 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+  }
+  .notification-item p {
+      font-size: 0.875rem;
+      color: #555;
+  }
+  .notification-item small {
+      font-size: 0.75rem;
+      color: #999;
+  }
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Función para cargar notificaciones no leídas
-        function loadNotifications() {
-            $.ajax({
-                url: '/notifications', // Ruta para obtener las notificaciones
-                type: 'GET',
-                success: function(data) {
-                    $('#notification-list').html(data.html);
-                    $('#notification-count').text(data.unread_count > 0 ? data.unread_count : '');
-                }
-            });
+$(document).ready(function() {
+    // Agregar token CSRF a todas las solicitudes AJAX
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
-
-        // Abrir modal de notificaciones y marcar como leídas
-        $('.notification-bell').on('click', function() {
-            $('#notificationModal').modal('show');
-            $.ajax({
-                url: '/notifications/markAsRead',
-                type: 'POST',
-                data: { _token: '{{ csrf_token() }}' },
-                success: function() {
-                    loadNotifications();
-                }
-            });
-        });
-
-        // Cargar notificaciones al inicio
-        loadNotifications();
     });
-</script>
 
-<!-- CSS Adicional -->
-<style>
-  .vertical-separator {
-        width: 1px;
-        height: 30px;
-        background-color: #ccc;
+    // Función para cargar notificaciones no leídas
+    function loadNotifications() {
+        $.ajax({
+            url: '/notifications',
+            type: 'GET',
+            success: function(data) {
+                $('#notification-list').html(data.html); // Actualiza el contenido del modal
+                $('#notification-count').text(data.unread_count > 0 ? data.unread_count : '');
+            }
+        });
     }
-    .navbar .d-flex {
-        align-items: center;
-        height: 100%;
-    }
-    .btn-sm {
-        font-size: 0.875rem;
-        padding: 0.3rem 0.6rem;
-    }
-    .btn-sm .badge-pill {
-        font-size: 0.7rem;
-        padding: 0.2em 0.4em;
-    }
-</style>
+
+    // Abrir modal de notificaciones y marcar como leídas
+    $('.notification-bell').on('click', function() {
+        $('#notificationModal').modal('show');
+        $.ajax({
+            url: '/notifications/markAsRead',
+            type: 'POST',
+            success: function() {
+                $('#notification-count').text(''); // Reinicia el contador
+                loadNotifications(); // Recargar notificaciones para actualizar el estado
+            }
+        });
+    });
+
+    // Cargar notificaciones al inicio
+    loadNotifications();
+});
+</script>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

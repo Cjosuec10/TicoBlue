@@ -70,14 +70,31 @@ class NotificationController extends Controller
     }
 
     public function markAsRead($id)
-    {
-        // Marcar la notificación como leída
-        $notification = Notification::find($id);
-        $notification->is_read = true;
-        $notification->save();
+{
+    // Encuentra la notificación específica del usuario autenticado
+    $notification = Auth::user()->notifications()->find($id);
 
-        return redirect()->back();
+    if ($notification) {
+        $notification->markAsRead();
     }
+
+    return response()->json(['success' => true]);
+}
+    public function getNotifications()
+{
+    $user = Auth::user();
+    $unreadNotifications = ReservaNotificacion::where('notifiable_id', $user->id)
+                                              ->whereNull('read_at')
+                                              ->get();
+
+    // Renderizar el HTML de las notificaciones para enviarlo al frontend
+    $html = view('partials.notification_items', compact('unreadNotifications'))->render();
+
+    return response()->json([
+        'html' => $html,
+        'unread_count' => $unreadNotifications->count(),
+    ]);
+}
 
     
 }

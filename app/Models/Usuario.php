@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\ReservaNotificacion;
 
 class Usuario extends Authenticatable
 {
@@ -13,6 +14,13 @@ class Usuario extends Authenticatable
     // Definir el nombre de la tabla
     protected $table = 'usuarios';
     protected $primaryKey = 'idUsuario';
+    
+    // Relación personalizada para notificaciones
+    public function notifications()
+    {
+        return $this->morphMany(ReservaNotificacion::class, 'notifiable')
+                    ->orderBy('created_at', 'desc');
+    }
 
     // Las columnas que se pueden llenar automáticamente
     protected $fillable = [

@@ -9,12 +9,11 @@
                 <!-- Notificaciones no leídas -->
                 @foreach ($unreadNotifications as $notification)
                     @php
-                        // Decodifica el campo `data` y verifica que sea JSON válido
-                        $data = json_decode($notification->data, true); 
+                        $data = json_decode($notification->data, true); // Decodifica el campo `data`
                     @endphp
                     <div class="notification-item">
-                        <h6>{{ htmlspecialchars($data['title'] ?? 'Notificación', ENT_QUOTES, 'UTF-8') }}</h6>
-                        <p>{{ htmlspecialchars($data['message'] ?? 'Mensaje no disponible', ENT_QUOTES, 'UTF-8') }}</p>
+                        <h6>{{ $data['title'] ?? 'Notificación' }}</h6>
+                        <p>{{ $data['message'] ?? 'Mensaje no disponible' }}</p>
                         <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                     </div>
                 @endforeach

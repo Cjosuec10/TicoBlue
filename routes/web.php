@@ -40,10 +40,23 @@ Route::prefix('auth')->group(function () {
 
 // Rutas de notificación
 Route::prefix('notifications')->group(function () {
+    // Ruta para crear una notificación (si la necesitas)
     Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store');
+    
+    // Ruta para listar las notificaciones
     Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+    
+    // Ruta para marcar una notificación específica como leída (usa PATCH y el ID de la notificación)
     Route::patch('/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    
+    // Ruta para obtener todas las notificaciones (por ejemplo, para un historial)
     Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
+    
+    // Ruta para obtener notificaciones específicas (puede ser útil para AJAX)
+    Route::get('/reservanotifications', [NotificationController::class, 'getNotifications']);
+
+    // Ruta para marcar todas las notificaciones como leídas
+    Route::post('/markAsRead', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 });
 
 // Rutas para activar/desactivar 
