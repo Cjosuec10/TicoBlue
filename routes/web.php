@@ -12,6 +12,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Admin\AdminController;
+
 
 // Rutas públicas (accesibles sin autenticación)
 Route::get('/', function () {
@@ -45,6 +47,12 @@ Route::prefix('notifications')->group(function () {
     Route::patch('/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
     Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
 });
+
+//dashboard
+// Ruta para /admin
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 
 // Rutas para activar/desactivar 
 //product

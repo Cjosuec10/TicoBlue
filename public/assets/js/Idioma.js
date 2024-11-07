@@ -5,10 +5,15 @@ const translations = {
     productModule: "Módulo de productos",
     eventModule: "Módulo de Eventos",
     accommodation: "Alojamiento",
-    reserves: "Reservas(pendiente)",
-    images: "Imágenes(pendiente)",
+    reserves: "Reservas",
+    images: "Imágenes",
+    commerceSummary: "Comercios",
+    eventSummary: "Eventos",
+    productSummary: "Productos",
+    accommodationSummary: "Alojamientos",
     userModule: "Módulo de Usuarios",
-    roles: "Roles(pendiente)",
+    roles: "Roles",
+    overview: "Visión General de Datos",
     profile: "Perfil",
     logout: "Cerrar Sesión",
     copyright: "Todos los derechos reservados.",
@@ -17,21 +22,29 @@ const translations = {
     accommodations: "Alojamientos",
     user: "Usuario",
     products: "Productos",
-    user_management: "Gestión y perfil de usuario."
+    user_management: "Gestión y perfil de usuario.",
+    viewAllNotifications: "Historial de notificaciones",
   },
   en: {
     menu: "Menu",
     commerceModule: "Commerce module",
+    viewAllNotifications: "Notifications History",
+    commerceSummary: "Commerces",
+    eventSummary: "Events",
+    productSummary: "Products",
+    accommodationSummary: "Accommodations",
     productModule: "Product module",
     eventModule: "Event module",
     accommodation: "Accommodation",
-    reserves: "Reservations (pending)",
-    images: "Images (pending)",
+    reserves: "Reservations",
+    images: "Images",
     userModule: "User module",
-    roles: "Roles(pending)",
+    roles: "Roles",
     profile: "Profile",
     logout: "Logout",
     copyright: "All rights reserved.",
+    overview: "Overview of Data",
+
     // Main page
     page_title: "My Page",
     login_and_registration: "Login and Registration",
@@ -40,6 +53,8 @@ const translations = {
     user_management: "User management and profile."
   }
 };
+
+
 
 // Función para cambiar el idioma en la página principal y simbolo moneda 
 function switchLanguage(language) {
@@ -65,6 +80,7 @@ if (currencyElement) {
 document.querySelectorAll('.flags__item').forEach(flag => {
   flag.addEventListener('click', () => {
     const language = flag.getAttribute('data-language');
+    localStorage.setItem('language', language);
     switchLanguage(language);
     selectLanguageFlag(flag);  // Seleccionar la bandera actual
   });
@@ -145,7 +161,7 @@ function switchCommerceLanguage(lang) {
 // Idioma.js
 document.addEventListener("DOMContentLoaded", function () {
   const language = localStorage.getItem('language') || 'es'; // Idioma predeterminado: español
-  changeLanguage(language);
+  switchLanguage(language);
 });
 
 function selectLanguage(lang) {
