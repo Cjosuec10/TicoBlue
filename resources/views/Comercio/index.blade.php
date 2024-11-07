@@ -109,9 +109,7 @@
             margin-left: 10px;
         }
 
-        .btn {
-            min-width: 80px;
-        }
+        
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
