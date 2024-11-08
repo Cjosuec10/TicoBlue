@@ -77,6 +77,60 @@
 <!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<!-- Campanita de notificaciones -->
+<div class="notification-bell">
+    <i class="fa fa-bell"></i>
+    <span id="notification-count" class="badge badge-danger"></span>
+</div>
+
+<!-- Modal de notificaciones -->
+<div id="notificationModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notificaciones</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="notification-list">
+                <!-- Notificaciones se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Función para cargar notificaciones no leídas
+        function loadNotifications() {
+            $.ajax({
+                url: '/notifications', // Ruta para obtener las notificaciones
+                type: 'GET',
+                success: function(data) {
+                    $('#notification-list').html(data.html);
+                    $('#notification-count').text(data.unread_count > 0 ? data.unread_count : '');
+                }
+            });
+        }
+
+        // Abrir modal de notificaciones y marcar como leídas
+        $('.notification-bell').on('click', function() {
+            $('#notificationModal').modal('show');
+            $.ajax({
+                url: '/notifications/markAsRead',
+                type: 'POST',
+                data: { _token: '{{ csrf_token() }}' },
+                success: function() {
+                    loadNotifications();
+                }
+            });
+        });
+
+        // Cargar notificaciones al inicio
+        loadNotifications();
+    });
+</script>
+
 <!-- CSS Adicional -->
 <style>
   .vertical-separator {
