@@ -8,8 +8,8 @@
   <main class="main custom-gray">
 
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-
-  <h2 class="text-center">Contáctanos</h2>
+ss
+  <h2 class="text-center mt-3">Contáctanos</h2>
     <p class="text-center">¿Tienes alguna pregunta, duda o sugerencia? Estamos aquí para ayudarte. Llena el formulario o utiliza nuestros canales de contacto.</p>
 
     <!-- Información de contacto general -->
