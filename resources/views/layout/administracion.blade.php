@@ -35,6 +35,7 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
+
   @yield('css') <!-- Aquí puedes incluir CSS extra en las vistas específicas -->
 </head>
 
@@ -242,7 +243,7 @@ $(document).ready(function() {
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="/admin">
+      <a class="nav-link collapsed" href="/admin/dashboard">
         <i class="bi bi-grid"></i>
         <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
       </a>
@@ -359,6 +360,7 @@ $(document).ready(function() {
   <script src="{{ asset('assets/js/Idioma.js') }}"></script>
 
   @yield('scripts') 
+
 
 </body>
 

@@ -56,7 +56,7 @@
           <!-- Verificar si el usuario tiene uno o varios de los permisos -->
             @canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
               <li class="dropdown">
-                  <a href="/admin"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <a href="/admin/dashboard"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
                       <!-- Mostrar opciones solo si el usuario tiene el permiso adecuado -->
                       @can('ver-rol')
@@ -151,7 +151,7 @@
             <li class="mb-2"><a href="/Eventos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Eventos</a></li>
             <li class="mb-2"><a href="/Productos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Productos</a></li>
             <li class="mb-2"><a href="/Alojamientos" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Alojamientos</a></li>
-            <li class="mb-2"><a href="#services" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Servicios</a></li>
+            <li class="mb-2"><a href="{{ route('home') }}#services" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Servicios</a></li>
           </ul>
         </div>
 
@@ -160,11 +160,11 @@
           <h5 class="text-uppercase mb-4">  <br><br><br><br></h5>
           <ul class="list-unstyled">
           <li class="mb-2"><a href="/Sobre-nosotros" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Sobre Nosotros</a></li>
-            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Nuestra misión</a></li>
-            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Visión</a></li>
-            <li class="mb-2"><a href="#" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Valores</a></li>
+            <li class="mb-2"><a href="{{ route('sobre-nosotros') }}#mision" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Misión</a></li>
+            <li class="mb-2"><a href="{{ route('sobre-nosotros') }}#mision" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Visión</a></li>
+            <li class="mb-2"><a href="{{ route('sobre-nosotros') }}#valores" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Valores</a></li>
             <li class="mb-2"><a href="/Contacto" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Contacto</a></li>
-            <li class="mb-2"><a href="/login" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Login</a></li>
+            <li class="mb-2"><a href="{{ route('login') }}" class="text-white"><i class="bi bi-chevron-right pe-2"></i>Login</a></li>
           </ul>
         </div>
 
