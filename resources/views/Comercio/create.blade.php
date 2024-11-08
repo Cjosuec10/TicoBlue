@@ -5,6 +5,7 @@
 
     <div class="card">
         <div class="card-body">
+            <h1 class="card-title"></h1>
             <!-- Agregamos el id "crearComercioForm" al formulario -->
             <form id="crearComercioForm" action="{{ route('comercios.store') }}" method="POST" enctype="multipart/form-data"
                 class="row g-3 needs-validation" novalidate>
@@ -12,8 +13,9 @@
 
                 <!-- Nombre del Comercio -->
                 <div class="col-md-6">
-                    <label for="nombreComercio" class="form-label">Nombre del Comercio</label>
-                    <input type="text" class="form-control" id="nombreComercio" name="nombreComercio" required>
+                    <label for="nombreComercio" class="form-label">Nombre del Comercio<span class="text-danger">**</span></label>
+                    <input type="text" class="form-control" id="nombreComercio" name="nombreComercio" required
+                        placeholder="Ingrese el nombre del comercio">
                     <div class="invalid-feedback">
                         Por favor, ingrese el nombre del comercio.
                     </div>
@@ -21,7 +23,7 @@
 
                 <!-- Tipo de Negocio -->
                 <div class="col-md-6">
-                    <label for="tipoNegocio" class="form-label">Tipo de Negocio</label>
+                    <label for="tipoNegocio" class="form-label">Tipo de Negocio<span class="text-danger">**</span></label>
                     <select class="form-select" id="tipoNegocio" name="tipoNegocio" required>
                         <option selected disabled value="">Seleccione el tipo de negocio</option>
                         <option value="Soda">Soda</option>
@@ -43,44 +45,42 @@
 
                 <!-- Correo del Comercio -->
                 <div class="col-md-6">
-                    <label for="correoComercio" class="form-label">Correo</label>
-                    <input type="email" class="form-control" id="correoComercio" name="correoComercio" required>
+                    <label for="correoComercio" class="form-label">Correo<span class="text-danger">**</span></label>
+                    <input type="email" class="form-control" id="correoComercio" name="correoComercio" required
+                        placeholder="Ingrese el correo electrónico">
                     <div class="invalid-feedback">
                         Por favor, ingrese un correo válido.
                     </div>
                 </div>
-
-                <div class="col-12">
-                    <label for="country" class="form-label">País</label>
-                    <select id="country" class="form-select">
-                        <option value="506" data-country="Costa Rica" selected>Costa Rica (+506)</option>
-                    </select>
-                </div>
-
+                
                 <!-- Teléfono del Comercio -->
-                <div class="col-md-6">
-                    <label for="telefonoComercio" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="telefonoComercio" name="telefonoComercio" required>
+                <div class="col-md-4">
+                    <label for="telefonoComercio" class="form-label">Teléfono (opcional)</label>
+                    <input type="tel" class="form-control" id="telefonoComercio" name="telefonoComercio" required
+                        placeholder="+506 XXXX-XXXX">
                     <div class="invalid-feedback">
                         Por favor, ingrese un teléfono válido.
                     </div>
                 </div>
 
-                <!-- Descripción del Comercio -->
-                <div class="col-md-12">
-                    <label for="descripcionComercio" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="descripcionComercio" name="descripcionComercio"></textarea>
+                <!-- Mostrar Usuario Actual -->
+                <div class="col-md-2">
+                    <label for="idUsuario_fk" class="form-label">Usuario</label>
+                    <input type="text" class="form-control" id="nombre"
+                        value="{{ auth()->user()->nombre ?? 'Nombre no disponible' }}" readonly>
+                    <input type="hidden" name="idUsuario_fk" value="{{ auth()->user()->id }}">
                 </div>
 
-                <!-- Selección de imagen -->
-                <div class="col-md-6">
-                    <label for="imagen">Imagen</label>
-                    <input type="file" id="imagen" name="imagen">
+                <!-- Descripción del Comercio -->
+                <div class="col-md-12">
+                    <label for="descripcionComercio" class="form-label">Descripción (opcional)</label>
+                    <textarea class="form-control" id="descripcionComercio" name="descripcionComercio"
+                        placeholder="Ingrese una descripción del comercio"></textarea>
                 </div>
 
                 <!-- Dirección URL -->
                 <div class="col-md-12">
-                    <label for="direccion_url" class="form-label">ID del Mapa de Google</label>
+                    <label for="direccion_url" class="form-label">ID del Mapa de Google (opcional)</label>
                     <textarea class="form-control @error('direccion_url') is-invalid @enderror" id="direccion_url" name="direccion_url"
                         rows="3" placeholder="Ingrese ID de Mapa de Google">{{ old('direccion_url') }}</textarea>
                     <div class="invalid-feedback">
@@ -91,22 +91,27 @@
                 </div>
 
                 <!-- Dirección en Texto -->
-                <div class="col-md-6">
-                    <label for="direccion_texto" class="form-label">Dirección (Texto)</label>
-                    <input type="text" class="form-control" id="direccion_texto" name="direccion_texto">
+                <div class="col-md-12">
+                    <label for="direccion_texto" class="form-label">Dirección (opcional)</label>
+                    <textarea type="text" class="form-control" id="direccion_texto" name="direccion_texto"
+                        placeholder="Ingrese la dirección completa del comercio"></textarea>
                     <div class="invalid-feedback">
                         Por favor, ingrese una dirección.
                     </div>
                 </div>
 
-                <!-- Mostrar Usuario Actual -->
-                <div class="col-md-6">
-                    <label for="idUsuario_fk" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" id="nombre"
-                        value="{{ auth()->user()->nombre ?? 'Nombre no disponible' }}" readonly>
-                    <input type="hidden" name="idUsuario_fk" value="{{ auth()->user()->id }}">
+                <div class="col-3" hidden>
+                    <label for="country" class="form-label">País (opcional)</label>
+                    <select id="country" class="form-select">
+                        <option value="506" data-country="Costa Rica" selected>Costa Rica (+506)</option>
+                    </select>
                 </div>
 
+                <!-- Selección de imagen -->
+                <div class="col-md-6">
+                    <label for="imagen">Imagen (opcional)</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                </div>
 
                 <!-- Botón para Enviar -->
                 <div class="col-12 d-flex justify-content-center gap-2">

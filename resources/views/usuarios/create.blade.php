@@ -11,8 +11,8 @@
 
                 <!-- Nombre del Usuario -->
                 <div class="col-md-6">
-                    <label for="nombreUsuario" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombreUsuario" name="nombre" required>
+                    <label for="nombreUsuario" class="form-label">Nombre<span class="text-danger">**</span></label>
+                    <input type="text" placeholder="Ingrese el nombre del usuario" class="form-control" id="nombreUsuario" name="nombre" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese el nombre del usuario.
                     </div>
@@ -23,8 +23,8 @@
 
                 <!-- Correo del Usuario -->
                 <div class="col-md-6">
-                    <label for="correoUsuario" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="correoUsuario" name="correo" required>
+                    <label for="correoUsuario" class="form-label">Correo Electrónico<span class="text-danger">**</span></label>
+                    <input type="email" placeholder="ejemplo@correo.com" class="form-control" id="correoUsuario" name="correo" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese un correo válido.
                     </div>
@@ -35,8 +35,8 @@
 
                 <!-- Contraseña del Usuario -->
                 <div class="col-md-6">
-                    <label for="contrasenaUsuario" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="contrasenaUsuario" name="contrasena" required>
+                    <label for="contrasenaUsuario" class="form-label">Contraseña<span class="text-danger">**</span></label>
+                    <input type="password" placeholder="Ingrese una contraseña" class="form-control" id="contrasenaUsuario" name="contrasena" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese una contraseña.
                     </div>
@@ -47,8 +47,8 @@
 
                 <!-- Confirmar Contraseña -->
                 <div class="col-md-6">
-                    <label for="confirmarContrasena" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" id="confirmarContrasena" name="contrasena_confirmation" required>
+                    <label for="confirmarContrasena" class="form-label">Confirmar Contraseña<span class="text-danger">**</span></label>
+                    <input type="password" placeholder="Confirme la contraseña" class="form-control" id="confirmarContrasena" name="contrasena_confirmation" required>
                     <div class="invalid-feedback">
                         Por favor, confirme la contraseña.
                     </div>
@@ -59,8 +59,8 @@
 
                 <!-- Teléfono del Usuario -->
                 <div class="col-md-6">
-                    <label for="telefonoUsuario" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="telefonoUsuario" name="telefono">
+                    <label for="telefonoUsuario" class="form-label">Teléfono (opcional)</label>
+                    <input type="text" placeholder="Ingrese el número de teléfono" class="form-control" id="telefonoUsuario" name="telefono">
                     <div class="invalid-feedback">
                         Por favor, ingrese un número de teléfono válido.
                     </div>
@@ -71,7 +71,7 @@
 
                 <!-- Rol del Usuario -->
                 <div class="col-md-6">
-                    <label for="rolUsuario" class="form-label">Rol</label>
+                    <label for="rolUsuario" class="form-label">Rol<span class="text-danger">**</span></label>
                     <select class="form-select" id="rolUsuario" name="roles[]" required>
                         <option selected disabled value="">Seleccione un rol</option>
                         @foreach($roles as $role)
