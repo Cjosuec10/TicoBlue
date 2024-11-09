@@ -53,63 +53,104 @@
           <li><a href="/Sobre-nosotros" class="{{ request()->is('sobre-nosotros') ? 'active' : '' }}">Sobre Nosotros</a></li>
           <li><a href="/Contacto" class="{{ request()->is('contacto') ? 'active' : '' }}">Contacto</a></li>
           
-          <!-- Verificar si el usuario tiene uno o varios de los permisos -->
-            @canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
-              <li class="dropdown">
-                  <a href="/admin/dashboard"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                      <!-- Mostrar opciones solo si el usuario tiene el permiso adecuado -->
-                      @can('ver-rol')
-                          <li><a href="{{ route('roles.index') }}">Gestionar Roles</a></li>
-                      @endcan
-                      @can('ver-usuario')
-                          <li><a href="{{ route('usuarios.index') }}">Gestionar Usuarios</a></li>
-                      @endcan
-                      @can('ver-alojamiento')
-                          <li><a href="{{ route('alojamiento.index') }}">Gestionar Alojamientos</a></li>
-                      @endcan
-                      @can('ver-comercio')
-                          <li><a href="{{ route('comercios.index') }}">Gestionar Comercios</a></li>
-                      @endcan
-                      @can('ver-evento')
-                          <li><a href="{{ route('eventos.index') }}">Gestionar Eventos</a></li>
-                      @endcan
-                      @can('ver-producto')
-                          <li><a href="{{ route('productos.index') }}">Gestionar Productos</a></li>
-                      @endcan
-                      @can('ver-reservacion')
-                          <li><a href="{{ route('reservaciones.index') }}">Gestionar Reservaciones</a></li>
-                      @endcan
-                     
-                  </ul>
-              </li>
-          @endcanany
-            <!-- Dropdown con opciones de autenticación -->
-            <li class="dropdown">
-                <a href="#"><span>Cuenta</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                <ul>
-                    <!-- Mostrar opciones de autenticación cuando el usuario no está autenticado -->
-                    @guest
-                        <li><a href="{{ route('login') }}" class="{{ request()->is('login') ? 'active' : '' }}">Login</a></li>
-                        <li><a href="{{ route('register.form') }}" class="{{ request()->is('register') ? 'active' : '' }}">Register</a></li>
-                    @endguest
+        <!-- Verificar si el usuario tiene uno o varios de los permisos -->
+@canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
+    <li>
+        <!-- Botón Admin que redirige a la página de administración principal -->
+        <a href="/admin">
+            <span>Admin</span>
+        </a>
+    </li>
+@endcanany
 
-                    <!-- Mostrar opción de logout cuando el usuario está autenticado -->
-                    @auth
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-                        </li>
-                        <!-- Formulario oculto para logout -->
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    @endauth
-                </ul>
+           <!-- Dropdown con opciones de autenticación -->
+<li class="dropdown" style="position: relative;">
+    <a href="#" onclick="toggleDropdown(event)" style="font-size: 1.5em; display: flex; align-items: center;">
+        <!-- Icono de usuario en tamaño más grande -->
+        <i class="bi bi-person-circle" style="font-size: 1.5em;"></i>
+        <i class="bi bi-chevron-down toggle-dropdown" style="font-size: 1em; margin-left: 5px;"></i>
+    </a>
+    <ul class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; background-color: white; border: 1px solid #ddd; padding: 10px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); min-width: 180px;">
+        <!-- Mostrar opciones de autenticación cuando el usuario no está autenticado -->
+        @guest
+            <li style="padding: 8px;">
+                <a href="{{ route('login') }}" class="{{ request()->is('login') ? 'active' : '' }}" style="display: block;">
+                    Login
+                </a>
             </li>
-            </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            <li style="padding: 8px;">
+                <a href="{{ route('register.form') }}" class="{{ request()->is('register') ? 'active' : '' }}" style="display: block;">
+                    Register
+                </a>
+            </li>
+        @endguest
+
+        <!-- Mostrar opción de logout cuando el usuario está autenticado -->
+        @auth
+            <li style="padding: 8px;">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="display: block;">
+                    Cerrar Sesión
+                </a>
+            </li>
+            <!-- Formulario oculto para logout -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @endauth
+    </ul>
+</li>
+
+<!-- Estilos adicionales -->
+<style>
+    /* Aumentar el tamaño del icono y ajustar el diseño del menú */
+    .dropdown a {
+        font-size: 1.5em;
+        color: #000;
+        text-decoration: none;
+    }
+
+    .dropdown-menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dropdown-menu li {
+        margin: 0;
+    }
+
+    .dropdown-menu li a {
+        color: #000;
+        text-decoration: none;
+        padding: 8px;
+        display: block;
+        border-radius: 3px;
+        font-size: 1em;
+    }
+
+    .dropdown-menu li a:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
+<!-- Script para alternar el menú desplegable -->
+<script>
+    function toggleDropdown(event) {
+        event.preventDefault();
+        const dropdownMenu = event.currentTarget.nextElementSibling;
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Cerrar el menú si se hace clic fuera de él
+    document.addEventListener('click', function(event) {
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        if (!dropdown.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+</script>
+
     </nav>
   </header>
 

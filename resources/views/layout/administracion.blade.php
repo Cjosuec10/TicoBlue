@@ -77,6 +77,60 @@
 <!-- Asegúrate de que Font Awesome esté cargado para usar los íconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<!-- Campanita de notificaciones -->
+<div class="notification-bell">
+    <i class="fa fa-bell"></i>
+    <span id="notification-count" class="badge badge-danger"></span>
+</div>
+
+<!-- Modal de notificaciones -->
+<div id="notificationModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notificaciones</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" id="notification-list">
+                <!-- Notificaciones se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Función para cargar notificaciones no leídas
+        function loadNotifications() {
+            $.ajax({
+                url: '/notifications', // Ruta para obtener las notificaciones
+                type: 'GET',
+                success: function(data) {
+                    $('#notification-list').html(data.html);
+                    $('#notification-count').text(data.unread_count > 0 ? data.unread_count : '');
+                }
+            });
+        }
+
+        // Abrir modal de notificaciones y marcar como leídas
+        $('.notification-bell').on('click', function() {
+            $('#notificationModal').modal('show');
+            $.ajax({
+                url: '/notifications/markAsRead',
+                type: 'POST',
+                data: { _token: '{{ csrf_token() }}' },
+                success: function() {
+                    loadNotifications();
+                }
+            });
+        });
+
+        // Cargar notificaciones al inicio
+        loadNotifications();
+    });
+</script>
+
 <!-- CSS Adicional -->
 <style>
   .vertical-separator {
@@ -168,13 +222,10 @@
     </li><!-- End Ver todas las notificaciones Nav -->
 @endcan
 
-
-
-
     @can('ver-comercio')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/comercios">
-          <i class="bi bi-shop"></i><span data-translate="commerceModule">Módulo de Comercios</span> <!-- Usé un ícono de tienda -->
+          <i class="bi bi-shop"></i><span data-translate="commerceModule">Comercios</span> <!-- Usé un ícono de tienda -->
       </a>
     </li><!-- End Módulo de Comercios Nav -->
     @endcan
@@ -182,7 +233,7 @@
     @can('ver-producto')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/productos">
-        <i class="bi bi-box-seam"></i><span data-translate="productModule">Módulo de Productos</span> <!-- Usé un ícono de caja -->
+        <i class="bi bi-box-seam"></i><span data-translate="productModule">Productos</span> <!-- Usé un ícono de caja -->
       </a>
     </li><!-- End Módulo de Productos Nav -->
     @endcan
@@ -190,7 +241,7 @@
     @can('ver-evento')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/eventos">
-          <i class="bi bi-calendar-event"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Usé un ícono de evento -->
+          <i class="bi bi-calendar-event"></i><span data-translate="eventModule">Eventos</span> <!-- Usé un ícono de evento -->
       </a>
     </li><!-- End Módulo de Eventos Nav -->
     @endcan
@@ -198,7 +249,7 @@
     @can('ver-alojamiento')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/alojamiento">
-        <i class="bi bi-house-door"></i><span data-translate="accommodation">Módulo de Alojamiento</span> <!-- Usé un ícono de casa -->
+        <i class="bi bi-house-door"></i><span data-translate="accommodation">Alojamiento</span> <!-- Usé un ícono de casa -->
       </a>
     </li><!-- End Módulo de Alojamiento Nav -->
     @endcan
@@ -206,7 +257,7 @@
     @can('ver-reservacion')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/reservaciones">
-        <i class="bi bi-bookmark-check"></i><span data-translate="reserves">Módulo de Reservas</span> <!-- Usé un ícono de reserva/marcador -->
+        <i class="bi bi-bookmark-check"></i><span data-translate="reserves">Reservas</span> <!-- Usé un ícono de reserva/marcador -->
       </a>
     </li><!-- End Módulo de Reservas Nav -->
     @endcan
@@ -214,7 +265,7 @@
     @can('ver-usuario')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/usuarios">
-        <i class="bi bi-person"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Usé un ícono de persona -->
+        <i class="bi bi-person"></i><span data-translate="userModule">Usuarios</span> <!-- Usé un ícono de persona -->
       </a>
     </li><!-- End Módulo de Usuarios Nav -->
     @endcan
@@ -222,7 +273,7 @@
     @can('ver-rol')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/roles">
-        <i class="bi bi-shield-lock"></i><span data-translate="roles">Módulo de Roles</span> <!-- Usé un ícono de escudo para roles/permisos -->
+        <i class="bi bi-shield-lock"></i><span data-translate="roles">Permisos</span> <!-- Usé un ícono de escudo para roles/permisos -->
       </a>
     </li><!-- End Módulo de Roles Nav -->
     @endcan
