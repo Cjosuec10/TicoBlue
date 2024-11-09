@@ -140,8 +140,6 @@
     </div>
 </div>
 <!-- Fin del Modal Ver más -->
-
-
                                 <!-- Modal para el formulario de reservación de evento -->
                                 <div class="modal fade" id="reservarEventoModal{{ $ev->idEvento }}" tabindex="-1"
                                     aria-labelledby="reservarEventoModalLabel{{ $ev->idEvento }}" aria-hidden="true">
@@ -157,7 +155,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Formulario de Reservación -->
-                                                <<form action="{{ route('reservaciones.store') }}" method="POST"
+                                                <form action="{{ route('reservaciones.store') }}" method="POST"
                                                     enctype="multipart/form-data" class="crearEventoForm">
                                                     @csrf
                                                     <input type="hidden" name="idEvento_fk"

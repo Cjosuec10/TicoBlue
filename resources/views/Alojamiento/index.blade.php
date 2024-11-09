@@ -22,7 +22,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    <th>Descripción</th>
                                     <th>Precio</th>
                                     <th>Capacidad</th>
                                     <th>Imagen</th>
@@ -34,7 +33,6 @@
                                     <tr>
                                         <td>{{ $alojamiento->idAlojamiento }}</td>
                                         <td>{{ $alojamiento->nombreAlojamiento }}</td>
-                                        <td>{{ $alojamiento->descripcionAlojamiento }}</td>
                                         <td>{{ $alojamiento->precioAlojamiento }}</td>
                                         <td>{{ $alojamiento->capacidad }}</td>
                                         <td>

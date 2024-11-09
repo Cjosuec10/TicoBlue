@@ -66,13 +66,7 @@ class ReservacionController extends Controller
     // Guardar la reservación en la base de datos
     $newReservacion->save();
 
-    // Crear una notificación para la nueva reservación
-    Notification::create([
-        'title' => 'Nueva Reservación',
-        'message' => 'Nueva reservación realizada por ' . $request->nombreUsuarioReservacion,
-        'is_read' => false,
-    ]);
-
+    
     // Redireccionar según la opción seleccionada
     $redirect_to = strtolower($request->redirect_to);
     if ($redirect_to === 'alojamientos') {
