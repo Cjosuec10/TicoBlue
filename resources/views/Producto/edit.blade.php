@@ -5,6 +5,7 @@
 
     <div class="card">
         <div class="card-body">
+            <h1 class="card-title"></h1>
             <!-- Formulario para editar producto -->
             <form id="editarProductoForm" action="{{ route('productos.update', $producto->idProducto) }}" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
                 @csrf
@@ -12,8 +13,9 @@
 
                 <!-- Nombre del Producto -->
                 <div class="col-md-6">
-                    <label for="nombreProducto" class="form-label">Nombre del Producto</label>
-                    <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" value="{{ $producto->nombreProducto }}" required>
+                    <label for="nombreProducto" class="form-label">Nombre del Producto<span
+                        class="text-danger">**</span></label>
+                    <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" value="{{ $producto->nombreProducto }}" required placeholder="Ingrese el nombre del producto">
                     <div class="invalid-feedback">
                         Por favor, ingrese el nombre del producto.
                     </div>
@@ -24,8 +26,9 @@
 
                 <!-- Descripción del Producto -->
                 <div class="col-md-6">
-                    <label for="descripcionProducto" class="form-label">Descripción del Producto</label>
-                    <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" required>{{ $producto->descripcionProducto }}</textarea>
+                    <label for="descripcionProducto" class="form-label">Descripción del Producto<span
+                        class="text-danger">**</span></label>
+                    <textarea class="form-control" id="descripcionProducto" name="descripcionProducto" placeholder="Ingrese una breve descripción del producto" required>{{ $producto->descripcionProducto }}</textarea>
                     <div class="invalid-feedback">
                         Por favor, ingrese una descripción.
                     </div>
@@ -36,8 +39,9 @@
 
                 <!-- Precio del Producto -->
                 <div class="col-md-6">
-                    <label for="precioProducto" class="form-label">Precio del Producto</label>
-                    <input type="number" step="0.01" class="form-control" id="precioProducto" name="precioProducto" value="{{ $producto->precioProducto }}" required>
+                    <label for="precioProducto" class="form-label">Precio del Producto<span
+                        class="text-danger">**</span></label>
+                    <input type="number" step="0.01" class="form-control" id="precioProducto" name="precioProducto" value="{{ $producto->precioProducto }}" required placeholder="Ingrese el precio en formato 0.00">
                     <div class="invalid-feedback">
                         Por favor, ingrese un precio válido.
                     </div>

@@ -2,10 +2,11 @@
 
 @section('content')
     <div class="container">
-        <h1 class="card-title text-center my-4">Crear Nueva Reservación</h1>
+        <h1 class="card-title">Crear Reservación</h1>
 
         <div class="card shadow-sm">
             <div class="card-body">
+                <h1 class="card-title"></h1>
                 <form action="{{ route('reservaciones.store') }}" method="POST" enctype="multipart/form-data"
                     id="crearReservacionForm" class="row g-3 needs-validation" novalidate>
                     @csrf
@@ -31,22 +32,19 @@
                         </div>
 
                         <!-- Teléfono del Usuario con Selección de País -->
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3"hidden>
                             <label for="country" class="form-label">País</label>
                             <select id="country" class="form-select" name="codigoPais"
                                 onchange="actualizarPrefijoTelefono()">
                                 <option value="506" data-country="Costa Rica">Costa Rica (+506)</option>
-                                <option value="1" data-country="Estados Unidos">Estados Unidos (+1)</option>
-                                <option value="44" data-country="Reino Unido">Reino Unido (+44)</option>
                                 <!-- Agrega más opciones de país aquí -->
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <div class="input-group">
-                                <span class="input-group-text" id="telefonoUsuarioReservacion">+506</span>
                                 <input type="tel" name="telefono" class="form-control" id="telefono"
-                                    placeholder="Ingresa tu número de teléfono (ej: 2023-2365)" 
+                                    placeholder="+506 XXXX-XXXX" 
                                     value="{{ Auth::user()->telefono ?? '' }}" required>
                             </div>
                             <div class="invalid-feedback">Por favor, ingresa un número de teléfono válido.</div>

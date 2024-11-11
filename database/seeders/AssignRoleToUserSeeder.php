@@ -22,6 +22,7 @@ class AssignRoleToUserSeeder extends Seeder
             $user = Usuario::create([
                 'nombre' => 'Admin',          // Ajusta estos campos a los que tenga tu modelo
                 'correo' => 'admin@gmail.com',
+                'telefono' => '+506 8888-8888',
                 'contrasena' => bcrypt('12345678'), // Usa bcrypt para encriptar la contraseña
             ]);
             $this->command->info('Usuario con ID 1 creado.');

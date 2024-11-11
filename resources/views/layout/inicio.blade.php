@@ -85,7 +85,7 @@
 
                             <!-- Verificar si el usuario tiene uno o varios de los permisos -->
                             @canany(['ver-rol', 'ver-usuario', 'ver-alojamiento', 'ver-comercio', 'ver-evento', 'ver-producto', 'ver-reservacion', 'ver-imagen'])
-                                <li class="nav-item"><a href="/admin" class="nav-link">Admin</a></li>
+                                <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Admin</a></li>
                             @endcanany
 
                             <!-- Dropdown de autenticación -->
@@ -264,4 +264,8 @@
         @stack('scripts') <!-- Para incluir scripts adicionales en cada vista -->
     </body>
 
+<<<<<<< HEAD
     </html>
+=======
+    </html>
+>>>>>>> origin/Alfi

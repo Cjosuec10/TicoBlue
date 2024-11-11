@@ -19,42 +19,37 @@
                         <div class="table-responsive">
                             <table class="table datatable">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
-                                        <th>Precio</th>
-                                        <th>Capacidad</th>
-                                        <th>Imagen</th>
-                                        <th>Acciones</th>
-                                    </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Capacidad</th>
+                                    <th>Imagen</th>
+                                    <th>Acciones</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($alojamientos as $alojamiento)
-                                        <tr>
-                                            <td>{{ $alojamiento->idAlojamiento }}</td>
-                                            <td>{{ $alojamiento->nombreAlojamiento }}</td>
-                                            <td>{{ $alojamiento->descripcionAlojamiento }}</td>
-                                            <td>{{ $alojamiento->precioAlojamiento }}</td>
-                                            <td>{{ $alojamiento->capacidad }}</td>
-                                            <td>
-                                                @if ($alojamiento->imagen)
-                                                    <img src="{{ asset($alojamiento->imagen) }}"
-                                                        alt="{{ $alojamiento->nombreAlojamiento }}" class="img-fluid"
-                                                        width="120px">
-                                                @else
-                                                    <span>No disponible</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <!-- Botón Ver -->
-                                                    @can('ver-alojamiento')
-                                                        <a href="{{ route('alojamiento.show', $alojamiento->idAlojamiento) }}"
-                                                            class="btn btn-info btn-sm me-1 w-80" title="Ver">
-                                                            <i class="bi bi-eye"></i> Ver
-                                                        </a>
-                                                    @endcan
+                                @foreach ($alojamientos as $alojamiento)
+                                    <tr>
+                                        <td>{{ $alojamiento->idAlojamiento }}</td>
+                                        <td>{{ $alojamiento->nombreAlojamiento }}</td>
+                                        <td>{{ $alojamiento->precioAlojamiento }}</td>
+                                        <td>{{ $alojamiento->capacidad }}</td>
+                                        <td>
+                                            @if ($alojamiento->imagen)
+                                                <img src="{{asset($alojamiento->imagen)}}" alt="{{$alojamiento->nombreAlojamiento}}" class="img-fluid" width="120px">
+                                            @else
+                                                <span>No disponible</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                               <!-- Botón Ver -->
+@can('ver-alojamiento')
+<a href="{{ route('alojamiento.show',  $alojamiento->idAlojamiento) }}" class="btn btn-info btn-sm me-1 w-80" title="Ver">
+    <i class="bi bi-eye"></i> Ver
+</a>
+@endcan
 
                                                     <!-- Botón Editar -->
                                                     @can('editar-alojamiento')

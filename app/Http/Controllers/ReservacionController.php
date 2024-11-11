@@ -42,61 +42,50 @@ class ReservacionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validar los datos de entrada
-        $request->validate([
-            'nombreUsuarioReservacion' => 'required|string|max:255',
-            'correoUsuarioReservacion' => 'required|email|max:255',
-            'telefonoUsuarioReservacion' => 'nullable|string|max:20',
-            'idComercio_fk' => 'required|exists:comercios,idComercio',
-            'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
-            'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
-            'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
-        ]);
-    
-        // Establecer `idEvento_fk` y `idAlojamiento_fk` como `null` si no se proporcionan
-        $idEventoFk = $request->idEvento_fk ?? null;
-        $idAlojamientoFk = $request->idAlojamiento_fk ?? null;
-    
-        // Crear una nueva instancia de Reservacion
-        $newReservacion = new Reservacion();
-        $newReservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
-        $newReservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
-        $newReservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
-        $newReservacion->idComercio_fk = $request->idComercio_fk;
-        $newReservacion->idEvento_fk = $idEventoFk;
-        $newReservacion->idUsuario_fk = $request->idUsuario_fk;
-        $newReservacion->idAlojamiento_fk = $idAlojamientoFk;
-    
-        // Guardar la reservación en la base de datos
-        $newReservacion->save();
-    
-        // Detalles de la reservación para la notificación
-        $reservationDetails = [
-            'id' => $newReservacion->id,
-            'nombreUsuarioReservacion' => $newReservacion->nombreUsuarioReservacion,
-        ];
+{
+    // Validar los datos de entrada
+    $request->validate([
+        'nombreUsuarioReservacion' => 'required|string|max:255',
+        'correoUsuarioReservacion' => 'required|email|max:255',
+        'telefonoUsuarioReservacion' => 'nullable|string|max:20',
+        'idComercio_fk' => 'required|exists:comercios,idComercio',
+        'idEvento_fk' => 'nullable|exists:eventos,idEvento', // Hacerlo opcional
+        'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
+        'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento', // Hacerlo opcional
+    ]);
 
-        // Obtener el usuario que recibirá la notificación
-        $usuario = Usuario::find($request->idUsuario_fk);
+    // Establecer `idEvento_fk` y `idAlojamiento_fk` como `null` si no se proporcionan
+    $idEventoFk = $request->idEvento_fk ?? null;
+    $idAlojamientoFk = $request->idAlojamiento_fk ?? null;
 
-        // Enviar la notificación usando el modelo personalizado
-        $usuario->notify(new NewReservationNotification($reservationDetails));
-    
-        // Redireccionar según la opción seleccionada
-        $redirect_to = strtolower($request->redirect_to);
-        if ($redirect_to === 'alojamientos') {
-            return redirect()->route('alojamientos')->with('success', 'Reservación creada exitosamente.');
-        } elseif ($redirect_to === 'eventos') {
-            return redirect()->route('eventos')->with('success', 'Reservación creada exitosamente.');
-        } elseif ($redirect_to === 'formulario_creacion') {
-            return redirect()->route('reservaciones.create')->with('success', 'Reservación creada exitosamente.');
-        }
-    
-        return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
+    // Crear una nueva instancia de Reservacion
+    $newReservacion = new Reservacion();
+    $newReservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
+    $newReservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
+    $newReservacion->telefonoUsuarioReservacion = $request->telefonoUsuarioReservacion;
+    $newReservacion->idComercio_fk = $request->idComercio_fk;
+    $newReservacion->idEvento_fk = $idEventoFk;
+    $newReservacion->idUsuario_fk = $request->idUsuario_fk;
+    $newReservacion->idAlojamiento_fk = $idAlojamientoFk;
+
+    // Guardar la reservación en la base de datos
+    $newReservacion->save();
+
+
+    // Redireccionar según la opción seleccionada
+    $redirect_to = strtolower($request->redirect_to);
+    if ($redirect_to === 'alojamientos') {
+        return redirect()->route('alojamientos')->with('success', 'Reservación creada exitosamente.');
+    } elseif ($redirect_to === 'eventos') {
+        return redirect()->route('eventos')->with('success', 'Reservación creada exitosamente.');
+    } elseif ($redirect_to === 'formulario_creacion') {
+        return redirect()->route('reservaciones.create')->with('success', 'Reservación creada exitosamente.');
     }
 
-    
+    return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
+}
+
+
 
     // Método para mostrar los detalles de una reservación específica
     public function show($id)
@@ -123,7 +112,7 @@ class ReservacionController extends Controller
     {
         // Encuentra la reservación por su ID
         $reservacion = Reservacion::findOrFail($id);
-    
+
         // Validar los campos del formulario
         $request->validate([
             'nombreUsuarioReservacion' => 'required|string|max:255',
@@ -134,7 +123,7 @@ class ReservacionController extends Controller
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
             'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento',
         ]);
-    
+
         // Asignar valores de los campos
         $reservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
         $reservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
@@ -143,10 +132,10 @@ class ReservacionController extends Controller
         $reservacion->idUsuario_fk = $request->idUsuario_fk;
         $reservacion->idEvento_fk = $request->idEvento_fk ?? null;
         $reservacion->idAlojamiento_fk = $request->idAlojamiento_fk ?? null;
-    
+
         // Guardar los cambios en la base de datos
         $reservacion->save();
-    
+
         // Redireccionar según el valor de redirect_to
         if ($request->redirect_to === 'Alojamientos') {
             return redirect()->route('Alojamientos')->with('success', '¡Reservación creada exitosamente!');
@@ -154,7 +143,7 @@ class ReservacionController extends Controller
 
         return redirect()->route('reservaciones')->with('success', '¡Reservación creada exitosamente!');
     }
-    
+
 
 
 
