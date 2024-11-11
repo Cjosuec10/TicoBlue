@@ -84,11 +84,24 @@
                                                 {{-- Muestra el número sin formato si no cumple las condiciones anteriores --}}
                                                 {{ $comercio->telefonoComercio }}
                                             @endif
+
                                         </p>
 
 
 
                                         <p><strong>Tipo de Negocio:</strong> {{ $comercio->tipoNegocio }}</p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="mapa" class="form-label">Mapa de Ubicación</label>
+                                        @if ($comercio->direccion_url)
+                                            <iframe width="100%" height="100%"
+                                                style="border:0; border-radius: 8px; max-height: 300px;" loading="lazy"
+                                                allowfullscreen
+                                                src="https://www.google.com/maps/embed?pb={{ $comercio->direccion_url }}">
+                                            </iframe>
+                                        @else
+                                            <p>No hay información de ubicación disponible para este comercio.</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="modal-footer bg-light">
