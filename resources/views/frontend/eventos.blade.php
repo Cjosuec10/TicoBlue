@@ -70,8 +70,8 @@
                             </div>
                         @else
                             @foreach ($eventos as $ev)
-                                <div class="col-lg-3 col-md-4 mb-4">
-                                    <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                                    <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
                                         @if ($ev->imagen)
                                             <img src="{{ asset($ev->imagen) }}" alt="{{ $ev->nombreEvento }}"
                                                 class="card-img-top" style="height: 150px; object-fit: cover;">
@@ -260,8 +260,8 @@
                         if (data.eventos.length > 0) {
                             data.eventos.forEach(ev => {
                                 const eventoHTML = `
-                        <div class="col-lg-3 col-md-4 mb-4">
-                            <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                            <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
                                 <img src="${ev.imagen}" alt="${ev.nombreEvento}" class="card-img-top" style="height: 150px; object-fit: cover;">
                                 <div class="card-body">
                                     <h5 class="card-title">${ev.nombreEvento}</h5>
@@ -270,6 +270,9 @@
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal${ev.idEvento}">
                                         Ver más
                                     </button>
+                                     <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#reservarEventoModal${ev.idEvento}">
+                                            Reservar
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -300,6 +303,7 @@
         </div>
     </div>
 </div>
+
                     `;
                                 eventosList.insertAdjacentHTML('beforeend', eventoHTML);
                             });

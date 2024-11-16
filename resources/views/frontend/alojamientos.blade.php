@@ -75,7 +75,7 @@
                             </div>
                         @else
                             @foreach ($alojamientos as $aloja)
-                                <div class="col-lg-3 col-md-4 mb-4">
+                            <div class="col-lg-3 col-md-4 mb-4">
                                     <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
                                         <!-- Mostrar la imagen si está disponible -->
                                         @if ($aloja->imagen)
@@ -278,22 +278,27 @@
                             if (data.alojamientos.length > 0) {
                                 data.alojamientos.forEach(alojamiento => {
                                     const alojamientoHTML = `
-                            <div class="col-lg-3 col-md-4 mb-4">
-                                <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
-                                    <img src="${alojamiento.imagen ? `{{ asset('') }}${alojamiento.imagen}` : '{{ asset('assets/img/default-image.jpg') }}'}" 
-                                         alt="${alojamiento.nombreAlojamiento}" 
-                                         class="card-img-top" style="height: 150px; object-fit: cover;">
-                                    <div class="card-body d-flex flex-column justify-content-between">
-                                        <h5 class="card-title text-center">${alojamiento.nombreAlojamiento}</h5>
-                                        <p class="text-center">Precio: ${alojamiento.precioAlojamiento} CRC</p>
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alojaModal${alojamiento.idAlojamiento}">
-                                                Ver más
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+    <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
+        <img src="${alojamiento.imagen ? `{{ asset('') }}${alojamiento.imagen}` : '{{ asset('assets/img/default-image.jpg') }}'}" 
+             alt="${alojamiento.nombreAlojamiento}" 
+             class="card-img-top" style="height: 150px; object-fit: cover;">
+        <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title text-center">${alojamiento.nombreAlojamiento}</h5>
+            <p class="text-center">Precio: ${alojamiento.precioAlojamiento} CRC</p>
+            <div class="d-flex justify-content-center mt-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+                        data-bs-target="#alojaModal${alojamiento.idAlojamiento}">
+                    Ver más
+                </button>
+                <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" 
+                        data-bs-target="#reservarAlojamientoModal${alojamiento.idAlojamiento}">
+                    Reservar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
                             <!-- Modal -->
                             <div class="modal fade" id="alojaModal${alojamiento.idAlojamiento}" tabindex="-1" aria-labelledby="alojaModalLabel${alojamiento.idAlojamiento}" aria-hidden="true">
