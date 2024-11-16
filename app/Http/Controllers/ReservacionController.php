@@ -20,10 +20,23 @@ class ReservacionController extends Controller
     }
 
     public function index()
-    {
+{
+    // Obtener el usuario autenticado
+    $user = auth()->user();
+
+    // Verificar si el usuario tiene el rol de administrador
+    if ($user->hasRole('Admin')) {
+        // Si es administrador, cargar todas las reservaciones
         $reservaciones = Reservacion::all();
-        return view('reservaciones.index', compact('reservaciones'));
+    } else {
+        // Si no es administrador, cargar solo las reservaciones del usuario autenticado
+        $reservaciones = Reservacion::where('idUsuario_fk', $user->idUsuario)->get();
     }
+
+    // Retornar la vista con las reservaciones filtradas
+    return view('reservaciones.index', compact('reservaciones'));
+}
+
 
     // Método para mostrar el formulario de creación de una nueva reservación
     public function create()

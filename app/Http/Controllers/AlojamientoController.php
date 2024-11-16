@@ -17,11 +17,24 @@ class AlojamientoController extends Controller
     }
 
     public function index()
-    {
-        $comercios = auth()->user()->comercios->pluck('idComercio');
+{
+    // Obtener el usuario autenticado
+    $user = auth()->user();
+
+    // Verificar si el usuario tiene el rol de administrador
+    if ($user->hasRole('Admin')) {
+        // Si es administrador, cargar todos los alojamientos
+        $alojamientos = Alojamiento::all();
+    } else {
+        // Si no es administrador, cargar solo los alojamientos de los comercios del usuario
+        $comercios = $user->comercios->pluck('idComercio');
         $alojamientos = Alojamiento::whereIn('idComercio_fk', $comercios)->get();
-        return view('alojamiento.index', compact('alojamientos'));
     }
+
+    // Retornar la vista con los alojamientos
+    return view('alojamiento.index', compact('alojamientos'));
+}
+
 
     public function create()
     {

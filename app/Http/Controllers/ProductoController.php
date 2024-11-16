@@ -18,17 +18,23 @@ class ProductoController extends Controller
 
     public function index()
     {
-
-        // Obtener los comercios del usuario autenticado
-    $comercios = auth()->user()->comercios->pluck('idComercio');
-
-        // Filtrar los productos que pertenecen a esos comercios
-    $productos = Producto::whereIn('idComercio_fk', $comercios)->get();
-        
+        // Obtener el usuario autenticado
+        $user = auth()->user();
     
-        // Pasamos los productos a la vista
+        // Verificar si el usuario tiene el rol de administrador
+        if ($user->hasRole('Admin')) {
+            // Si es administrador, cargar todos los productos
+            $productos = Producto::all();
+        } else {
+            // Si no es administrador, filtrar los productos que pertenecen a los comercios del usuario
+            $comercios = $user->comercios->pluck('idComercio');
+            $productos = Producto::whereIn('idComercio_fk', $comercios)->get();
+        }
+    
+        // Pasar los productos a la vista
         return view('Producto.index', compact('productos'));
     }
+    
     
     public function mostrarInformacionProductos(Request $request)
     {
