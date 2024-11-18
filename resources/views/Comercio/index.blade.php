@@ -108,8 +108,6 @@
             font-weight: bold;
             margin-left: 10px;
         }
-
-        
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -147,28 +145,29 @@
             // llamar a setDeleteEventListeners() nuevamente después de actualizar la tabla
         });
 
-        //         document.addEventListener("DOMContentLoaded", function() {
-        //     document.querySelectorAll('tbody tr').forEach(row => {
-        //         const telefonoCell = row.querySelector('td:nth-child(4)'); // Ajusta el índice si cambia la posición de la columna
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const telefonoCell = row.querySelector(
+                'td:nth-child(4)'); // Ajusta el índice si cambia la posición de la columna
+                if (telefonoCell) {
+                    let telefono = telefonoCell.textContent.trim();
+                    let codigoPais = telefono.match(/^\+(\d+)/)?.[1] || "";
+                    let numero = telefono.replace(/^\+\d+\s*/, "").replace(/\D/g,
+                    ""); // Remueve caracteres no numéricos
 
-        //         if (telefonoCell) {
-        //             let telefono = telefonoCell.textContent.trim();
-        //             let codigoPais = telefono.match(/^\+(\d+)/)?.[1] || "";
-        //             let numero = telefono.replace(/^\+\d+\s*/, "").replace(/\D/g, ""); // Remueve caracteres no numéricos
+                    // Formato específico para Costa Rica (+506)
+                    if (codigoPais === "506" && numero.length === 8) {
+                        telefono = `+506 ${numero.slice(0, 4)}-${numero.slice(4)}`;
+                    } else {
+                        //                 // Formatear en bloques de 4 dígitos para otros países
+                        let formattedNumero = numero.match(/.{1,4}/g)?.join("-") || numero;
+                        telefono = `+${codigoPais} ${formattedNumero}`;
+                    }
 
-        //             // Formato específico para Costa Rica (+506)
-        //             if (codigoPais === "506" && numero.length === 8) {
-        //                 telefono = `+506 ${numero.slice(0, 4)}-${numero.slice(4)}`;
-        //             } else {
-        //                 // Formatear en bloques de 4 dígitos para otros países
-        //                 let formattedNumero = numero.match(/.{1,4}/g)?.join("-") || numero;
-        //                 telefono = `+${codigoPais} ${formattedNumero}`;
-        //             }
-
-        //             telefonoCell.textContent = telefono;
-        //         }
-        //     });
-        // });
+                    telefonoCell.textContent = telefono;
+                }
+            });
+        });
 
 
 
@@ -179,7 +178,7 @@
             document.querySelectorAll('.toggle-activation').forEach(switchElement => {
                 switchElement.addEventListener('change', function() {
                     const comercioId = this.getAttribute(
-                    'data-id'); // Obtiene el ID del comercio del atributo data-id
+                        'data-id'); // Obtiene el ID del comercio del atributo data-id
                     const isActive = this.checked; // Comprueba si está marcado o no
 
                     // Envía la solicitud para activar/desactivar el comercio

@@ -264,4 +264,8 @@
         @stack('scripts') <!-- Para incluir scripts adicionales en cada vista -->
     </body>
 
+<<<<<<< HEAD
+    </html>
+=======
     </html>
+>>>>>>> origin/Alfi

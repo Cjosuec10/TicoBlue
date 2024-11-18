@@ -30,12 +30,15 @@ Route::view('/Sobre-nosotros', 'frontend.sobre-nosotros')->name('sobre-nosotros'
 // Rutas de activación/desactivación para comercio
 Route::post('/comercios/{id}/toggle-activation', [ComercioController::class, 'toggleActivation'])->name('comercios.toggleActivation');
 
+// Rutas de activación/desactivación para alojameinto
+Route::post('/alojamiento/{id}/toggle-activation', [AlojamientoController::class, 'toggleActivation'])->name('alojamiento.toggleActivation');
+
 // Rutas de autenticación
 Route::prefix('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    
+
     Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
     Route::post('register', [RegisterController::class, 'register'])->name('register');
 });
@@ -44,16 +47,16 @@ Route::prefix('auth')->group(function () {
 Route::prefix('notifications')->group(function () {
     // Ruta para crear una notificación (si la necesitas)
     Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store');
-    
+
     // Ruta para listar las notificaciones
     Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
-    
+
     // Ruta para marcar una notificación específica como leída (usa PATCH y el ID de la notificación)
     Route::patch('/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-    
+
     // Ruta para obtener todas las notificaciones (por ejemplo, para un historial)
     Route::get('/all', [NotificationController::class, 'allNotifications'])->name('notifications.all');
-    
+
     // Ruta para obtener notificaciones específicas (puede ser útil para AJAX)
     Route::get('/reservanotifications', [NotificationController::class, 'getNotifications']);
 
@@ -67,7 +70,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 
-// Rutas para activar/desactivar 
+// Rutas para activar/desactivar
 //product
 Route::prefix('productos')->name('productos.')->group(function () {
     Route::post('{id}/activar', [ProductoController::class, 'activar'])->name('activar');

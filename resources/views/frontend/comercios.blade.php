@@ -58,6 +58,18 @@
                                             </button>
                                         </div>
                                     </div>
+                                    {{-- <div class="col-md-12">
+                                        <label for="mapa" class="form-label">Mapa de Ubicación</label>
+                                        @if ($comercio->direccion_url)
+                                            <iframe width="100%" height="100%"
+                                                style="border:0; border-radius: 8px; max-height: 300px;" loading="lazy"
+                                                allowfullscreen
+                                                src="https://www.google.com/maps/embed?pb={{ $comercio->direccion_url }}">
+                                            </iframe>
+                                        @else
+                                            <p>No hay información de ubicación disponible para este comercio.</p>
+                                        @endif
+                                    </div> --}}
                                 </div>
                             </div>
                             <!-- Modal -->
@@ -77,13 +89,14 @@
                                                 <p><strong>Correo:</strong> {{ $comercio->correoComercio }}</p>
                                                 <p><strong>Teléfono:</strong>
                                                     @if ($comercio->codigoPais == '506' && strlen($comercio->telefonoComercio) == 8)
+                                                        {{-- Formato específico para Costa Rica: +506 1111-0000 --}}
                                                         {{ '+506 ' . substr($comercio->telefonoComercio, 0, 4) . '-' . substr($comercio->telefonoComercio, 4) }}
-                                                    @elseif ($comercio->codigoPais != '506')
-                                                        {{ $comercio->codigoPais . ' ' . implode('-', str_split($comercio->telefonoComercio, 4)) }}
                                                     @else
+                                                        {{-- Muestra el número sin formato si no cumple la condición anterior --}}
                                                         {{ $comercio->telefonoComercio }}
                                                     @endif
                                                 </p>
+
                                                 <p><strong>Tipo de Negocio:</strong> {{ $comercio->tipoNegocio }}</p>
                                                 <div class="col-md-12">
                                                     <label for="mapa" class="form-label">Mapa de Ubicación</label>
@@ -199,5 +212,36 @@
                 }
             });
         });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+    // Formatea todos los números en el tbody y en el modal
+    function formatTelefono(element) {
+        let telefono = element.textContent.trim();
+        let codigoPais = telefono.match(/^\+(\d+)/)?.[1] || "";
+        let numero = telefono.replace(/^\+\d+\s*/, "").replace(/\D/g, ""); // Remueve caracteres no numéricos
+
+        // Aplica formato específico para Costa Rica (+506 1111-0000)
+        if (codigoPais === "506" && numero.length === 8) {
+            telefono = `+506 ${numero.slice(0, 4)}-${numero.slice(4)}`;
+        }
+
+        element.textContent = telefono;
+    }
+
+    // Formatea los números de teléfono en el tbody
+    document.querySelectorAll('tbody tr td:nth-child(4)').forEach(cell => {
+        formatTelefono(cell);
+    });
+
+    // Formatea el número de teléfono en el modal
+    document.querySelectorAll('.modal-body .comercio-details p strong').forEach(element => {
+        if (element.textContent.includes("Teléfono:")) {
+            formatTelefono(element.nextSibling);
+        }
+    });
+});
+
+
     </script>
 @endsection

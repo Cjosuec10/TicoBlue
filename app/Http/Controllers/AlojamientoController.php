@@ -148,5 +148,31 @@ class AlojamientoController extends Controller
             'pagination' => $alojamientos->links('pagination::bootstrap-4')->render(),
         ]);
     }
+    public function toggleActivation(Request $request, $id)
+{
+    $alojamiento = Alojamiento::findOrFail($id);
+    $alojamiento->activo = $request->input('activo');
+    $alojamiento->save();
+
+    return response()->json(['success' => true]);
+}
+
+    public function activar($id)
+    {
+        $alojamientos = Alojamiento::findOrFail($id);
+        $alojamientos->activo = true;
+        $alojamientos->save();
+
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento activado exitosamente.');
+    }
+
+    public function desactivar($id)
+    {
+        $alojamientos = Alojamiento::findOrFail($id);
+        $alojamientos->activo = false;
+        $alojamientos->save();
+
+        return redirect()->route('alojamiento.index')->with('success', 'Alojamiento desactivado exitosamente.');
+    }
 
 }

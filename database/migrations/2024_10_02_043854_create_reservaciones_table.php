@@ -18,7 +18,7 @@ class CreateReservacionesTable extends Migration
             $table->unsignedBigInteger('idUsuario_fk');
             $table->unsignedBigInteger('idAlojamiento_fk')->nullable(); // Permitir nulos si es opcional
             $table->timestamps();
-        
+
             // Claves foráneas
             $table->foreign('idComercio_fk')->references('idComercio')->on('comercios')->onDelete('cascade');
             $table->foreign('idEvento_fk')->references('idEvento')->on('eventos')->onDelete('cascade');

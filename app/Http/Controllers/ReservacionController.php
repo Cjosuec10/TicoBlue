@@ -98,7 +98,7 @@ class ReservacionController extends Controller
     return redirect()->route('reservaciones.index')->with('success', 'Reservación creada exitosamente.');
 }
 
-    
+
 
     // Método para mostrar los detalles de una reservación específica
     public function show($id)
@@ -125,7 +125,7 @@ class ReservacionController extends Controller
     {
         // Encuentra la reservación por su ID
         $reservacion = Reservacion::findOrFail($id);
-    
+
         // Validar los campos del formulario
         $request->validate([
             'nombreUsuarioReservacion' => 'required|string|max:255',
@@ -136,7 +136,7 @@ class ReservacionController extends Controller
             'idUsuario_fk' => 'required|exists:usuarios,idUsuario',
             'idAlojamiento_fk' => 'nullable|exists:alojamiento,idAlojamiento',
         ]);
-    
+
         // Asignar valores de los campos
         $reservacion->nombreUsuarioReservacion = $request->nombreUsuarioReservacion;
         $reservacion->correoUsuarioReservacion = $request->correoUsuarioReservacion;
@@ -145,10 +145,10 @@ class ReservacionController extends Controller
         $reservacion->idUsuario_fk = $request->idUsuario_fk;
         $reservacion->idEvento_fk = $request->idEvento_fk ?? null;
         $reservacion->idAlojamiento_fk = $request->idAlojamiento_fk ?? null;
-    
+
         // Guardar los cambios en la base de datos
         $reservacion->save();
-    
+
         // Redireccionar según el valor de redirect_to
         if ($request->redirect_to === 'Alojamientos') {
             return redirect()->route('Alojamientos')->with('success', '¡Reservación creada exitosamente!');
@@ -156,7 +156,7 @@ class ReservacionController extends Controller
 
         return redirect()->route('reservaciones')->with('success', '¡Reservación creada exitosamente!');
     }
-    
+
 
 
 
