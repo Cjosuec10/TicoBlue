@@ -2816,3 +2816,7 @@ body {
 .custom-gray {
   background-color: #f0f0f0; /* Ajusta según prefieras */
 }
+
+#mision {
+  scroll-margin-top: 150px; /* Ajusta este valor según el desplazamiento necesario */
+}

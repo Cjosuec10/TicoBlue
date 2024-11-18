@@ -17,21 +17,19 @@
                 <div class="col-md-6">
                     <label for="tipoNegocio" class="form-label" id="label-tipoNegocio">Tipo de Negocio</label>
                     <select class="form-select" id="tipoNegocio" name="tipoNegocio" disabled>
-                        <option value="Alimentación y Bebidas"
-                            {{ $comercio->tipoNegocio == 'Alimentación y Bebidas' ? 'selected' : '' }}>
-                            {{ __('Alimentación y Bebidas') }}</option>
-                        <option value="Salud y Belleza" {{ $comercio->tipoNegocio == 'Salud y Belleza' ? 'selected' : '' }}>
-                            {{ __('Salud y Belleza') }}</option>
-                        <option value="Moda y Accesorios"
-                            {{ $comercio->tipoNegocio == 'Moda y Accesorios' ? 'selected' : '' }}>
-                            {{ __('Moda y Accesorios') }}</option>
-                        <option value="Hogar y Decoración"
-                            {{ $comercio->tipoNegocio == 'Hogar y Decoración' ? 'selected' : '' }}>
-                            {{ __('Hogar y Decoración') }}</option>
-                        <option value="Tecnología y Electrónica"
-                            {{ $comercio->tipoNegocio == 'Tecnología y Electrónica' ? 'selected' : '' }}>
-                            {{ __('Tecnología y Electrónica') }}</option>
-                    </select>
+                        <option selected disabled value="">Seleccione el tipo de negocio</option>
+                        <option value="Soda" {{ $comercio->tipoNegocio == 'Soda' ? 'selected' : '' }}>Soda</option>
+                        <option value="Restaurante" {{ $comercio->tipoNegocio == 'Restaurante' ? 'selected' : '' }}>Restaurante</option>
+                        <option value="Cafeterías" {{ $comercio->tipoNegocio == 'Cafeterías' ? 'selected' : '' }}>Cafeterías</option>
+                        <option value="Mercados locales" {{ $comercio->tipoNegocio == 'Mercados locales' ? 'selected' : '' }}>Mercados locales</option>
+                        <option value="Tiendas de artesanías" {{ $comercio->tipoNegocio == 'Tiendas de artesanías' ? 'selected' : '' }}>Tiendas de artesanías</option>
+                        <option value="Talleres" {{ $comercio->tipoNegocio == 'Talleres' ? 'selected' : '' }}>Talleres</option>
+                        <option value="Deportes y Ocio" {{ $comercio->tipoNegocio == 'Deportes y Ocio' ? 'selected' : '' }}>Deportes y Ocio</option>
+                        <option value="Alojamientos" {{ $comercio->tipoNegocio == 'Alojamientos' ? 'selected' : '' }}>Alojamientos</option>
+                        <option value="Arte y Entretenimiento" {{ $comercio->tipoNegocio == 'Arte y Entretenimiento' ? 'selected' : '' }}>Arte y Entretenimiento</option>
+                        <option value="Educación" {{ $comercio->tipoNegocio == 'Educación' ? 'selected' : '' }}>Educación</option>
+                        <option value="Otros" {{ $comercio->tipoNegocio == 'Otros' ? 'selected' : '' }}>Otros</option>
+                    </select> 
                 </div>
 
                 <!-- Correo y Teléfono del Comercio -->

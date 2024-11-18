@@ -35,6 +35,7 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
+
   @yield('css') <!-- Aquí puedes incluir CSS extra en las vistas específicas -->
 </head>
 
@@ -242,7 +243,7 @@ $(document).ready(function() {
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="/admin">
+      <a class="nav-link collapsed" href="/admin/dashboard">
         <i class="bi bi-grid"></i>
         <span data-translate="menu">Menu</span> <!-- Marcado para traducción -->
       </a>
@@ -258,13 +259,10 @@ $(document).ready(function() {
     </li><!-- End Ver todas las notificaciones Nav -->
 @endcan
 
-
-
-
     @can('ver-comercio')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/comercios">
-          <i class="bi bi-shop"></i><span data-translate="commerceModule">Módulo de Comercios</span> <!-- Usé un ícono de tienda -->
+          <i class="bi bi-shop"></i><span data-translate="commerceModule">Comercios</span> <!-- Usé un ícono de tienda -->
       </a>
     </li><!-- End Módulo de Comercios Nav -->
     @endcan
@@ -272,7 +270,7 @@ $(document).ready(function() {
     @can('ver-producto')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/productos">
-        <i class="bi bi-box-seam"></i><span data-translate="productModule">Módulo de Productos</span> <!-- Usé un ícono de caja -->
+        <i class="bi bi-box-seam"></i><span data-translate="productModule">Productos</span> <!-- Usé un ícono de caja -->
       </a>
     </li><!-- End Módulo de Productos Nav -->
     @endcan
@@ -280,7 +278,7 @@ $(document).ready(function() {
     @can('ver-evento')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/eventos">
-          <i class="bi bi-calendar-event"></i><span data-translate="eventModule">Módulo de Eventos</span> <!-- Usé un ícono de evento -->
+          <i class="bi bi-calendar-event"></i><span data-translate="eventModule">Eventos</span> <!-- Usé un ícono de evento -->
       </a>
     </li><!-- End Módulo de Eventos Nav -->
     @endcan
@@ -288,7 +286,7 @@ $(document).ready(function() {
     @can('ver-alojamiento')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/alojamiento">
-        <i class="bi bi-house-door"></i><span data-translate="accommodation">Módulo de Alojamiento</span> <!-- Usé un ícono de casa -->
+        <i class="bi bi-house-door"></i><span data-translate="accommodation">Alojamiento</span> <!-- Usé un ícono de casa -->
       </a>
     </li><!-- End Módulo de Alojamiento Nav -->
     @endcan
@@ -296,7 +294,7 @@ $(document).ready(function() {
     @can('ver-reservacion')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/reservaciones">
-        <i class="bi bi-bookmark-check"></i><span data-translate="reserves">Módulo de Reservas</span> <!-- Usé un ícono de reserva/marcador -->
+        <i class="bi bi-bookmark-check"></i><span data-translate="reserves">Reservas</span> <!-- Usé un ícono de reserva/marcador -->
       </a>
     </li><!-- End Módulo de Reservas Nav -->
     @endcan
@@ -304,7 +302,7 @@ $(document).ready(function() {
     @can('ver-usuario')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/usuarios">
-        <i class="bi bi-person"></i><span data-translate="userModule">Módulo de Usuarios</span> <!-- Usé un ícono de persona -->
+        <i class="bi bi-person"></i><span data-translate="userModule">Usuarios</span> <!-- Usé un ícono de persona -->
       </a>
     </li><!-- End Módulo de Usuarios Nav -->
     @endcan
@@ -312,7 +310,7 @@ $(document).ready(function() {
     @can('ver-rol')
     <li class="nav-item">
       <a class="nav-link collapsed" href="/roles">
-        <i class="bi bi-shield-lock"></i><span data-translate="roles">Módulo de Roles</span> <!-- Usé un ícono de escudo para roles/permisos -->
+        <i class="bi bi-shield-lock"></i><span data-translate="roles">Permisos</span> <!-- Usé un ícono de escudo para roles/permisos -->
       </a>
     </li><!-- End Módulo de Roles Nav -->
     @endcan
@@ -359,6 +357,7 @@ $(document).ready(function() {
   <script src="{{ asset('assets/js/Idioma.js') }}"></script>
 
   @yield('scripts') 
+
 
 </body>
 
