@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     public function store(Request $request)
-{
-      // Verificar el token de reCAPTCHA
+    {
+         // Verificar el token de reCAPTCHA
       $response = $request->input('g-recaptcha-response');
       $recaptchaSecret = config('services.recaptcha.secret_key');
   
@@ -49,52 +49,38 @@ class NotificationController extends Controller
 
     // Redireccionar o mostrar un mensaje de éxito
     return redirect()->back()->with('success', 'Formulario enviado correctamente.');
-}
+
+    }
 
     public function index()
     {
-        // Obtener todas las notificaciones no leídas
-        $notifications = Notification::where('is_read', false)->get();
+         // Obtener todas las notificaciones no leídas
+         $notifications = Notification::where('is_read', false)->get();
 
-        return view('notifications.index', compact('notifications'));
+         return view('notifications.index', compact('notifications'));
+ 
     }
 
         //Mostrar el listado de notificaciones 
 
     public function allNotifications()
     {
-    // Obtiene todas las notificaciones, sin importar si están leídas o no
-        $allNotifications = Notification::all();
+     // Obtiene todas las notificaciones, sin importar si están leídas o no
+     $allNotifications = Notification::all();
     
-        return view('notifications.all', compact('allNotifications'));
+     return view('notifications.all', compact('allNotifications'));
+
     }
 
     public function markAsRead($id)
-{
-    // Encuentra la notificación específica del usuario autenticado
-    $notification = Auth::user()->notifications()->find($id);
+    {
+        // Marcar la notificación como leída
+        $notification = Notification::find($id);
+        $notification->is_read = true;
+        $notification->save();
 
-    if ($notification) {
-        $notification->markAsRead();
+        return redirect()->back();
+
     }
 
-    return response()->json(['success' => true]);
-}
-    public function getNotifications()
-{
-    $user = Auth::user();
-    $unreadNotifications = ReservaNotificacion::where('notifiable_id', $user->id)
-                                              ->whereNull('read_at')
-                                              ->get();
-
-    // Renderizar el HTML de las notificaciones para enviarlo al frontend
-    $html = view('partials.notification_items', compact('unreadNotifications'))->render();
-
-    return response()->json([
-        'html' => $html,
-        'unread_count' => $unreadNotifications->count(),
-    ]);
-}
-
-    
 }
