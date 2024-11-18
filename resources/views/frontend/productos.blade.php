@@ -142,7 +142,7 @@
                                     <img src="${producto.imagenProducto}" alt="${producto.nombreProducto}" class="card-img-top" style="height: 150px; object-fit: cover;">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <h5 class="card-title text-center">${producto.nombreProducto}</h5>
-                                        <p class="text-center">$${producto.precioProducto}</p>
+                                        <p class="text-center">₡${producto.precioProducto}</p>
                                         <div class="d-flex justify-content-center mt-3">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productoModal${producto.idProducto}">
                                                 Ver más

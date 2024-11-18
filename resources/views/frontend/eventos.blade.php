@@ -70,8 +70,8 @@
                             </div>
                         @else
                             @foreach ($eventos as $ev)
-                                <div class="col-lg-3 col-md-4 mb-4">
-                                    <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                                    <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
                                         @if ($ev->imagen)
                                             <img src="{{ asset($ev->imagen) }}" alt="{{ $ev->nombreEvento }}"
                                                 class="card-img-top" style="height: 150px; object-fit: cover;">
@@ -100,46 +100,46 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal Ver más -->
-                                <div class="modal fade" id="eventoModal{{ $ev->idEvento }}" tabindex="-1"
-                                    aria-labelledby="eventoModalLabel{{ $ev->idEvento }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                        <div class="modal-content border-0 shadow-lg rounded-4">
-                                            <div class="modal-header bg-light text-dark justify-content-center">
-                                                <h5 class="modal-title text-center fw-bold"
-                                                    id="eventoModalLabel{{ $ev->idEvento }}" style="font-size: 1.75rem;">
-                                                    {{ $ev->nombreEvento }}
-                                                </h5>
-                                                <button type="button" class="btn-close position-absolute end-0 me-3"
-                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                @if ($ev->imagen)
-                                                    <img src="{{ asset($ev->imagen) }}" alt="{{ $ev->nombreEvento }}"
-                                                        class="img-fluid mb-3 d-block mx-auto rounded-3"
-                                                        style="max-height: 300px; object-fit: cover;">
-                                                @else
-                                                    <img src="{{ asset('assets/img/default-image.jpg') }}"
-                                                        alt="Imagen no disponible"
-                                                        class="img-fluid mb-3 d-block mx-auto rounded-3"
-                                                        style="max-height: 300px; object-fit: cover;">
-                                                @endif
-                                                <div class="event-details">
-                                                    <p class="text-success"><strong>Correo:</strong>
-                                                        {{ $ev->correoEvento }}</p>
-                                                    <p><strong>Teléfono:</strong> {{ $ev->telefonoEvento }}</p>
-                                                    <p><strong>Dirección:</strong> {{ $ev->direccionEvento }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer bg-light">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Fin del Modal Ver más -->
-
+                               <!-- Modal Ver más -->
+<div class="modal fade" id="eventoModal{{ $ev->idEvento }}" tabindex="-1"
+    aria-labelledby="eventoModalLabel{{ $ev->idEvento }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-light text-dark justify-content-center">
+                <h5 class="modal-title text-center fw-bold"
+                    id="eventoModalLabel{{ $ev->idEvento }}" style="font-size: 1.75rem;">
+                    {{ $ev->nombreEvento }}
+                </h5>
+                <button type="button" class="btn-close position-absolute end-0 me-3"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if ($ev->imagen)
+                    <img src="{{ asset($ev->imagen) }}" alt="{{ $ev->nombreEvento }}"
+                        class="img-fluid mb-3 d-block mx-auto rounded-3"
+                        style="max-height: 300px; object-fit: cover;">
+                @else
+                    <img src="{{ asset('assets/img/default-image.jpg') }}"
+                        alt="Imagen no disponible"
+                        class="img-fluid mb-3 d-block mx-auto rounded-3"
+                        style="max-height: 300px; object-fit: cover;">
+                @endif
+                <div class="event-details">
+                    <p class="text-success"><strong>Correo:</strong> {{ $ev->correoEvento }}</p>
+                    <p><strong>Teléfono:</strong> {{ $ev->telefonoEvento }}</p>
+                    <p><strong>Dirección:</strong> {{ $ev->direccionEvento }}</p>
+                    <!-- Agregar la descripción aquí -->
+                    <p><strong>Descripción:</strong> {{ $ev->descripcionEvento }}</p>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin del Modal Ver más -->
                                 <!-- Modal para el formulario de reservación de evento -->
                                 <div class="modal fade" id="reservarEventoModal{{ $ev->idEvento }}" tabindex="-1"
                                     aria-labelledby="reservarEventoModalLabel{{ $ev->idEvento }}" aria-hidden="true">
@@ -155,7 +155,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Formulario de Reservación -->
-                                                <<form action="{{ route('reservaciones.store') }}" method="POST"
+                                                <form action="{{ route('reservaciones.store') }}" method="POST"
                                                     enctype="multipart/form-data" class="crearEventoForm">
                                                     @csrf
                                                     <input type="hidden" name="idEvento_fk"
@@ -260,8 +260,8 @@
                         if (data.eventos.length > 0) {
                             data.eventos.forEach(ev => {
                                 const eventoHTML = `
-                        <div class="col-lg-3 col-md-4 mb-4">
-                            <div class="card shadow-sm rounded-4 border-0" style="width: 15rem;">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                            <div class="card shadow-sm rounded-4 border-0" style="width: 100%;">
                                 <img src="${ev.imagen}" alt="${ev.nombreEvento}" class="card-img-top" style="height: 150px; object-fit: cover;">
                                 <div class="card-body">
                                     <h5 class="card-title">${ev.nombreEvento}</h5>
@@ -270,34 +270,40 @@
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eventoModal${ev.idEvento}">
                                         Ver más
                                     </button>
+                                     <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#reservarEventoModal${ev.idEvento}">
+                                            Reservar
+                                        </button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Modal Ver más -->
-                        <div class="modal fade" id="eventoModal${ev.idEvento}" tabindex="-1" aria-labelledby="eventoModalLabel${ev.idEvento}" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content border-0 shadow-lg rounded-4">
-                                    <div class="modal-header bg-light text-dark justify-content-center">
-                                        <h5 class="modal-title text-center fw-bold" id="eventoModalLabel${ev.idEvento}" style="font-size: 1.75rem;">
-                                            ${ev.nombreEvento}
-                                        </h5>
-                                        <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="${ev.imagen}" alt="${ev.nombreEvento}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
-                                        <div class="event-details">
-                                            <p class="text-success"><strong>Correo:</strong> ${ev.correoEvento}</p>
-                                            <p><strong>Teléfono:</strong> ${ev.telefonoEvento}</p>
-                                            <p><strong>Dirección:</strong> ${ev.direccionEvento}</p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer bg-light">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="modal fade" id="eventoModal${ev.idEvento}" tabindex="-1" aria-labelledby="eventoModalLabel${ev.idEvento}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-light text-dark justify-content-center">
+                <h5 class="modal-title text-center fw-bold" id="eventoModalLabel${ev.idEvento}" style="font-size: 1.75rem;">
+                    ${ev.nombreEvento}
+                </h5>
+                <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="${ev.imagen}" alt="${ev.nombreEvento}" class="img-fluid mb-3 d-block mx-auto rounded-3" style="max-height: 300px; object-fit: cover;">
+                <div class="event-details">
+                    <p class="text-success"><strong>Correo:</strong> ${ev.correoEvento}</p>
+                    <p><strong>Teléfono:</strong> ${ev.telefonoEvento}</p>
+                    <p><strong>Dirección:</strong> ${ev.direccionEvento}</p>
+                    <!-- Agregar la descripción aquí -->
+                    <p><strong>Descripción:</strong> ${ev.descripcionEvento}</p>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     `;
                                 eventosList.insertAdjacentHTML('beforeend', eventoHTML);
                             });

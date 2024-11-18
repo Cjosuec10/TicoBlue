@@ -28,11 +28,7 @@
                     <p class="message-content" style="word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;"><strong>Mensaje:</strong> {{ $notification->mensaje }}</p>
 
 
-                    <p class="mt-2">
-                        <span class="badge {{ $notification->leido ? 'bg-success' : 'bg-primary' }}">
-                            {{ $notification->leido ? 'Leído' : 'No leído' }}
-                        </span>
-                    </p>
+                    
                 </div>
             </li>
         @empty

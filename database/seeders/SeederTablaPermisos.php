@@ -59,11 +59,7 @@ class SeederTablaPermisos extends Seeder
             'editar-reservacion',
             'borrar-reservacion',
         
-            // Operaciones sobre tabla imágenes (pendiente)
-            'ver-imagen',
-            'crear-imagen',
-            'editar-imagen',
-            'borrar-imagen'
+           
         ];
         
 

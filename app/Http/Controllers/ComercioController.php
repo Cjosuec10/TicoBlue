@@ -44,9 +44,18 @@ class ComercioController extends Controller
 
     public function index()
     {
-        // Obtener los comercios del usuario autenticado
-        $comercios = auth()->user()->comercios;
-
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+    
+        // Verificar si el usuario tiene el rol de administrador
+        if ($user->hasRole('Admin')) {
+            // Si es administrador, cargar todos los comercios
+            $comercios = Comercio::all();
+        } else {
+            // Si no es administrador, cargar solo los comercios del usuario autenticado
+            $comercios = $user->comercios;
+        }
+    
         // Pasar los comercios a la vista
         return view('Comercio.index', compact('comercios'));
     }
@@ -151,15 +160,24 @@ class ComercioController extends Controller
         return redirect()->route('comercios.index')->with('success', 'Comercio creado exitosamente.');
     }
     // Mostrar detalles de un comercio solo si pertenece al usuario autenticado
+    
     public function show(Comercio $comercio)
-    {
-        // Verificar si el usuario autenticado es el dueño del comercio
-        if ($comercio->idUsuario_fk !== auth()->id()) {
-            abort(403, 'No tienes permiso para acceder a este comercio.');
-        }
+{
+    $user = auth()->user();
 
+    // Permitir que el administrador acceda a cualquier comercio
+    if ($user->hasRole('Admin')) {
         return view('Comercio.show', compact('comercio'));
     }
+
+    // Verificar si el usuario autenticado es el dueño del comercio
+    if ($comercio->idUsuario_fk !== $user->idUsuario) {
+        abort(403, 'No tienes permiso para acceder a este comercio.');
+    }
+
+    return view('Comercio.show', compact('comercio'));
+}
+
 
     public function edit(Comercio $comercio)
     {

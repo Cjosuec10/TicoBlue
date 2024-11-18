@@ -22,14 +22,22 @@ class EventoController extends Controller
 
     public function index()
     {
-         // Obtener los comercios del usuario autenticado
-         $comercios = auth()->user()->comercios->pluck('idComercio');
-
-         // Filtrar los eventos que pertenecen a esos comercios
-         $eventos = Evento::whereIn('idComercio_fk', $comercios)->get();
- 
-         return view('eventos.index', compact('eventos'));
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+    
+        // Verificar si el usuario tiene el rol de administrador
+        if ($user->hasRole('Admin')) {
+            // Si es administrador, cargar todos los eventos
+            $eventos = Evento::all();
+        } else {
+            // Si no es administrador, cargar solo los eventos de los comercios del usuario
+            $comercios = $user->comercios->pluck('idComercio');
+            $eventos = Evento::whereIn('idComercio_fk', $comercios)->get();
+        }
+    
+        return view('eventos.index', compact('eventos'));
     }
+    
 
     public function create()
     {
